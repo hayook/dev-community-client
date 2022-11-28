@@ -405,7 +405,7 @@ input[type=number] {
 }
 
 a {
-  color: #fff;
+  color: var(--white);
   text-decoration: none;
 }
 

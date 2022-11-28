@@ -3,6 +3,7 @@
 :root {
   --white: #fff;
   --black: #000;
+
   --grey-clr-100: #8a939e;
   --grey-clr-200: #eef5fc33;
   --grey-clr-300: #161b22;
@@ -27,6 +28,14 @@
   --box-shadow: #000;
   --fixed-white: #fff;
   --fixed-black: #000;
+
+  --fast-transition: .3s; 
+  --meduim-transition: .5s; 
+  --slow-transition: .7s; 
+
+  --rounded-border-1: 4px; 
+  --rounded-border-2: 10px; 
+  --rounded-border-3: 20px; 
 }
 
 :root[theme="light"] {
@@ -51,9 +60,9 @@ html {
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: black;
-  color: white;
-  font-size: 1.5rem;
+  background: var(--blue-clr-300);
+  color: var(--white);
+  font-size: 1.4rem;
 }
 
 #root {
