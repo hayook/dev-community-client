@@ -6,7 +6,8 @@ section.main section.timeline .profile {
 
 section.main > .container {
     display: flex; 
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    justify-content: center; /* For Testing */
 }
 
 section.main nav.main-nav,
@@ -15,6 +16,7 @@ section.main section.meet-people {
     position: sticky;
     top: var(--header-height);
     height: var(--header-height);
+    display: none;
 }
 
 section.main nav.main-nav {
@@ -27,10 +29,33 @@ section.main section.meet-people {
 
 section.main section.timeline {
     padding: 15px 55px;
-    flex: 1;
+    /* flex: 1 */
+    width: 100%; /* For Testing */
 }
 
-section.main section.timeline .container {
+/* For Testing Meia Queries */
+
+@media (min-width: 768px) {
+    section.main section.timeline {
+        width: 80%;
+    }
+}
+
+@media (min-width: 1000px) {
+    section.main section.timeline {
+        width: 70%
+    }
+}
+
+@media (min-width: 1200px) {
+    section.main section.timeline {
+        width: 56%
+    }
+}
+
+/* For Testing Meia Queries */
+
+section.main section.timeline .timeline-container {
     background: var(--blue-clr-400);
     padding: 0 30px;
 }
@@ -83,6 +108,13 @@ section.main section.timeline section.posts .post .functionalities {
     display: flex;
     align-items: center;
     justify-content: space-around;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--grey-clr-200);
+}
+
+section.main section.timeline section.posts .post .functionalities button {
+    background: none;
+    color: #fff;
 }
 
 section.main section.timeline section.posts .post form.comment {

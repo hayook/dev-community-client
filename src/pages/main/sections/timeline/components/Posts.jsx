@@ -18,6 +18,7 @@ export default function Posts() {
             setPosts(data);
             setIsLoading(false)
         })
+        .catch(err => console.log(err))
     }, []);
 
     return (
@@ -25,9 +26,9 @@ export default function Posts() {
             {
                 isLoading ? <h1>Loading...</h1> : 
                 posts.map((post, idx) => {
-                    let { userId, id:postId, title, body } = post; 
-                    userId = Number(genId() + userId + genId());
-                    return <Post key={idx} userId={userId} postId={postId} title={title} body={body} />
+                    let { userId:postOwnerId, id:postId, title, body } = post; 
+                    postOwnerId = Number(genId() + postOwnerId + genId());
+                    return <Post key={idx} postOwnerId={postOwnerId} postId={postId} title={title} body={body} />
                 })
                 
             } 

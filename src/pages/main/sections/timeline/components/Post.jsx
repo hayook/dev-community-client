@@ -1,39 +1,46 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
+import { BiSend } from 'react-icons/bi';
 import UserProfileShowcase from "../../../../../components/user-profile-showcase/UserProfileShowcase"
+import SvgIcon from '../../../../../assets/icons/SvgIcon'
+import { icons } from '../../../../../assets/icons/icons'
 
-export default function Post({ userId, postId, title, body }) {
+export default function Post({ postOwnerId, postId, title, body }) {
 
     const [comment, setComment] = useState('');
-
-    const likePost = () => {
-        console.log(`You Liked the post of id ${postId} of the user with the id ${userId}`);
-        console.log('Reqest Body : ', {postId, userId, currentUserId: 5173})
-    }
+    const [showComments, setShowComments] = useState(false);
+    const [liked, setLiked] = useState(false);
 
     const commentOnPost = (e) => {
-        e.preventDefault();
-        console.log(`You Wrota the comment "${comment}" on the post of the id ${postId} of the user with the id ${userId}`);
-        console.log('Request Body : ', {userId, postId, commentBody: comment, currentUserId: 5173});
+        e?.preventDefault();
+        console.log({ postOwnerId, postId, commentBody: comment, currentUserId: 5173 })
+    }
+
+    const likePost = () => {
+        setLiked(prev => !prev)
+        console.log({ postId, postOwnerId, currentUserId: 5173 })
     }
 
     return (
         <div className="post">
-            <UserProfileShowcase userId={userId} />
+            <UserProfileShowcase postOwnerId={postOwnerId} />
             <p className="post-content">{`${title}\n${body}`}</p>
             <div className="functionalities">
-                <button onClick={likePost}>Like</button>
-                <button>Comment</button>
+                <button onClick={likePost}><SvgIcon path={icons.like} fill={liked && 'white'} /></button>
+                <button onClick={() => setShowComments(prev => !prev)}><SvgIcon path={icons.comment} /></button>
             </div>
-            <form className="comment">
-                <textarea
-                    className="main-textarea"
-                    rows={1}
-                    placeholder='Write A Comment'
-                    value={comment}
-                    onChange={({ target }) => setComment(target.value)}
-                ></textarea>
-                <button className="submit-comment" onClick={commentOnPost}>></button>
-            </form>
+            {
+                showComments &&
+                <form className="comment">
+                    <textarea
+                        className="main-textarea"
+                        rows={1}
+                        placeholder='Write A Comment'
+                        value={comment}
+                        onChange={({ target }) => setComment(target.value)}
+                    ></textarea>
+                    <button className="submit-comment" onClick={commentOnPost}><BiSend /></button>
+                </form>
+            }
         </div>
     )
 }
