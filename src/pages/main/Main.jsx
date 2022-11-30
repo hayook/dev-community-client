@@ -4,6 +4,7 @@ import MeetPeople from './sections/meet-people/MeetPeople'
 import './style.css'
 
 export default function Main({ children }) {
+
     return (
         <>
             <Header />

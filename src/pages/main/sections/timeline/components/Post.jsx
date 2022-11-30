@@ -12,17 +12,18 @@ export default function Post({ postOwnerId, postId, title, body }) {
 
     const commentOnPost = (e) => {
         e?.preventDefault();
-        console.log({ postOwnerId, postId, commentBody: comment, currentUserId: 5173 })
+        console.log({ postOwnerId, postId, commentBody: comment, currentUserId: 5173 });
+        setComment('');
     }
 
     const likePost = () => {
-        setLiked(prev => !prev)
-        console.log({ postId, postOwnerId, currentUserId: 5173 })
+        setLiked(prev => !prev);
+        console.log({ postId, postOwnerId, currentUserId: 5173 });
     }
 
     return (
         <div className="post">
-            <UserProfileShowcase postOwnerId={postOwnerId} />
+            <UserProfileShowcase userId={postOwnerId} />
             <p className="post-content">{`${title}\n${body}`}</p>
             <div className="functionalities">
                 <button onClick={likePost}><SvgIcon path={icons.like} fill={liked && 'white'} /></button>

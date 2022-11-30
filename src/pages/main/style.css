@@ -118,11 +118,12 @@ section.main section.timeline section.posts .post .functionalities button {
 }
 
 section.main section.timeline section.posts .post form.comment {
-    margin-top: 20px;
     display: flex; 
     align-items: center;
+    margin-top: 20px;
     background: var(--blue-clr-400);
 }
+
 
 section.main section.timeline section.posts .post form.comment textarea {
     flex: 1;
@@ -136,8 +137,11 @@ section.main section.timeline section.posts .post form.comment textarea:focus {
 }
 
 section.main section.timeline section.posts .post form.comment button.submit-comment {
-    color: var(--blue-clr-200);
-    padding: 0 20px;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    padding: 0 15px;
+    color: var(--white);
     background: none;
-    font-size: 2.5rem;
+    font-size: 2rem;
 }
