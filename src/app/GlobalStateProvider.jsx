@@ -10,7 +10,6 @@ export default function GlobalStateProvider({ children }) {
 
     const[state, dispatch] = useReducer(reducer, initialState);
 
-
     return (
         <globalStateContext.Provider value={{ state, dispatch }}>
             { children }

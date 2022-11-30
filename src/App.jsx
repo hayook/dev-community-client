@@ -6,8 +6,6 @@ import Timeline from './pages/main/sections/timeline/Timeline';
 
 export default function App() {
 
-    const user = {id: 15432, username: 'adsf'}; 
-
     return (
         <Routes>
             <Route path="/" element={<Main><Timeline /></Main>} />

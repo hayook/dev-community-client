@@ -3,16 +3,19 @@ import { BiSend } from 'react-icons/bi';
 import UserProfileShowcase from "../../../../../components/user-profile-showcase/UserProfileShowcase"
 import SvgIcon from '../../../../../assets/icons/SvgIcon'
 import { icons } from '../../../../../assets/icons/icons'
+import { useGlobalState } from '../../../../../app/GlobalStateProvider';
 
 export default function Post({ postOwnerId, postId, title, body }) {
 
     const [comment, setComment] = useState('');
     const [showComments, setShowComments] = useState(false);
     const [liked, setLiked] = useState(false);
+    const { state } = useGlobalState();
+    const { userId } = state.user;
 
     const commentOnPost = (e) => {
         e?.preventDefault();
-        console.log({ postOwnerId, postId, commentBody: comment, currentUserId: 5173 });
+        console.log({ postOwnerId, postId, commentBody: comment, userId });
         setComment('');
     }
 
