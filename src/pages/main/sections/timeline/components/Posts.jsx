@@ -21,7 +21,7 @@ export default function Posts() {
     }, []);
 
     return (
-        <section className="timeline-content">
+        <section className="posts">
             {
                 isLoading ? <h1>Loading...</h1> : 
                 posts.map((post, idx) => {

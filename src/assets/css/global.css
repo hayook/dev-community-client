@@ -36,6 +36,8 @@
   --rounded-border-1: 4px; 
   --rounded-border-2: 10px; 
   --rounded-border-3: 20px; 
+
+  --header-height: 59.59px;
 }
 
 :root[theme="light"] {
@@ -60,7 +62,7 @@ html {
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: var(--blue-clr-400);
+  background: var(--blue-clr-300);
   color: var(--white);
   font-size: 1.4rem;
 }

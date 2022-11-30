@@ -5,8 +5,10 @@ import Posts from './components/Posts';
 export default function Timeline() {
     return (
         <section className="timeline">
+            <div className="container">
             <SharePostSection />
-            <Posts />
+            <Posts />D
+            </div>
         </section>
     )
 }
