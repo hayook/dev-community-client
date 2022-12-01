@@ -57,3 +57,8 @@ textarea.main-textarea:focus {
 .main-form-wrapper form.main-form button {
     margin-top: 10px;
 }
+
+.after-profile-content {
+    margin: .7em 0 2.15em;
+    padding: 0 1.42em 0 calc(.8em + 3em);
+}

@@ -38,6 +38,8 @@
   --rounded-border-3: 20px; 
 
   --header-height: 59.59px;
+
+  --main-clr: var(var(--blue-clr-200))
 }
 
 :root[theme="light"] {
