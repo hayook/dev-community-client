@@ -5,7 +5,7 @@ import SvgIcon from '../../../../../assets/icons/SvgIcon'
 import { icons } from '../../../../../assets/icons/icons'
 import { useGlobalState } from '../../../../../app/GlobalStateProvider';
 
-export default function Post({ postOwnerId, postId, title, body }) {
+export default function Post({ postOwnerId, postId, title, body, date }) {
 
     const [comment, setComment] = useState('');
     const [showComments, setShowComments] = useState(false);
@@ -26,7 +26,7 @@ export default function Post({ postOwnerId, postId, title, body }) {
 
     return (
         <div className="post">
-            <UserProfileShowcase userId={postOwnerId} />
+            <UserProfileShowcase userId={postOwnerId} date={date}/>
             <p className="post-content">{`${title}\n${body}`}</p>
             <div className="functionalities">
                 <button onClick={likePost}><SvgIcon path={icons.like} fill={liked && 'white'} /></button>

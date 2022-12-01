@@ -1,7 +1,7 @@
 section.main {}
 
 section.main section.timeline .profile {
-    justify-content: flex-start;
+    width: fit-content;
 }
 
 section.main > .container {
@@ -99,6 +99,20 @@ section.main section.timeline section.posts .post {
     border: 1px solid var(--grey-clr-300);
 }
 
+section.main section.timeline section.posts .post .profile {
+    display: grid; 
+    grid-row-gap: 0;
+    grid-template-columns: auto 1fr;
+}
+
+section.main section.timeline section.posts .post .profile .profile-img {
+    grid-row: span 2; 
+}
+
+section.main section.timeline section.posts .post .profile p.post-date {
+    color: var(--grey-clr-100);
+}
+
 section.main section.timeline section.posts .post p.post-content {
     margin: 20px 0 30px;
     padding: 0 20px;
@@ -114,7 +128,7 @@ section.main section.timeline section.posts .post .functionalities {
 
 section.main section.timeline section.posts .post .functionalities button {
     background: none;
-    color: #fff;
+    color: var(--white);
 }
 
 section.main section.timeline section.posts .post form.comment {
