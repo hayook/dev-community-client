@@ -2,8 +2,15 @@ button.main-button {
     padding: .6em 3em; 
     background: var(--blue-clr-200); 
     color: var(--fixed-white);  
-    font-weight: bold;
+    font-weight: 400;
     transition: var(--fast-transition); 
+}
+
+button.secondary-button {
+    padding: .6em 3em;
+    color: var(--white); 
+    background: var(--blue-clr-400); 
+    border: 1px solid var(--blue-clr-100);
 }
 
 .main-button:hover {
