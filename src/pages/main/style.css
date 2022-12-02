@@ -10,27 +10,10 @@ section.main > .container {
     justify-content: center; /* For Testing */
 }
 
-section.main nav.main-nav,
-section.main section.meet-people {
-    flex-basis: 22%;
-    position: sticky;
-    top: var(--header-height);
-    height: var(--header-height);
-    display: none;
-}
-
-section.main nav.main-nav {
-    border-right: 1px solid var(--grey-clr-200);
-}
-
-section.main section.meet-people {
-    border-left: 1px solid var(--grey-clr-200);
-}
-
 section.main section.timeline {
-    padding: 15px 55px;
-    /* flex: 1 */
-    width: 100%; /* For Testing */
+    padding: 0 55px;
+    flex: 1
+    padding-top: 15px; 
 }
 
 /* For Testing Meia Queries */
@@ -99,24 +82,26 @@ section.main section.timeline section.posts .post {
     border: 1px solid var(--grey-clr-300);
 }
 
-section.main section.timeline section.posts .post .profile {
-    display: grid; 
-    grid-row-gap: 0;
+section.main section.timeline section.posts .post .post-info {
+    display: grid;
     grid-template-columns: auto 1fr;
+    grid-gap: .8em;
 }
 
-section.main section.timeline section.posts .post .profile .profile-img {
-    grid-row: span 2; 
+section.main section.timeline section.posts .post .post-info .post-main {
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
 }
 
-section.main section.timeline section.posts .post .profile p.post-date {
+section.main section.timeline section.posts .post .post-info .post-main span.date {
     color: var(--grey-clr-100);
 }
 
-/* section.main section.timeline section.posts .post p.post-content {
-    margin: 20px 0 30px;
-    padding: 0 20px; 
-} */
+section.main section.timeline section.posts .post .post-info .post-main p.post-content {
+    margin: .5em 0 1.5em;
+}
 
 section.main section.timeline section.posts .post .functionalities {
     display: flex;
@@ -126,75 +111,83 @@ section.main section.timeline section.posts .post .functionalities {
     border-top: 1px solid var(--grey-clr-200);
 }
 
-section.main section.timeline section.posts .post .functionalities > div {
+section.main section.timeline section.posts .post .functionalities button {
     display: flex; 
     align-items: center;
     justify-content: center;
-    gap: 6px;
-}
-
-section.main section.timeline section.posts .post .functionalities > div button {
+    gap: .5em;
     background: none;
     color: var(--white);
 }
 
-section.main section.timeline section.posts .post .functionalities .like-post button svg {
+section.main section.timeline section.posts .post .functionalities button.like-post svg {
     position: relative; 
-    top: 1px;
+    top: -2px;
 }
 
-section.main section.timeline section.posts .post .functionalities .comment-on-post button svg {
+section.main section.timeline section.posts .post .functionalities button.comment-on-post svg {
     position: relative; 
-    top: 4px;
+    top: 3px;
 }
 
-section.main section.timeline section.posts .post .comments {
+section.main section.timeline section.posts .post .post-comments {
+    padding: 1.5em 0;
     border-top: 1px solid var(--grey-clr-200);
-    padding: 20px 0;
-    font-size: .8em;
+    font-size: .9em;
 }
-section.main section.timeline section.posts .post .comments h3 {
+section.main section.timeline section.posts .post .post-comments h3 {
     font-weight: 300;
 }
 
-section.main section.timeline section.posts .post .comments .comment {
-    padding-bottom: 1em;
+section.main section.timeline section.posts .post .post-comments div.comment {
+    padding: 1.5em;
+    margin-bottom: 0px;
     border-bottom: 1px solid var(--grey-clr-200);
-    padding: 20px;
 }
 
-section.main section.timeline section.posts .post .comments .comment .comment-body {
-    margin-bottom: 1em;   
+section.main section.timeline section.posts .post .post-comments div.comment .profile-img {
+    width: 2.2em;
+    height: 2.2em;
 }
 
-section.main section.timeline section.posts .post .comments div.comment button {
+section.main section.timeline section.posts .post .post-comments div.comment p.post-content {
+    margin-bottom: 1em;
+}
+
+section.main section.timeline section.posts .post .post-comments div.comment button {
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    gap: .5em;
     background: none;
     color: var(--white);
-    padding-left: calc(.8em + 3em);
+    width: fit-content;
 }
 
+section.main section.timeline section.posts .post .post-comments div.comment button svg {
+    position: relative; 
+    top: -2px;
+}
 
-
-section.main section.timeline section.posts .post form.comment {
+section.main section.timeline section.posts .post .post-comments form.comment {
     display: flex; 
     align-items: center;
     background: var(--blue-clr-400);
+    margin-top: 1.5em;
 }
 
-
-
-section.main section.timeline section.posts .post form.comment textarea {
+section.main section.timeline section.posts .post .post-comments form.comment textarea {
     flex: 1;
     resize: none;
     background: none;
     border: none;
 }
 
-section.main section.timeline section.posts .post form.comment textarea:focus {
+section.main section.timeline section.posts .post .post-comments form.comment textarea:focus {
     outline: none;
 }
 
-section.main section.timeline section.posts .post form.comment button.submit-comment {
+section.main section.timeline section.posts .post .post-comments form.comment button.submit-comment {
     display: flex; 
     align-items: center;
     justify-content: center;
@@ -203,3 +196,114 @@ section.main section.timeline section.posts .post form.comment button.submit-com
     background: none;
     font-size: 2rem;
 }
+
+section.main nav.main-nav,
+section.main section.working-rooms {
+    position: sticky;
+    top: var(--header-height);
+    height: calc(100vh - var(--header-height));
+    padding-top: 15px; 
+}
+
+section.main nav.main-nav {
+    flex-basis: 20%;
+    border-right: 1px solid var(--grey-clr-200);
+}
+
+section.main section.working-rooms {
+    flex-basis: 30%;
+    border-left: 1px solid var(--grey-clr-200);
+}
+
+section.main nav.main-nav ul {
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+}
+
+section.main nav.main-nav ul li {
+    padding: 1em .5em; 
+    transition: var(--fast-transition);
+    filter: brightness(1.3);
+    cursor: pointer; 
+}
+
+section.main nav.main-nav ul li:hover {
+    background: var(--grey-clr-300);
+}
+
+section.main nav.main-nav ul li a {
+    display: flex; 
+    align-items: center;
+    gap: .7em;
+    font-size: 1.2em;
+}
+
+
+section.main section.working-rooms > .working-rooms-container {
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 15px;
+    gap: 1.7em;
+}
+
+section.main section.working-rooms h2 {
+    font-weight: 400;
+}
+
+section.main section.working-rooms button.main-button {
+    display: block;
+    padding-right: 1em;
+    padding-left: 1em;
+    font-weight: 400;
+    margin: 0 auto;
+}
+
+section.main section.working-rooms .working-rooms-projects {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.3em;
+}
+
+section.main section.working-rooms .working-rooms-projects .working-rooms-project {
+    display: grid; 
+    grid-template-columns: auto 1fr;
+    grid-gap: .6em .7em;
+    align-items: center;
+    padding: .8em;
+    border: 1px solid var(--grey-clr-200);
+    transition: var(--fast-transition);
+    background: var(--grey-clr-300)
+}
+
+section.main section.working-rooms .working-rooms-projects a.working-rooms-project:hover {
+    filter: brightness(1.3)
+}
+
+section.main section.working-rooms .working-rooms-projects a.working-rooms-project .profile-img {
+    width: 2.3em;
+    height: 2.3em;
+    grid-row: span 2;
+}
+
+section.main section.working-rooms .working-rooms-projects a.working-rooms-project .progress {
+    display: flex; 
+    align-items: center;
+    gap: .4em;
+}
+
+section.main section.working-rooms .working-rooms-projects a.working-rooms-project .progress .progress-container {
+    height: 1.3em;
+    width: 100%;
+    border: 1px solid var(--main-clr)
+}
+
+section.main section.working-rooms .working-rooms-projects a.working-rooms-project .progress .progress-container span {
+    display: block;
+    height: 100%; 
+    background: var(--main-clr); 
+}
+
+
