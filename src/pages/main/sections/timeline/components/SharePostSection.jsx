@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import UserProfileShowcase from '../../../../../components/user-profile-showcase/UserProfileShowcase';
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom';
 import { useGlobalState } from '../../../../../app/GlobalStateProvider';
 
 export default function SharePostSection() {
@@ -31,6 +31,7 @@ export default function SharePostSection() {
                 <textarea
                 value={postBody}
                 onChange={handleSharePostTextarea}
+                onFocus={() => setShowFunctionalities(true)}
                 className="main-textarea"
                 placeholder="Write Something"
             ></textarea>
@@ -55,8 +56,8 @@ export default function SharePostSection() {
                     <hr />
                 </div>
                 <div className="functionalities">
-                    <button className="secondary-button">Ask A Question</button>
-                    <button className="secondary-button">Share Your Work</button>
+                    <Link to="/new-question" className="secondary-button">Ask A Question</Link>
+                    <Link to="/share-project" className="secondary-button">Share Your Work</Link>
                 </div>
             </section>
         </>

@@ -12,7 +12,10 @@ export default function App() {
             <Route path="/questions" element={<Main><h1>Questions</h1></Main>} />
             <Route path="/projects" element={<Main><h1>Projects</h1></Main>} />
             <Route path="/job-offers" element={<Main><h1>Job Offers</h1></Main>} />
-            <Route path="*" element={<h1>Not Found</h1>} />
+            <Route path="/project-id" element={<h1 style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>Comming Soon ...</h1>} />
+            <Route path="/share-project" element={<h1 style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>Comming Soon ...</h1>} />
+            <Route path="/new-question" element={<h1 style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>Comming Soon ...</h1>} />
+            <Route path="*" element={<h1 style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>Not Found</h1>} />
         </Routes>
         
     )

@@ -133,6 +133,11 @@ section.main section.timeline section.posts .post .post-info .post-main button.p
     transition: var(--fast-transition); 
     color: var(--grey-clr-100); 
     background: none;
+    display: none;
+}
+
+section.main section.timeline section.posts .post:hover .post-info .post-main button.post-funcs {
+    display: block;
 }
 
 section.main section.timeline section.posts .post .post-info .post-main button.post-funcs:hover {
@@ -286,7 +291,7 @@ section.main section.working-rooms {
     top: var(--header-height);
     height: calc(100vh - var(--header-height));
     padding-top: 15px; 
-    display: none;
+    /* display: none; */
 }
 
 section.main nav.main-nav {
@@ -305,14 +310,14 @@ section.main nav.main-nav ul {
     justify-content: center;
 }
 
-section.main nav.main-nav ul li {
+section.main nav.main-nav ul li a {
     padding: 1em .5em; 
     transition: var(--fast-transition);
     filter: brightness(1.3);
-    cursor: pointer; 
 }
 
-section.main nav.main-nav ul li:hover {
+section.main nav.main-nav ul li a:hover,
+section.main nav.main-nav ul li a.active {
     background: var(--grey-clr-300);
 }
 

@@ -6,18 +6,38 @@ import SvgIcon from '../../../../../assets/icons/SvgIcon'
 import { icons } from '../../../../../assets/icons/icons'
 import { useGlobalState } from '../../../../../app/GlobalStateProvider';
 import '../../../../../components/user-profile-showcase/style.css'
+import Model from '../../../../../components/model/Model';
 
 // refactore the main style.css file and this file
 // The comment structure is the same as the post so make a post component and call it recursively
 
-export default function Post({ postOwnerId, postId, title, body, date }) {
+export default function Post({ postOwnerId, postId, body, date }) {
 
     const [comment, setComment] = useState('');
     const [showComments, setShowComments] = useState(false);
     const [liked, setLiked] = useState(false);
     const [funcs, setFuncs] = useState(false);
+    const [deletePost, setDeletePost] = useState(false);
+    const [editPost, setEditPost] = useState(false);
+    const [postBody, setPostBody] = useState(body);
+    const [tempBody, setTempBody] = useState(postBody); 
     const { state } = useGlobalState();
     const { userId } = state.user;
+
+    const handleCursor = ({ target}) => target.selectionStart = target.value.length
+
+    const closeDeleteModel = () => setDeletePost(false);
+    const closeEditModel = () => setEditPost(false);
+    
+    const saveChanges = () => {
+        closeEditModel();
+        setPostBody(tempBody);
+    } 
+
+    const cancelChanges = () => {
+        closeEditModel();
+        setTempBody(postBody)
+    }
 
     const buttonRef = useRef(null);
     const modelRef = useRef(null);
@@ -28,8 +48,8 @@ export default function Post({ postOwnerId, postId, title, body, date }) {
 
     function FuncsModel() {
 
-        const editPost = () => console.log('Edit post of user ' + postOwnerId)
-        const removePost = () => console.log('Remove post of user ' + postOwnerId)
+        const editPost = () => setEditPost(true);
+        const removePost = () => setDeletePost(true);
 
         useEffect(() => {
             const listener = ({ target }) => {
@@ -63,16 +83,46 @@ export default function Post({ postOwnerId, postId, title, body, date }) {
 
     return (
         <div className="post">
+            {editPost &&
+                <Model model={editPost} closeModel={cancelChanges} modelHeading='Edit Post' >
+                    <div className="model-container">
+                        <textarea 
+                        onFocus={handleCursor}
+                        autoFocus
+                        rows={4}
+                        className="main-textarea" 
+                        placeholder='Write Something'
+                        value={ tempBody } 
+                        onChange={({ target }) => setTempBody(target.value)}
+                        ></textarea>
+                    </div>
+                    <div className="model-functionalities">
+                        <button onClick={cancelChanges} className='main-button cancel-button'>Cancel</button>
+                        <button onClick={saveChanges} className='main-button'>Save</button>
+                    </div>
+                </Model>
+            }
+            {deletePost &&
+                <Model model={deletePost} closeModel={closeDeleteModel} modelHeading='Delete Post' >
+                    <div className="model-container">
+                        <p>Are you sure you want to delete this post</p>
+                    </div>
+                    <div className="model-functionalities">
+                        <button onClick={() => closeDeleteModel()} className='main-button cancel-button'>Cancel</button>
+                        <button onClick={() => closeDeleteModel()} className='main-button'>Delete</button>
+                    </div>
+                </Model>
+            }
             <div className="post-info">
                 <div className="profile-img"></div>
                 <div className="post-main">
-                    <button ref={buttonRef} onClick={openFuncs} className="post-funcs">
+                    <button ref={buttonRef} onClick={openFuncs} className="post-funcs" style={{ display: funcs && 'block' }}>
                         <BsThreeDotsVertical />
                     </button>
                     {funcs && <FuncsModel />}
                     <span>user#{postOwnerId}</span>
                     <span className="date">21h</span>
-                    <p className="post-content">{`${title}\n${body}`}</p>
+                    <p className="post-content">{ postBody }</p>
                 </div>
             </div>
 

@@ -6,7 +6,7 @@ button.main-button {
     transition: var(--fast-transition); 
 }
 
-button.secondary-button {
+.secondary-button {
     padding: .6em 3em;
     color: var(--white); 
     background: var(--blue-clr-400); 
