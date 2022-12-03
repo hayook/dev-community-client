@@ -20,7 +20,7 @@ button.main-button {
 input.main-input,
 textarea.main-textarea {
     padding: 10px;
-    background: var(--blue-clr-300); 
+    background: var(--blue-clr-400); 
     color: var(--white); 
     border: 1px solid var(--grey-clr-200);
 }
