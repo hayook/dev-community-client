@@ -4,32 +4,19 @@ import ProjectTechnologies from './components/ProjectTechnologies';
 import './style.css'
 
 const shareSpecialPostContext = createContext();
-export const useShareSpecialPostContext = () => useContext(shareSpecialPostContext);
+export const useShareSpecialPostContext = () => useContext(shareSpecialPostContext); 
 
-const initialState = {
-    title: '',
-    description: '',
-    technologies: [],
-}
-const projectLinks = [{
-    id: new Date().getTime(),
-    type: 'Source Code',
-    link: '',
-}
-]
-
-const questionCode = {code: 'hello world'}; 
-
-export default function ShareYourWorkForm({ children }) {
+export default function ShareYourWorkForm({ children, initialState }) {
 
     const { pathname } = useLocation();
 
     const updatePostInfo = (key, value) => setPostInfo({ ...postInfo, [key]: value });
 
-    const [postInfo, setPostInfo] = useState(pathname === '/share-project' ? {...initialState, projectLinks} : {...initialState, questionCode});
+    const [postInfo, setPostInfo] = useState(initialState);
 
     const submitShareWork = (e) => {
         e.preventDefault();
+        setPostInfo(initialState);
         console.log(postInfo);
     }
 
