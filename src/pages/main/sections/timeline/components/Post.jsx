@@ -1,5 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
-import { BiSend } from 'react-icons/bi';
+import { useState, useRef, useEffect, useContext, createContext } from 'react'
 import { BsThreeDotsVertical, BsPencil } from 'react-icons/bs';
 import { BiTrashAlt } from 'react-icons/bi';
 import SvgIcon from '../../../../../assets/icons/SvgIcon'
@@ -7,32 +6,30 @@ import { icons } from '../../../../../assets/icons/icons'
 import { useGlobalState } from '../../../../../app/GlobalStateProvider';
 import '../../../../../components/user-profile-showcase/style.css'
 import Model from '../../../../../components/model/Model';
+import PostComments from './PostComments';
 
-// refactore the main style.css file and this file
-// The comment structure is the same as the post so make a post component and call it recursively
+const PostContext = createContext();
+export const usePostContext = () => useContext(PostContext);
 
-export default function Post({ postOwnerId, postId, body, date }) {
+export default function Post({ postOwnerId, postId, body }) {
 
-    const [comment, setComment] = useState('');
     const [showComments, setShowComments] = useState(false);
     const [liked, setLiked] = useState(false);
     const [funcs, setFuncs] = useState(false);
     const [deletePost, setDeletePost] = useState(false);
     const [editPost, setEditPost] = useState(false);
     const [postBody, setPostBody] = useState(body);
-    const [tempBody, setTempBody] = useState(postBody); 
-    const { state } = useGlobalState();
-    const { userId } = state.user;
+    const [tempBody, setTempBody] = useState(postBody);
 
-    const handleCursor = ({ target}) => target.selectionStart = target.value.length
+    const handleCursor = ({ target }) => target.selectionStart = target.value.length
 
     const closeDeleteModel = () => setDeletePost(false);
     const closeEditModel = () => setEditPost(false);
-    
+
     const saveChanges = () => {
         closeEditModel();
         setPostBody(tempBody);
-    } 
+    }
 
     const cancelChanges = () => {
         closeEditModel();
@@ -70,30 +67,28 @@ export default function Post({ postOwnerId, postId, body, date }) {
         )
     }
 
-    const commentOnPost = (e) => {
-        e?.preventDefault();
-        console.log({ postOwnerId, postId, commentBody: comment, userId });
-        setComment('');
-    }
-
     const likePost = () => {
         setLiked(prev => !prev);
         console.log({ postId, postOwnerId, currentUserId: 5173 });
     }
 
+    const handlePostComments = () => {
+        setShowComments(prev => !prev);
+    }
+
     return (
         <div className="post">
             {editPost &&
-                <Model model={editPost} closeModel={cancelChanges} modelHeading='Edit Post' >
+                <Model closeModel={cancelChanges} modelHeading='Edit Post' >
                     <div className="model-container">
-                        <textarea 
-                        onFocus={handleCursor}
-                        autoFocus
-                        rows={4}
-                        className="main-textarea" 
-                        placeholder='Write Something'
-                        value={ tempBody } 
-                        onChange={({ target }) => setTempBody(target.value)}
+                        <textarea
+                            onFocus={handleCursor}
+                            autoFocus
+                            rows={4}
+                            className="main-textarea"
+                            placeholder='Write Something'
+                            value={tempBody}
+                            onChange={({ target }) => setTempBody(target.value)}
                         ></textarea>
                     </div>
                     <div className="model-functionalities">
@@ -102,6 +97,7 @@ export default function Post({ postOwnerId, postId, body, date }) {
                     </div>
                 </Model>
             }
+
             {deletePost &&
                 <Model model={deletePost} closeModel={closeDeleteModel} modelHeading='Delete Post' >
                     <div className="model-container">
@@ -113,6 +109,7 @@ export default function Post({ postOwnerId, postId, body, date }) {
                     </div>
                 </Model>
             }
+
             <div className="post-info">
                 <div className="profile-img"></div>
                 <div className="post-main">
@@ -122,7 +119,7 @@ export default function Post({ postOwnerId, postId, body, date }) {
                     {funcs && <FuncsModel />}
                     <span>user#{postOwnerId}</span>
                     <span className="date">21h</span>
-                    <p className="post-content">{ postBody }</p>
+                    <p className="post-content">{postBody}</p>
                 </div>
             </div>
 
@@ -131,41 +128,14 @@ export default function Post({ postOwnerId, postId, body, date }) {
                     <SvgIcon path={icons.like} fill={liked && 'white'} />
                     <span>40k</span>
                 </button>
-                <button className="comment-on-post" onClick={() => setShowComments(prev => !prev)}>
+                <button className="comment-on-post" onClick={handlePostComments}>
                     <SvgIcon path={icons.comment} />
                     <span>7.2k</span>
                 </button>
             </div>
-            {
-                showComments &&
-                <>
-                    <div className="post-comments">
-                        <h3>Comments</h3>
-                        <div className="post-info comment">
-                            <div className="profile-img"></div>
-                            <div className="post-main">
-                                <span>user#{postOwnerId}</span>
-                                <span className="date">21h</span>
-                                <p className="post-content">This is an aweawe comment</p>
-                                <button>
-                                    <SvgIcon path={icons.like} fill={liked && 'white'} />
-                                    <span>244</span>
-                                </button>
-                            </div>
-                        </div>
-                        <form className="comment">
-                            <textarea
-                                className="main-textarea"
-                                rows={1}
-                                placeholder='Write A Comment'
-                                value={comment}
-                                onChange={({ target }) => setComment(target.value)}
-                            ></textarea>
-                            <button className="submit-comment" onClick={commentOnPost}><BiSend /></button>
-                        </form>
-                    </div>
-                </>
-            }
+
+            {showComments && <PostComments postId={postId} />}
+
         </div>
     )
 }

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import GlobalStateProvider from './app/GlobalStateProvider';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 import './assets/css/normalize.css'
 import './assets/css/global.css'
@@ -19,6 +20,7 @@ root.render(
         <GlobalStateProvider>
           <App />
         </GlobalStateProvider>
+        <ReactQueryDevtools initialIsOpen={true} position='bottom-right' />
       </QueryClientProvider>
     </BrowserRouter>
   </React.StrictMode>

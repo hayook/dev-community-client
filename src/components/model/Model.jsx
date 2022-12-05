@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import './style.css'
 
-export default function Model({ model, closeModel, modelHeading, children }) {
+export default function Model({ closeModel, modelHeading, children }) {
 
     const overlayRef = useRef(null);
 
