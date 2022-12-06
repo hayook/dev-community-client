@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import SharePostSection from './components/SharePostSection';
 import Posts from './components/Posts';
 import './style.css'
+import '../questions-page/style.css'
 
 
 export default function Timeline() {

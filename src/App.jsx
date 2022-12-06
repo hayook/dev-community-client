@@ -52,7 +52,12 @@ export default function App() {
     // if (reponse.isLoading || !state.user) return  <DevCommunityLoader />
     // if (response.error) return <h1>Error</h1>
 
-    if (!state.user) return <Login />
+    if (!state.user) return (
+        <Routes>
+            <Route path="/register" element={<Register />} />
+            <Route path="*" element={<Login />} />
+        </Routes>
+    )
 
     return (
         <Routes>

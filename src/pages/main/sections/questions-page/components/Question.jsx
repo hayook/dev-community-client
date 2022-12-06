@@ -5,7 +5,7 @@ export default function Question({ title, body, id, nbrLikes, userId }) {
         <Link to={`/question-${id}`} className="question">
             <h2>{title}</h2>
             <p>{ body }</p>
-            <div className="question-info">
+            <div className="question-stats">
                 <span>0 Answers</span>
                 <span>{ nbrLikes } Likes</span>
             </div>

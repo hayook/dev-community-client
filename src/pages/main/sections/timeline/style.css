@@ -1,6 +1,5 @@
 section.main section.timeline {
     padding: 15px 55px 0;
-    width: 100%; 
 }
 
 section.main section.timeline .profile {
@@ -101,7 +100,7 @@ section.main section.timeline section.posts {
 section.main section.timeline section.posts .post {
     padding: 15px;
     background-color: var(--blue-clr-300);
-    border: 1px solid var(--grey-clr-300);
+    border: 1px solid var(--grey-clr-200);
     width: 100%;
 }
 

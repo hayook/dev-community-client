@@ -9,7 +9,7 @@ export default function QuestionsList() {
 
     if (response.isLoading) return <Spinner dim='30px' />
     if (response.error) return <h4>Error</h4>
-    if (Object.keys(response.data).length === 0) return <h3>No Posts</h3>
+    if (Object.keys(response.data).length === 0) return <h4>No Posts</h4>
 
     return (
         response.data.map(question => {

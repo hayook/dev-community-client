@@ -1,5 +1,5 @@
-section.main > .container {
-    display: grid; 
+section.main>.container {
+    display: grid;
     grid-template-columns: 20% 1fr 30%;
 }
 
@@ -8,8 +8,17 @@ section.main section.working-rooms {
     position: sticky;
     top: var(--header-height);
     height: calc(100vh - var(--header-height));
-    padding-top: 15px; 
-    /* display: none; */
+    padding-top: 15px;
+}
+
+@media (max-width: 1000px) {
+    section.main nav.main-nav,
+    section.main section.working-rooms {
+        display: none;
+    }
+    section.main>.container {
+        grid-template-columns: 1fr;
+    }
 }
 
 section.main nav.main-nav {
@@ -23,13 +32,13 @@ section.main section.working-rooms {
 /**************************************  NavBar  **************************************/
 
 section.main nav.main-nav ul {
-    display: flex; 
+    display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
 section.main nav.main-nav ul li a {
-    padding: 1em .5em; 
+    padding: 1em .5em;
     transition: var(--fast-transition);
     filter: brightness(1.3);
 }
@@ -40,7 +49,7 @@ section.main nav.main-nav ul li a.active {
 }
 
 section.main nav.main-nav ul li a {
-    display: flex; 
+    display: flex;
     align-items: center;
     gap: .7em;
     font-size: 1.2em;
@@ -48,8 +57,8 @@ section.main nav.main-nav ul li a {
 
 /**************************************  Working Rooms  **************************************/
 
-section.main section.working-rooms > .working-rooms-container {
-    display: flex; 
+section.main section.working-rooms>.working-rooms-container {
+    display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 0 15px;
@@ -75,7 +84,7 @@ section.main section.working-rooms .working-rooms-projects {
 }
 
 section.main section.working-rooms .working-rooms-projects .working-rooms-project {
-    display: grid; 
+    display: grid;
     grid-template-columns: auto 1fr;
     grid-gap: .6em .7em;
     align-items: center;
@@ -100,7 +109,7 @@ section.main section.working-rooms .working-rooms-projects .working-rooms-projec
 }
 
 section.main section.working-rooms .working-rooms-projects a.working-rooms-project .progress {
-    display: flex; 
+    display: flex;
     align-items: center;
     gap: .4em;
 }
@@ -113,8 +122,6 @@ section.main section.working-rooms .working-rooms-projects a.working-rooms-proje
 
 section.main section.working-rooms .working-rooms-projects a.working-rooms-project .progress .progress-container span {
     display: block;
-    height: 100%; 
-    background: var(--blue-clr-100); 
+    height: 100%;
+    background: var(--blue-clr-100);
 }
-
-
