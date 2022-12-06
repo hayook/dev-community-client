@@ -4,8 +4,11 @@ import { getPostComments } from '../../../../../app/api';
 import { BiSend } from 'react-icons/bi';
 import Spinner from '../../../../../components/spinner/Spinner'
 import Comment from './Comment'
+import { usePostContext } from './Post'
 
-function CommentsSet({ postId }) {
+function CommentsSet() {
+
+    const { postId } = usePostContext();
 
     const response = useQuery([`get-post-${postId}-comments`], getPostComments(postId));
 
@@ -17,7 +20,7 @@ function CommentsSet({ postId }) {
     )
 }
 
-export default function PostComments({ postId }) {
+export default function PostComments() {
 
     const [comment, setComment] = useState('');
 
@@ -30,7 +33,7 @@ export default function PostComments({ postId }) {
         <div className="post-comments">
             <h3>Comments</h3>
 
-            <CommentsSet postId={postId} />
+            <CommentsSet />
 
             <form className="comment">
                 <textarea

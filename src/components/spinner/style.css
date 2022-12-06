@@ -2,6 +2,7 @@
     width: 15px;
     height: 15px;
     border: 3px solid var(--grey-clr-300);
+    filter: brightness(1.5);
     border-radius: 50%;
     position: relative;
   }

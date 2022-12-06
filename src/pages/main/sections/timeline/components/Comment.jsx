@@ -1,5 +1,6 @@
 import { icons } from '../../../../../assets/icons/icons'
 import SvgIcon from '../../../../../assets/icons/SvgIcon'
+
 export default function Comment({ body }) {
     return (
         <div className="post-info comment">

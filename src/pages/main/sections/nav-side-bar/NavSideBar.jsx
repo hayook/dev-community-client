@@ -12,7 +12,7 @@ export default function NavSideBar() {
                 <li><Link className={pathname === '/' ? 'active' : ''} to="/"><AiOutlineHome />Home</Link></li>
                 <li><Link className={pathname === '/questions' ? 'active' : ''} to="/questions"><BsQuestionSquare />Questions</Link></li>
                 <li><Link className={pathname === '/job-offers' ? 'active' : ''} to="/job-offers"><BsFillFileEarmarkPostFill />Job Offers</Link></li>
-                <li><Link className={pathname === '/projects' ? 'active' : ''} to="/projects"><BsCodeSquare />Projects</Link></li>
+                {/* <li><Link className={pathname === '/projects' ? 'active' : ''} to="/projects"><BsCodeSquare />Projects</Link></li> */}
             </ul>
         </nav>
     )

@@ -1,0 +1,9 @@
+.dev-community-loader {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    width: fit-content;
+    margin: 100px auto; 
+}

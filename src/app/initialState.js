@@ -1,5 +1,3 @@
 export const initialState = {
-    user: {
-        userId: 5173,
-    }
+    user: null,
 };

@@ -1,9 +1,6 @@
-section.main {}
-
 section.main > .container {
-    display: flex; 
-    /* justify-content: space-between; */
-    justify-content: center; /* For Testing */
+    display: grid; 
+    grid-template-columns: 20% 1fr 30%;
 }
 
 section.main nav.main-nav,
@@ -12,18 +9,18 @@ section.main section.working-rooms {
     top: var(--header-height);
     height: calc(100vh - var(--header-height));
     padding-top: 15px; 
-    display: none;
+    /* display: none; */
 }
 
 section.main nav.main-nav {
-    flex-basis: 20%;
     border-right: 1px solid var(--grey-clr-200);
 }
 
 section.main section.working-rooms {
-    flex-basis: 30%;
     border-left: 1px solid var(--grey-clr-200);
 }
+
+/**************************************  NavBar  **************************************/
 
 section.main nav.main-nav ul {
     display: flex; 
@@ -49,6 +46,7 @@ section.main nav.main-nav ul li a {
     font-size: 1.2em;
 }
 
+/**************************************  Working Rooms  **************************************/
 
 section.main section.working-rooms > .working-rooms-container {
     display: flex; 
