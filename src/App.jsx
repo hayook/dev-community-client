@@ -12,7 +12,8 @@ import { useQuery } from 'react-query';
 import { useGlobalState } from './app/GlobalStateProvider';
 import { ACTIONS } from './app/actions';
 import { getCurrentUser } from './app/api';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import jwt from 'jwt-decode';
 
 const initialState = {
     title: '',
@@ -28,19 +29,30 @@ const projectLinks = [{
 
 export default function App() {
 
+    const [isReady, setIsReady] = useState(false);
     const { dispatch, state } = useGlobalState();
-
-    const response = useQuery(['get-current-user'], getCurrentUser);
+    const { token } = localStorage;
 
     useEffect(() => {
-        if (response.data) {
-            dispatch({ type: ACTIONS.SET_USER, payload: response.data });
+        if (token) {
+            const { user_id:userId } = jwt(token);
+            fetch(`http://localhost:3000/users/${userId}`)
+            .then(res => res.json())
+            .then(user => {
+                dispatch({ type: ACTIONS.SET_USER, payload: user }); 
+                setIsReady(true); 
+            });
+        } else {
+            setIsReady(true)
         }
-    }, [response.data]);
+    }, [token]);
 
 
-    if (response.isLoading || !state.user) return <DevCommunityLoader />
-    if (response.error) return <h1>Error</h1>
+    if (!isReady) return <DevCommunityLoader />
+    // if (reponse.isLoading || !state.user) return  <DevCommunityLoader />
+    // if (response.error) return <h1>Error</h1>
+
+    if (!state.user) return <Login />
 
     return (
         <Routes>
