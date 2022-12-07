@@ -11,16 +11,12 @@ export default function Posts() {
 
     const { dispatch } = useGlobalState();
 
-    const response = useQuery(['get-posts'], getPosts, {
+    const response = useQuery(['get-posts'], getPosts, {    
         cacheTime: 300000,
         staleTime: 2000, // start counting when the data is cached 
         //refetchOnMount: true,
         //refetchOnWindowFocus: 'always', // 'always' even if the data is fresh refetch it
-        onSuccess: () => console.log('Success'),
-        onError: () => console.log('Error'),
     });
-
-    console.log('component rerendered');
 
     if (response.isLoading) return <Spinner dim='30px' />
     if (response.error) return <h1>Error</h1>

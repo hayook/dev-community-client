@@ -29,28 +29,37 @@ const projectLinks = [{
 
 export default function App() {
 
-    const [isReady, setIsReady] = useState(false);
+    // const [isReady, setIsReady] = useState(false);
     const { dispatch, state } = useGlobalState();
     const { token } = localStorage;
 
-    useEffect(() => {
-        if (token) {
-            const { user_id:userId } = jwt(token);
-            fetch(`http://localhost:3000/users/${userId}`)
-            .then(res => res.json())
-            .then(user => {
-                dispatch({ type: ACTIONS.SET_USER, payload: user }); 
-                setIsReady(true); 
-            });
-        } else {
-            setIsReady(true)
-        }
-    }, [token]);
+    // useEffect(() => {
+    //     if (token) {
+    //         const { user_id:userId } = jwt(token);
+    //         fetch(`http://localhost:3000/users/${userId}`)
+    //         .then(res => res.json())
+    //         .then(user => {
+    //             dispatch({ type: ACTIONS.SET_USER, payload: user }); 
+    //             setIsReady(true); 
+    //         });
+    //     } else {
+    //         setIsReady(true)
+    //     }
+    // }, [token]);
+    // if (!isReady) return <DevCommunityLoader />
 
+    const response = useQuery(['get-user'], () => getCurrentUser(token), {
+        enabled: token ? true : false,
+        refetchOnWindowFocus: false,
+        retryOnMount: false, 
+        onSuccess: async (user) => {
+            dispatch({ type: ACTIONS.SET_USER, payload: user })
+        },
+        onError: () => console.log('Error'),
+    });
 
-    if (!isReady) return <DevCommunityLoader />
-    // if (reponse.isLoading || !state.user) return  <DevCommunityLoader />
-    // if (response.error) return <h1>Error</h1>
+    if (response.isLoading) return <DevCommunityLoader />
+    if (response.isError) return <h1>Error</h1>
 
     if (!state.user) return (
         <Routes>

@@ -1,10 +1,27 @@
+import jwt from 'jwt-decode';
+
 // const api = 'https://jsonplaceholder.typicode.com';
 const api = 'http://localhost:3000';
 
 const headers = { 'Content-Type': 'application/json' };
 
 // GET
-export const getCurrentUser = () => fetch(`${api}/users/5173`).then(res => res.json());
+export const getCurrentUser = async (token) => {
+    const userId = jwt(token).user_id;
+    const response = await fetch(`http://localhost:2000/users/${userId}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+
+        }
+    }); 
+    
+    if (response.status === 401) {
+        console.log('Unauthorized'); 
+    } else {
+        return await response.json();
+    }
+}
+
 export const getPosts = () => fetch(`${api}/posts`).then(res => res.json()); 
 export const getPostComments = (postId) => () => fetch(`${api}/posts/${postId}/comments`).then(res => res.json());
 export const getQuestions = () => fetch(`${api}/posts?type=Question`).then(res => res.json());
