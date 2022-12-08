@@ -22,7 +22,7 @@ export const getCurrentUser = async (token) => {
     }
 }
 
-export const getPosts = () => fetch(`${api}/posts`).then(res => res.json()); 
+export const getPosts = ({ pageParam = 1}) => fetch(`${api}/posts?_page=${pageParam}&_limit=10`).then(res => res.json()); 
 export const getPostComments = (postId) => () => fetch(`${api}/posts/${postId}/comments`).then(res => res.json());
 export const getQuestions = () => fetch(`${api}/posts?type=Question`).then(res => res.json());
 

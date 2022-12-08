@@ -14,7 +14,7 @@ import { ACTIONS } from './app/actions';
 import { getCurrentUser } from './app/api';
 import { useEffect, useState } from 'react';
 import jwt from 'jwt-decode';
-
+import TestComp from './trash/TestComp'
 const initialState = {
     title: '',
     description: '',
@@ -33,35 +33,19 @@ export default function App() {
     const { dispatch, state } = useGlobalState();
     const { token } = localStorage;
 
-    // useEffect(() => {
-    //     if (token) {
-    //         const { user_id:userId } = jwt(token);
-    //         fetch(`http://localhost:3000/users/${userId}`)
-    //         .then(res => res.json())
-    //         .then(user => {
-    //             dispatch({ type: ACTIONS.SET_USER, payload: user }); 
-    //             setIsReady(true); 
-    //         });
-    //     } else {
-    //         setIsReady(true)
-    //     }
-    // }, [token]);
-    // if (!isReady) return <DevCommunityLoader />
-
-    const response = useQuery(['get-user'], () => getCurrentUser(token), {
-        enabled: token ? true : false,
-        refetchOnWindowFocus: false,
-        retryOnMount: false, 
-        onSuccess: async (user) => {
+    const response = useQuery([`get-user-${jwt(token).user_id}`], () => getCurrentUser(token), {
+        enabled: false, //!!token,
+        onSuccess: (user) => {
             dispatch({ type: ACTIONS.SET_USER, payload: user })
         },
         onError: () => console.log('Error'),
     });
 
-    if (response.isLoading) return <DevCommunityLoader />
+    if (response.isLoading) return <DevCommunityLoader /> 
     if (response.isError) return <h1>Error</h1>
 
-    if (!state.user) return (
+
+    if (!state.user) return ( // or if (!response.datar) ???
         <Routes>
             <Route path="/register" element={<Register />} />
             <Route path="*" element={<Login />} />
@@ -91,6 +75,8 @@ export default function App() {
             } />
 
             <Route path="/project-id" element={<h1 style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>Comming Soon ...</h1>} />
+
+            <Route path="/test" element={<TestComp />} />
 
             <Route path="*" element={<h1 style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>Not Found</h1>} />
         </Routes>

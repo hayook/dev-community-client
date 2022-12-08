@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom';
 import { useGlobalState } from '../../../../../app/GlobalStateProvider';
 import { POSTPost } from '../../../../../app/api';
 
@@ -10,8 +9,9 @@ export default function SharePostSection() {
     const [postBody, setPostBody] = useState('');
     const [showFunctionalities, setShowFunctionalities] = useState(false);
 
+
     const sharePost = async () => {
-        POSTPost({ userId: currentUserId, id: new Date().getTime(), title: '', body: postBody })
+        POSTPost({ userId: currentUserId, id: new Date().getTime(), title: '', body: postBody, type: 'Post' });
         setPostBody('');
     }
 
