@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Model from '../../../../../components/model/Model';
 import { usePostContext } from './Post'
-import { DELETEPost } from '../../../../../app/api';
+// import { DELETEPost } from '../../../../../app/api';
 import Spinner from '../../../../../components/spinner/Spinner';
 import { useGlobalState } from '../../../../../app/GlobalStateProvider' 
 import { ACTIONS } from '../../../../../app/actions';

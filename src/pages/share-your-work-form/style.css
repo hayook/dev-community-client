@@ -128,7 +128,8 @@ form.share-work-form .question-code pre.code {
     padding: 10px;
     background: var(--blue-clr-400);
     border: 1px solid var(--grey-clr-200);
-    height: 100px;
+    min-height: 100px;
+    max-height: 250px;
 }
 
 form.share-work-form .question-code pre.code:focus {

@@ -1,5 +1,5 @@
 export const initialState = {
-    user: {
-        id: 3,
-    },
+    user: null,
+    token: localStorage.getItem('token'),
+    SERVER_ERROR: false,
 };

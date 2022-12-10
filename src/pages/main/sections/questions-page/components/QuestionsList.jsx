@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query'
-import { getQuestions } from '../../../../../app/api';
+// import { getQuestions } from '../../../../../app/api';
 import Spinner from '../../../../../components/spinner/Spinner'
 import Question from './Question'
 

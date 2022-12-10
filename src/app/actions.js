@@ -1,3 +1,5 @@
 export const ACTIONS = {
     SET_USER: 'SET_USER',
+    SET_TOKEN: 'SET_TOKEN',
+    SET_SERVER_ERROR: 'SET_SERVER_ERROR'
 }

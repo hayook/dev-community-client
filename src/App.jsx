@@ -1,4 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { useGlobalState } from './app/GlobalStateProvider';
 import Login from './pages/login/Login';
 import Register from './pages/Register/Register';
 import ShareYourWorkForm from './pages/share-your-work-form/ShareYourWorkForm';
@@ -8,13 +10,9 @@ import Timeline from './pages/main/sections/timeline/Timeline';
 import QuestionsPage from './pages/main/sections/questions-page/QuestionsPage';
 import ProjectLinks from './pages/share-your-work-form/components/ProjectsLinks';
 import QuestionCode from './pages/share-your-work-form/components/QuestionCode';
-import { useQuery } from 'react-query';
-import { useGlobalState } from './app/GlobalStateProvider';
 import { ACTIONS } from './app/actions';
-import { getCurrentUser } from './app/api';
-import { useEffect, useState } from 'react';
-import jwt from 'jwt-decode';
 import TestComp from './trash/TestComp'
+import { getCurrentUser } from './app/api'
 const initialState = {
     title: '',
     description: '',
@@ -28,24 +26,25 @@ const projectLinks = [{
 ]
 
 export default function App() {
-
-    // const [isReady, setIsReady] = useState(false);
+    
     const { dispatch, state } = useGlobalState();
-    const { token } = localStorage;
-
-    const response = useQuery([`get-user-${jwt(token).user_id}`], () => getCurrentUser(token), {
-        enabled: false, //!!token,
-        onSuccess: (user) => {
-            dispatch({ type: ACTIONS.SET_USER, payload: user })
+    const { token } = state;
+    
+    const { isLoading, error, data:response } = useQuery([`get-user`], () => getCurrentUser(), {
+        enabled: !!token,
+        onSuccess: (res) => {
+            console.log('Fetching current user Success With Status ' + res.status)
+            if (res.status === 200) {
+                dispatch({ type: ACTIONS.SET_USER, payload: res.data[0] }); 
+                return ; 
+            }
         },
-        onError: () => console.log('Error'),
+        onError: (err) => console.log('Error ' + err),
     });
+    if (isLoading) return <DevCommunityLoader />
+    if (error) return <h1>Error : { error.message }</h1>
 
-    if (response.isLoading) return <DevCommunityLoader /> 
-    if (response.isError) return <h1>Error</h1>
-
-
-    if (!state.user) return ( // or if (!response.datar) ???
+    if (response?.status !== 200) return ( 
         <Routes>
             <Route path="/register" element={<Register />} />
             <Route path="*" element={<Login />} />

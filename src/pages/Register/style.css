@@ -1,0 +1,14 @@
+.reg-success,
+.reg-error {
+    margin: 1.2em 0; 
+    padding: 10px; 
+    background: var(--red-clr-300);
+}
+
+.reg-success {
+    background: var(--green-clr-300);
+}
+
+.reg-success a {
+    text-decoration: underline;
+}

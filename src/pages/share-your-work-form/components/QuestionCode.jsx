@@ -8,26 +8,23 @@ export default function QuestionCode() {
 
     const { postInfo, updatePostInfo } = useShareSpecialPostContext()
 
-    const handleCode = ({ target }) => updatePostInfo('questionCode', target.value); 
-
-    const hendleKeyDown = (e) => {
-        if (e.keyCode === 9) {
-            e.preventDefault();
-            updatePostInfo('questionCode',  postInfo.questionCode)
-        }
+    const handleCode = ({ target }) => {
+        updatePostInfo('questionCode', target.value);
+        const control = contentEditable.current.scrollHeight > contentEditable.current.clientHeight; 
+        contentEditable.current.style.overflowY = control ? 'scroll' : 'hidden'
     }
 
-    return (    
+
+    return (
         <div className="question-code">
             <h3>Code</h3>
             <ContentEditable
-              innerRef={contentEditable}
-              html={postInfo.questionCode}
-              disabled={false}    
-              onChange={handleCode}
-              onKeyDown={hendleKeyDown}
-              tagName='pre' 
-              className='code'
+                innerRef={contentEditable}
+                html={postInfo.questionCode}
+                disabled={false}
+                onChange={handleCode}
+                tagName='pre'
+                className='code'
             />
         </div>
     )

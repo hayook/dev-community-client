@@ -1,4 +1,5 @@
 import RegisterForm from './sections/RegisterForm';
+import './style.css'
 
 export default function Register() {
     return (

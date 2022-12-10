@@ -63,6 +63,9 @@ textarea.main-textarea:focus {
 
 .main-form-wrapper form.main-form button {
     margin-top: 10px;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
 }
 
 .after-profile-content {

@@ -1,38 +1,51 @@
-import jwt from 'jwt-decode';
+const apiUrl = 'http://localhost:3000'
 
-// const api = 'https://jsonplaceholder.typicode.com';
-const api = 'http://localhost:3000';
+// Register 
+export const authUser = async (config) => {
+    const response = await fetch(`${apiUrl}${config.endpoint}`, {
+        method: 'POST',
+        headers: { 'Content-Type': config.json ? 'application/json' : 'application/x-www-form-urlencoded' },
+        body: config.json ? JSON.stringify(config.body) : new URLSearchParams(config.body),
+    });
+    return ({ ok: response.ok, status: response.status, data: await response.json() })
+}
 
-const headers = { 'Content-Type': 'application/json' };
 
-// GET
-export const getCurrentUser = async (token) => {
-    const userId = jwt(token).user_id;
-    const response = await fetch(`http://localhost:2000/users/${userId}`, {
+// fetch the current user info
+export const getCurrentUser = async () => {
+    const { token } = localStorage;
+    const response = await fetch(`${apiUrl}/userprofile`, {
         headers: {
-            'Authorization': `Bearer ${token}`,
-
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
         }
-    }); 
-    
-    if (response.status === 401) {
-        console.log('Unauthorized'); 
-    } else {
-        return await response.json();
-    }
+    })
+    return { ok: response.ok, status: response.status, data: await response.json() }
 }
 
-export const getPosts = ({ pageParam = 1}) => fetch(`${api}/posts?_page=${pageParam}&_limit=10`).then(res => res.json()); 
-export const getPostComments = (postId) => () => fetch(`${api}/posts/${postId}/comments`).then(res => res.json());
-export const getQuestions = () => fetch(`${api}/posts?type=Question`).then(res => res.json());
-
-// POST
-export const POSTPost = async (reqBody) => {
-    const response = await fetch(`${api}/posts`, { method: 'POST', headers, body: JSON.stringify(reqBody)});
-    return response;
+// fetch all posts 
+export const getPosts = async () => {
+    const { token } = localStorage;
+        const response = await fetch(`${apiUrl}/posts`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        return { ok: response.ok, status: response.status, data: await response.json() }
 }
 
-export const DELETEPost = async (postId) => {
-    const response = await fetch(`${api}/posts/${postId}`, { method: 'DELETE'});
-    return response; 
-} 
+// Share Post
+export const sharePost = async (body) => {
+    const { token } = localStorage;
+    const response = await fetch(`${apiUrl}/posts`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify(body),
+    })
+    return { ok: response.ok, status: response.status, data: await response.json() };
+
+}

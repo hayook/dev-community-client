@@ -1,17 +1,25 @@
 import { useState } from 'react'
-import { useGlobalState } from '../../../../../app/GlobalStateProvider';
-import { POSTPost } from '../../../../../app/api';
+import { useMutation, useQueryClient } from 'react-query';
+import Spinner from '../../../../../components/spinner/Spinner'
+import { sharePost } from '../../../../../app/api'
 
 export default function SharePostSection() {
-
-    const { id:currentUserId } = useGlobalState().state.user;
 
     const [postBody, setPostBody] = useState('');
     const [showFunctionalities, setShowFunctionalities] = useState(false);
 
 
-    const sharePost = async () => {
-        POSTPost({ userId: currentUserId, id: new Date().getTime(), title: '', body: postBody, type: 'Post' });
+    const queryClient = useQueryClient()
+    const { mutate, isLoading:isPosting } = useMutation(() => sharePost()); 
+
+    const handleSharePost = async () => {
+        const post = {post_body: postBody, post_type: 'post'}
+        mutate(post, {
+            onSuccess: (res) => {
+                console.log('Fetching Success With Status ' + res.status)
+                queryClient.invalidateQueries('get-posts');
+            }
+        });
         setPostBody('');
     }
 
@@ -30,7 +38,7 @@ export default function SharePostSection() {
 
                 {showFunctionalities &&
                     <div className="functionalities">
-                        <button onClick={sharePost} className="post main-button">Post</button>
+                        <button onClick={handleSharePost} className="post main-button" disabled={isPosting}>{isPosting ? <Spinner /> : 'Post'}</button>
                     </div>
                 }
             </section>

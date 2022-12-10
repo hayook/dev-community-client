@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useQuery } from 'react-query';
-import { getPostComments } from '../../../../../app/api';
+// import { getPostComments } from '../../../../../app/api';
 import { BiSend } from 'react-icons/bi';
 import Spinner from '../../../../../components/spinner/Spinner'
 import Comment from './Comment'
