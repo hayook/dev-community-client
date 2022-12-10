@@ -13,19 +13,25 @@ export const authUser = async (config) => {
 
 // fetch the current user info
 export const getCurrentUser = async () => {
-    const { token } = localStorage;
-    const response = await fetch(`${apiUrl}/userprofile`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        }
-    })
-    return { ok: response.ok, status: response.status, data: await response.json() }
+    try {
+        const { token } = localStorage;
+        const response = await fetch(`${apiUrl}/userprofile`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        return { ok: response.ok, status: response.status, data: await response.json() }
+    } catch (err) {
+        return { error: err };
+    }
+
 }
 
 // fetch all posts 
 export const getPosts = async () => {
-    const { token } = localStorage;
+    try {
+        const { token } = localStorage;
         const response = await fetch(`${apiUrl}/posts`, {
             headers: {
                 'Content-Type': 'application/json',
@@ -33,6 +39,9 @@ export const getPosts = async () => {
             }
         })
         return { ok: response.ok, status: response.status, data: await response.json() }
+    } catch (err) {
+        return { error: err }; 
+    }
 }
 
 // Share Post

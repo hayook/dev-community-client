@@ -1,9 +1,8 @@
 import Spinner from '../../../../../components/spinner/Spinner'
 import Post from './Post';
-import Question from '../../questions-page/components/Question'
 import { useQuery, useInfiniteQuery } from 'react-query'
 import { getPosts } from '../../../../../app/api'
-import { useEffect } from 'react'
+import { ACTIONS } from '../../../../../app/actions'
 import { useGlobalState } from '../../../../../app/GlobalStateProvider';
 
 export default function Posts() {
@@ -12,17 +11,20 @@ export default function Posts() {
 
     const { isLoading, error, data:response } = useQuery(['get-posts'], () => getPosts(), {
         onSuccess: (res) => {
-            console.log('Fetching Posts Success With Status ' + res.status)
-            
+            dispatch({ type: ACTIONS.SET_SERVER_ERROR, payload: false });
+            if ('error' in res) {
+                dispatch({ type: ACTIONS.SET_SERVER_ERROR, payload: true });
+                return;
+            }
         },
         onError: (err) => console.log('Error ' + err)
     });
     
     if (isLoading) return <Spinner dim='30px' />
-    if (error) return <h1>Error { error.message }</h1>
+    if (!!error) return <h1>Error { error.message }</h1>
     if (response.status === 200 && response.data.length === 0) return <h3>No Posts</h3>
     return (
-        response.data.data?.map((post, idx) => {
+        response.data?.map((post, idx) => {
             let {
                 post_owner_id:postOwnerId, 
                 post_id:postId, 

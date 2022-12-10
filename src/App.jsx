@@ -28,12 +28,16 @@ const projectLinks = [{
 export default function App() {
     
     const { dispatch, state } = useGlobalState();
-    const { token } = state;
+    const { token, SERVER_ERROR } = state;
     
     const { isLoading, error, data:response } = useQuery([`get-user`], () => getCurrentUser(), {
         enabled: !!token,
         onSuccess: (res) => {
-            console.log('Fetching current user Success With Status ' + res.status)
+            dispatch({ type: ACTIONS.SET_SERVER_ERROR, payload: false });
+            if ('error' in res) {
+                dispatch({ type: ACTIONS.SET_SERVER_ERROR, payload: true });
+                return;
+            }
             if (res.status === 200) {
                 dispatch({ type: ACTIONS.SET_USER, payload: res.data[0] }); 
                 return ; 
@@ -41,8 +45,10 @@ export default function App() {
         },
         onError: (err) => console.log('Error ' + err),
     });
+
+    if (SERVER_ERROR) return <h1>Something Went Wrong</h1>
     if (isLoading) return <DevCommunityLoader />
-    if (error) return <h1>Error : { error.message }</h1>
+    if (!!error) return <h1>Error : { error.message }</h1>
 
     if (response?.status !== 200) return ( 
         <Routes>

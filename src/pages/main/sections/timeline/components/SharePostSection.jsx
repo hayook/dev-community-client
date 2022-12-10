@@ -10,7 +10,7 @@ export default function SharePostSection() {
 
 
     const queryClient = useQueryClient()
-    const { mutate, isLoading:isPosting } = useMutation(() => sharePost()); 
+    const { mutate, isLoading:isPosting } = useMutation((post) => sharePost(post)); 
 
     const handleSharePost = async () => {
         const post = {post_body: postBody, post_type: 'post'}

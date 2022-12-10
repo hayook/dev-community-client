@@ -16,13 +16,45 @@ const initialState = {
 export default function RegisterForm() {
 
     const [userInfo, setUserInfo] = useState(initialState);
-    const [registered, setRegistered] = useState(false);
+    const [registered, setRegistered] = useState({ show: false, success: false, message: 'Registration Success!' });
     const [regErr, setRegErr] = useState('');
 
     const { isLoading, mutate } = useMutation(authUser);
 
     const handleRegister = (e) => {
         e.preventDefault();
+        if (userInfo.firstName === '') {
+            setRegistered({ ...registered, show: true, message: 'First Name Shouldn\'t Be Empty'})
+            return;
+        }
+
+        if (userInfo.lastName === '') {
+            setRegistered({ ...registered, show: true, message: 'Last Name Shouldn\'t Be Empty'})
+            return;
+        }
+
+        if (userInfo.username === '') {
+            setRegistered({ ...registered, show: true, message: 'Username Shouldn\'t Be Empty'})
+            return;
+        }
+
+        if (userInfo.email === '') {
+            setRegistered({ ...registered, show: true, message: 'Email Shouldn\'t Be Empty'})
+            return;
+        }
+
+        if (userInfo.password.length < 8) {
+            setRegistered({ ...registered, show: true, message: 'Password Should be at least 8 characters long'})
+            return;
+        }
+
+        if (userInfo.password !== userInfo.confirmPassword) {
+            setRegistered({ ...registered, show: true, message: 'Passwords Don\'t match' });
+            return;
+        }
+
+        console.log('Passed')
+
         const user = {
             first_name: userInfo.firstName,
             last_name: userInfo.lastName,
@@ -50,8 +82,12 @@ export default function RegisterForm() {
 
     return (
         <form onSubmit={handleRegister} className="main-form">
-            {registered && <span className='reg-success'>Success <Link to='/'>Login</Link></span>}
-            {!!regErr && <span className='reg-error'>{ regErr }</span>}
+            {
+                registered.show &&
+                <span className={ registered.success ? 'reg-success' : 'reg-error' }>
+                    { registered.message } { (registered.success && <Link to='/'>Login</Link>) } 
+                </span>
+            }
             <label>First Name</label>
             <input
                 onChange={({ target }) => setUserInfo({ ...userInfo, firstName: target.value })}
