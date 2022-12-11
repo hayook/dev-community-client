@@ -63,7 +63,7 @@ export default function Post({ postOwnerId, postId, body, nbrLikes }) {
                 <div className="post-info">
                     <div className="profile-img"></div>
                     <div className="post-main">
-                        {state.user.id === postOwnerId &&
+                        {state.user.user_id === postOwnerId &&
                             <button ref={funcsButtonRef} onClick={openFuncs} className="post-funcs" style={{ display: funcs && 'block' }}>
                                 <BsThreeDotsVertical />
                             </button>

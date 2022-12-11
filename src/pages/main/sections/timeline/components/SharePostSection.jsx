@@ -12,15 +12,14 @@ export default function SharePostSection() {
     const queryClient = useQueryClient()
     const { mutate, isLoading:isPosting } = useMutation((post) => sharePost(post)); 
 
-    const handleSharePost = async () => {
+    const handleSharePost = () => {
         const post = {post_body: postBody, post_type: 'post'}
         mutate(post, {
-            onSuccess: (res) => {
-                console.log('Fetching Success With Status ' + res.status)
-                queryClient.invalidateQueries('get-posts');
+            onSuccess: async () => {
+                await queryClient.invalidateQueries('get-posts');
+                setPostBody('');
             }
         });
-        setPostBody('');
     }
 
     const handleSharePostTextarea = ({ target }) => setPostBody(target.value);
