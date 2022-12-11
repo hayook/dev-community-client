@@ -1,16 +1,12 @@
-import { useState } from 'react';
 import Model from '../../../../../components/model/Model';
 import { usePostContext } from './Post'
 import { useMutation, useQueryClient } from 'react-query';
 import { deletePost } from '../../../../../app/api'
 import Spinner from '../../../../../components/spinner/Spinner';
-import { useGlobalState } from '../../../../../app/GlobalStateProvider' 
-import { ACTIONS } from '../../../../../app/actions';
 
 export default function DeletePostModel() {
 
     const { closeDeletePostModel, postId } = usePostContext();
-    const { dispatch } = useGlobalState();
 
 
     const queryClient = useQueryClient(); 

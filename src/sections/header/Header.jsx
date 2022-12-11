@@ -11,7 +11,7 @@ export default function Header() {
         <header>
             <div className="container">
                 <input type="text" className="main-input search" placeholder="search" />
-                <UserProfileShowcase userId={state.user.id} />
+                <UserProfileShowcase userId={state.user.user_id} />
             </div>
         </header>
     )

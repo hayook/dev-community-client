@@ -7,12 +7,14 @@ import PostComments from './PostComments';
 import DeletePostModel from './DeletePostModel'
 import EditPostModel from './EditPostModel';
 import FuncsModel from './FuncsModel'
+import { likePost } from '../../../../../app/api'; 
+import { useQueryClient, useMutation, QueryClient } from 'react-query'; 
 import { useGlobalState } from '../../../../../app/GlobalStateProvider';
 
 const PostContext = createContext();
 export const usePostContext = () => useContext(PostContext);
 
-export default function Post({ postOwnerId, postId, body, nbrLikes }) {
+export default function Post({ postOwnerId, postOwnerUsername, postDate, postId, body, nbrLikes, nbrComments, liked }) {
 
     const { state } = useGlobalState();
 
@@ -20,10 +22,12 @@ export default function Post({ postOwnerId, postId, body, nbrLikes }) {
     const [editPost, setEditPost] = useState(false);
     const [deletePost, setDeletePost] = useState(false);
     const [showComments, setShowComments] = useState(false);
-    const [liked, setLiked] = useState(false);
+    const [likedPost, setLikedPost] = useState(liked);
+    const [postNbrLikes, setPostNbrLikes] = useState(nbrLikes)
+    const [postNbrComments, setPostNbrComments] = useState(nbrComments)
 
-    const OpenEditPostModel = () => setEditPost(true);
-    const OpenDeletePostModel = () => setDeletePost(true);
+    const openEditPostModel = () => setEditPost(true);
+    const openDeletePostModel = () => setDeletePost(true);
     const closeEditPostModel = () => setEditPost(false);
     const closeDeletePostModel = () => setDeletePost(false);
 
@@ -31,9 +35,17 @@ export default function Post({ postOwnerId, postId, body, nbrLikes }) {
 
     const openFuncs = () => setFuncs(!funcs);
 
-    const likePost = () => {
-        setLiked(prev => !prev);
-        console.log({ postId, postOwnerId, currentUserId: 5173 });
+    const queryClient = useQueryClient()
+    const { isLoading, mutate } = useMutation(likePost)
+    const handleLikePost = () => {
+        setLikedPost(!likedPost); 
+        setPostNbrLikes(prev => likedPost ? prev - 1 : prev + 1);
+        mutate(postId, {
+            onSuccess: (res) => {
+                queryClient.invalidateQueries(['get-posts']);
+            }, 
+            onError: (err) => console.log('error ' + err)
+        })
     }
 
     const handlePostComments = () => setShowComments(prev => !prev);
@@ -45,9 +57,9 @@ export default function Post({ postOwnerId, postId, body, nbrLikes }) {
         nbrLikes,
         setFuncs,
         closeEditPostModel,
-        OpenEditPostModel,
+        openEditPostModel,
         closeDeletePostModel,
-        OpenDeletePostModel,
+        openDeletePostModel,
         funcsButtonRef,
 
     }
@@ -63,26 +75,34 @@ export default function Post({ postOwnerId, postId, body, nbrLikes }) {
                 <div className="post-info">
                     <div className="profile-img"></div>
                     <div className="post-main">
+                        <span>{ postOwnerUsername }</span>
+                        <span className="date">{ postDate }</span>
+                        <p className="post-content">{body}</p>
                         {state.user.user_id === postOwnerId &&
                             <button ref={funcsButtonRef} onClick={openFuncs} className="post-funcs" style={{ display: funcs && 'block' }}>
                                 <BsThreeDotsVertical />
                             </button>
                         }
-                        {funcs && <FuncsModel />}
-                        <span>user#{postOwnerId}</span>
-                        <span className="date">21h</span>
-                        <p className="post-content">{body}</p>
+                        {funcs &&
+                            <FuncsModel 
+                            type={'Post'} 
+                            setFuncs={setFuncs}
+                            openEditModel={openEditPostModel}
+                            openDeleteModel={openDeletePostModel}
+                            funcsButtonRef={funcsButtonRef}
+                            />
+                        }
                     </div>
                 </div>
 
                 <div className="functionalities">
-                    <button className="like-post" onClick={likePost}>
-                        <SvgIcon path={icons.like} fill={liked && 'white'} />
-                        <span>{nbrLikes}</span>
+                    <button className="like-post" disabled={isLoading} onClick={handleLikePost}>
+                        <SvgIcon path={icons.like} fill={likedPost && 'white'} />
+                        <span>{ postNbrLikes }</span>
                     </button>
                     <button className="comment-on-post" onClick={handlePostComments}>
                         <SvgIcon path={icons.comment} />
-                        <span>7.2k</span>
+                        <span>{ postNbrComments }</span>
                     </button>
                 </div>
 

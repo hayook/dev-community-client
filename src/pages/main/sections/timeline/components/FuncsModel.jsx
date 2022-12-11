@@ -3,9 +3,7 @@ import { usePostContext } from './Post';
 import { BsPencil } from 'react-icons/bs';
 import { BiTrashAlt } from 'react-icons/bi';
 
-export default function FuncsModel() {
-
-    const { setFuncs, OpenEditPostModel, OpenDeletePostModel, funcsButtonRef } = usePostContext();
+export default function FuncsModel({ type, setFuncs, openDeleteModel, openEditModel, funcsButtonRef }) {
     
     const funcsModelRef = useRef(null);
 
@@ -21,8 +19,8 @@ export default function FuncsModel() {
     return (
         <div ref={funcsModelRef} className="funcs-model">
             <ul>
-                <li><button onClick={OpenEditPostModel}><BsPencil /> Edit Post</button></li>
-                <li><button onClick={OpenDeletePostModel}><BiTrashAlt />Remove Post</button></li>
+                <li><button onClick={openEditModel}><BsPencil /> Edit { type }</button></li>
+                <li><button onClick={openDeleteModel}><BiTrashAlt />Remove { type }</button></li>
             </ul>
         </div>
     )
