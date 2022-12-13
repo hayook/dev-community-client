@@ -1,16 +1,14 @@
 import { useEffect } from 'react';
-import "highlight.js/styles/a11y-dark.css";
-import hljs from "highlight.js";
-
-
-const lang = 'python';
-const code = `
-    print() 
-`
+import { api } from '../app/api'
 
 export default function TestComp() {
 
-    useEffect(() => hljs.highlightAll(), []);
+    useEffect(() => {
+        api.get('/posts').then(res => {
+            console.log(Object.hasOwn(res, 'data'))
+        })
+        
+    }, []);
 
-    return <pre><code className={`language-${lang}`}>{code}</code></pre>
+    return <h1>Test</h1>
 }

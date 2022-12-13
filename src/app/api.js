@@ -1,156 +1,94 @@
-const apiUrl = 'http://localhost:3000'
+export const requestContents = {
+    json: {
+        type: 'application/json',
+        parser: (body) => JSON.stringify(body),
+    }
+}
+
+export const api = {
+    url: 'http://localhost:3000',
+    get: async (endpoint) => {
+        const { token } = localStorage;
+        const response = await fetch(`${api.url}${endpoint}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        try {
+            return { ok: response.ok, status: response.status, data: await response.json() }
+        } catch {
+            return { ok: response.ok, status: response.status }
+        }
+    },
+    post: async (endpoint, body, content = requestContents.json) => {
+        const { token } = localStorage;
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            }
+        }
+        if (body) {
+            config.headers = { ...config.headers, 'Content-Type': content.type };
+            config.body = content.parser(body);
+        }
+        const response = await fetch(`${api.url}${endpoint}`, {
+            method: 'POST',
+            headers: config.headers,
+            body: config.body,
+        });
+        try {
+            return { ok: response.ok, status: response.status, data: await response.json() }
+        } catch {
+            return { ok: response.ok, status: response.status }
+        }
+    },
+    put: async (endpoint, body, content = requestContents.json) => {
+        const { token } = localStorage;
+        const response = await fetch(`${api.url}${endpoint}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': content.type,
+                'Authorization': `Bearer ${token}`
+            },
+            body: content.parser(body),
+        });
+        try {
+            return { ok: response.ok, status: response.status, data: await response.json() }
+        } catch {
+            return { ok: response.ok, status: response.status }
+        }
+    },
+    delete: async (endpoint) => {
+        const { token } = localStorage;
+        const response = await fetch(`${api.url}${endpoint}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        try {
+            return { ok: response.ok, status: response.status, data: await response.json() }
+        } catch {
+            return { ok: response.ok, status: response.status }
+        }
+    },
+}
+
+
+export const sharePost = async (body) => api.post('/posts', body);
+export const getCurrentUser = () => api.get('/userprofile');
+export const getPosts = () => api.get('/posts');
+export const getPostComments = (postId) => api.get(`/posts/${postId}/comments`);
+export const likePost = (postId) => api.post(`/postlike/${postId}`);
+export const commentOnPost = ({ body, postId }) => api.post(`/posts/${postId}/comments`, body);
+export const likeComment = ({ commentId, postId }) => api.post(`/posts/${postId}/likecomment/${commentId}`);
+export const editPost = ({ newBody, postId }) => api.put(`/posts/${postId}`, { post_body: newBody, post_type: 'post' });
+export const editComment = ({ newBody, postId, commentId }) => api.put(`/posts/${postId}/comments/${commentId}`, { comment_body: newBody });
+export const deleteComment = ({ commentId, postId }) => api.delete(`/posts/${postId}/likecomment/${commentId}`);
+export const deletePost = async (postId) => api.delete(`/posts/${postId}`);
 
 // Register 
 export const authUser = async (config) => {
-    const response = await fetch(`${apiUrl}${config.endpoint}`, {
+    const response = await fetch(`${api.url}${config.endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': config.json ? 'application/json' : 'application/x-www-form-urlencoded' },
         body: config.json ? JSON.stringify(config.body) : new URLSearchParams(config.body),
     });
     return ({ ok: response.ok, status: response.status, data: await response.json() })
-}
-
-
-// fetch the current user info
-export const getCurrentUser = async () => {
-    try {
-        const { token } = localStorage;
-        const response = await fetch(`${apiUrl}/userprofile`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        })
-        return { ok: response.ok, status: response.status, data: await response.json() }
-    } catch (err) {
-        return { error: err };
-    }
-
-}
-
-// fetch all posts 
-export const getPosts = async () => {
-    try {
-        const { token } = localStorage;
-        const response = await fetch(`${apiUrl}/posts`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        })
-        return { ok: response.ok, status: response.status, data: await response.json() }
-    } catch (err) {
-        return { error: err };
-    }
-}
-
-// Share Post
-export const sharePost = async (body) => {
-    const { token } = localStorage;
-    const response = await fetch(`${apiUrl}/posts`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify(body),
-    })
-    return { ok: response.ok, status: response.status, data: await response.json() };
-
-}
-
-export const deletePost = async (postId) => {
-    const { token } = localStorage;
-    const response = await fetch(`${apiUrl}/posts/${postId}`, {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        }
-    });
-    try {
-        return { ok: response.ok, status: response.status, data: await response.json() }
-    } catch { // + check for the data before the error
-        return { ok: response.ok, status: response.status }
-    }
-}
-
-
-export const editPost = async ({ newBody, postId }) => {
-    const { token } = localStorage;
-    const response = await fetch(`${apiUrl}/posts/${postId}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({ post_body: newBody, post_type: 'post' })
-    });
-    return { ok: response.ok, status: response.status, data: await response.json() };
-}
-
-export const likePost = async (postId) => {
-    const { token } = localStorage;
-    const response = await fetch(`${apiUrl}/postlike/${postId}`, {
-        method: 'POST',
-        headers: { 'Authorization': `Bearer ${token}` },
-    });
-    return { ok: response.ok, status: response.status };
-}
-
-export const getPostComments = async (postId) => {
-    const { token } = localStorage;
-    const response = await fetch(`${apiUrl}/posts/${postId}/comments`, { headers: { 'Authorization': `Bearer ${token}` } });
-    return { ok: response.ok, status: response.status, data: await response.json() };
-}
-
-export const commentOnPost = async ({ comment: commentBody, postId }) => {
-    const { token } = localStorage;
-    const response = await fetch(`${apiUrl}/posts/${postId}/comments`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify({ comment_body: commentBody })
-    });
-    return { ok: response.ok, status: response.status, data: await response.json() };
-}
-
-export const likeComment = async ({ commentId, postId }) => {
-    const { token } = localStorage;
-    const response = await fetch(`${apiUrl}/posts/${postId}/likecomment/${commentId}`, {
-        method: 'POST',
-        headers: { 'Authorization': `Bearer ${token}` },
-    });
-    return { ok: response.ok, status: response.status };
-}
-
-export const deleteComment = async ({ commentId, postId }) => {
-    const { token } = localStorage;
-    const response = await fetch(`${apiUrl}/posts/${postId}/likecomment/${commentId}`, {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        }
-    });
-    try {
-        return { ok: response.ok, status: response.status, data: await response.json() }
-    } catch {
-        return { ok: response.ok, status: response.status }
-    }
-}
-
-export const editComment = async ({ newBody, postId, commentId }) => {
-    const { token } = localStorage;
-    const response = await fetch(`${apiUrl}/posts/${postId}/comments/${commentId}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({ comment_body: newBody })
-    });
-    return { ok: response.ok, status: response.status, data: await response.json() };
 }

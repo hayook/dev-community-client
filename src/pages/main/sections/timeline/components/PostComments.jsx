@@ -51,7 +51,8 @@ export default function PostComments() {
     const { mutate, isLoading } = useMutation(commentOnPost);
     const hancleComment = (e) => {
         e.preventDefault();
-        mutate({ comment, postId }, {
+        const body = { comment_body: comment };
+        mutate({ body, postId }, {
             onSuccess: () => {
                 setPostNbrComments(prev => prev + 1);
                 queryClient.invalidateQueries([`get-post-${postId}-comments`]);
