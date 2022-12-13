@@ -23,7 +23,7 @@ export default function Post({ postOwnerId, postOwnerUsername, postDate, postId,
     const [deletePost, setDeletePost] = useState(false);
     const [showComments, setShowComments] = useState(false);
     const [likedPost, setLikedPost] = useState(liked);
-    const [postNbrLikes, setPostNbrLikes] = useState(nbrLikes)
+    const [postNbrLikes, setPostNbrLikes] = useState(nbrLikes);
     const [postNbrComments, setPostNbrComments] = useState(nbrComments)
 
     const openEditPostModel = () => setEditPost(true);
@@ -61,6 +61,7 @@ export default function Post({ postOwnerId, postOwnerUsername, postDate, postId,
         closeDeletePostModel,
         openDeletePostModel,
         funcsButtonRef,
+        setPostNbrComments,
 
     }
 

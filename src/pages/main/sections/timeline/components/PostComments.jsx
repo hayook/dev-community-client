@@ -45,7 +45,7 @@ function CommentsSet() {
 export default function PostComments() {
     
     const [comment, setComment] = useState('');
-    const { postId } = usePostContext();
+    const { postId, setPostNbrComments } = usePostContext();
     
     const queryClient = useQueryClient();
     const { mutate, isLoading } = useMutation(commentOnPost);
@@ -53,6 +53,7 @@ export default function PostComments() {
         e.preventDefault();
         mutate({ comment, postId }, {
             onSuccess: () => {
+                setPostNbrComments(prev => prev + 1);
                 queryClient.invalidateQueries([`get-post-${postId}-comments`]);
                 setComment('');
             },

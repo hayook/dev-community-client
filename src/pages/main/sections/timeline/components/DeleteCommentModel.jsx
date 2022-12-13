@@ -6,7 +6,7 @@ import { usePostContext } from './Post';
 
 export default function DeleteCommentModel({ commentId, closeDeleteCommentModel }) {
 
-    const { postId } = usePostContext()
+    const { postId, setPostNbrComments } = usePostContext()
 
 
     const queryClient = useQueryClient(); 
@@ -15,6 +15,7 @@ export default function DeleteCommentModel({ commentId, closeDeleteCommentModel 
         mutate({ commentId, postId }, {
             onSuccess: () => {
                 queryClient.invalidateQueries([`get-post-${postId}-comments`]);
+                setPostNbrComments(prev => prev - 1);
                 closeDeleteCommentModel();
             },
             onError: (err) => console.log('error ' + err)
