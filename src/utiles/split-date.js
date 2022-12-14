@@ -1,0 +1,1 @@
+export const splitDate = (dateStr) => dateStr.split('T')[0];

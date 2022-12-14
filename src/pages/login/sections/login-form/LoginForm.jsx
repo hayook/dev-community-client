@@ -20,7 +20,7 @@ export default function LoginForm() {
     const login = async (e) => {
         e.preventDefault();
         const user = {username: userCredentials.username, password: userCredentials.password };
-        mutate({endpoint: '/login', body: user, json: false}, {
+        mutate({endpoint: '/login', body: user }, {
             onSuccess: (res) => {
                 if (res.status === 403) {
                     setLoginErr(res.data.detail); 

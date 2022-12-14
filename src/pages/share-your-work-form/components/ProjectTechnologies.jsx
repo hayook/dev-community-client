@@ -1,7 +1,6 @@
 import { useState, useRef } from 'react'
 import ProjectTechnology from './ProjectTechnology';
 import { useShareSpecialPostContext } from '../ShareYourWorkForm';
-import { TECHNOLOGIES } from '../../../test-data';
 
 function showTech(input, str) {
     str = str.toLowerCase().trim();
@@ -26,7 +25,7 @@ export default function ProjectTechnologies() {
 
     const handleTechnologiesInput = ({ target }) => {
         setTechnologiesInput(target.value);
-        setSuggestedTechnologies(TECHNOLOGIES.filter(tech => showTech(target.value, tech.name) && !postInfo.technologies.includes(tech)));
+        // setSuggestedTechnologies(TECHNOLOGIES.filter(tech => showTech(target.value, tech.name) && !postInfo.technologies.includes(tech)));
     }
 
     const addToTags = (id) => {

@@ -1,20 +1,19 @@
 import { useState } from 'react'
-import { useQuery, useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 // import { getPostComments } from '../../../../../app/api';
 import { BiSend } from 'react-icons/bi';
 import Spinner from '../../../../../components/spinner/Spinner'
 import Comment from './Comment'
 import { usePostContext } from './Post'
-import { getPostComments, commentOnPost } from '../../../../../app/api';
+import { commentOnPost } from '../../../../../app/api';
 import { handleDate } from '../../../../../utiles/handle-date.js';
+import usePostComments from '../../../../../hooks/usePostComments';
 
 function CommentsSet() {
 
     const { postId } = usePostContext();
 
-    const { isLoading, data: response, error } = useQuery([`get-post-${postId}-comments`], () => getPostComments(postId), { 
-        onError: err => console.log('Error ' + err)
-    });
+    const { isLoading, data: response, error } = usePostComments(postId);
     
     if (isLoading) return <Spinner dim='25px' />
     if (error) return <h3>{ error.message }</h3>

@@ -8,9 +8,10 @@ export default function SharePostSection() {
     const [postBody, setPostBody] = useState('');
     const [showFunctionalities, setShowFunctionalities] = useState(false);
 
+    const handleSharePostTextarea = ({ target }) => setPostBody(target.value);
 
     const queryClient = useQueryClient()
-    const { mutate, isLoading:isPosting } = useMutation((post) => sharePost(post)); 
+    const { mutate, isLoading:isPosting } = useMutation(sharePost); 
 
     const handleSharePost = () => {
         const post = {post_body: postBody, post_type: 'post'}
@@ -22,7 +23,6 @@ export default function SharePostSection() {
         });
     }
 
-    const handleSharePostTextarea = ({ target }) => setPostBody(target.value);
 
     return (
             <section className="share-post">

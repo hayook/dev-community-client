@@ -2,6 +2,10 @@ export const requestContents = {
     json: {
         type: 'application/json',
         parser: (body) => JSON.stringify(body),
+    },
+    urlencoded: {
+        type: 'application/x-www-form-urlencoded',
+        parser: (body) => new URLSearchParams(body),
     }
 }
 
@@ -71,10 +75,8 @@ export const api = {
 }
 
 
+
 export const sharePost = async (body) => api.post('/posts', body);
-export const getCurrentUser = () => api.get('/userprofile');
-export const getPosts = () => api.get('/posts');
-export const getPostComments = (postId) => api.get(`/posts/${postId}/comments`);
 export const likePost = (postId) => api.post(`/postlike/${postId}`);
 export const commentOnPost = ({ body, postId }) => api.post(`/posts/${postId}/comments`, body);
 export const likeComment = ({ commentId, postId }) => api.post(`/posts/${postId}/likecomment/${commentId}`);
@@ -84,11 +86,15 @@ export const deleteComment = ({ commentId, postId }) => api.delete(`/posts/${pos
 export const deletePost = async (postId) => api.delete(`/posts/${postId}`);
 
 // Register 
-export const authUser = async (config) => {
-    const response = await fetch(`${api.url}${config.endpoint}`, {
+export const authUser = async ({ endpoint, body }) => {
+    const response = await fetch(`${api.url}${endpoint}`, {
         method: 'POST',
-        headers: { 'Content-Type': config.json ? 'application/json' : 'application/x-www-form-urlencoded' },
-        body: config.json ? JSON.stringify(config.body) : new URLSearchParams(config.body),
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(body),
     });
-    return ({ ok: response.ok, status: response.status, data: await response.json() })
+    try {
+        return ({ ok: response.ok, status: response.status, data: await response.json() });
+    } catch {
+        return ({ ok: response.ok, status: response.status });
+    }
 }

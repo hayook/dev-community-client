@@ -1,20 +1,33 @@
-import { useQuery } from 'react-query'
-// import { getQuestions } from '../../../../../app/api';
 import Spinner from '../../../../../components/spinner/Spinner'
-import Question from './Question'
+import useQuestions from '../../../../../hooks/useQuestions'
+import Question from './Question';
+import { handleDate } from '../../../../../utiles/handle-date'
 
 export default function QuestionsList() {
 
-    const response = useQuery(['get-questions'], getQuestions);
+    const { isLoading, error, data:response } = useQuestions();
 
-    if (response.isLoading) return <Spinner dim='30px' />
-    if (response.error) return <h4>Error</h4>
-    if (Object.keys(response.data).length === 0) return <h4>No Posts</h4>
+    if (isLoading) return <Spinner dim='30px' />
+    if (error) return <h4>Error {error.message}</h4>
+    if (response.status === 200 && response.data.length === 0) return <h4>No Questions Yet</h4>
 
     return (
-        response.data.map(question => {
-            const { title, body, id, nbrLikes, userId } = question; 
-            return <Question key={id} body={body} title={title} id={id} questionOwner={userId} nbrLikes={nbrLikes} />
+        response.data.map(question => { 
+            return (
+                <Question 
+                key={question.post_id} 
+                questionOwnerId={question.post_owner_id} 
+                questionOwnerUsername={question.username}
+                questionDate={handleDate(question.post_creation_date)}
+                questionId={question.post_id} 
+                nbrLikes={question.post_number_likes} 
+                nbrAnswers={question.post_number_comments}
+                questionTitle={question.post_title}
+                questionDescription={question.post_body} 
+                questionCode={question.post_code}
+                liked={question.liked === 'true'}
+                />
+            )
         })
     )
 }

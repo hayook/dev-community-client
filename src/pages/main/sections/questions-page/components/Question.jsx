@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom'
 
-export default function Question({ title, body, id, nbrLikes, userId }) {
+export default function Question({ questionId, questionTitle, questionDescription, nbrLikes, nbrAnswers }) {
     return (
-        <Link to={`/question-${id}`} className="question">
-            <h2>{title}</h2>
-            <p>{ body }</p>
+        <Link to={`/question-${questionId}`} className="question">
+            <h2>{questionTitle}</h2>
+            <p>{ questionDescription }</p>
             <div className="question-stats">
-                <span>0 Answers</span>
+                <span>{nbrAnswers} Answers</span>
                 <span>{ nbrLikes } Likes</span>
             </div>
         </Link>

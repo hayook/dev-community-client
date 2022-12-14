@@ -62,3 +62,62 @@ section.questions-page section.questions-list {
     color: #ccc;
 }
 
+/****************************************  Question Page  ****************************************/   
+
+.question-page {
+    grid-column: span 2;
+    width: 70%;
+}
+
+.question-page .container {
+    padding: 50px 20px 0;
+    display: flex; 
+    flex-direction: column;
+    gap: 2em;
+    justify-content: center;
+}
+
+.question-page .question-info {
+    display: flex;
+    flex-direction: column; 
+    gap: 2em;
+}
+
+.question-page .question-more-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border: 1px solid var(--grey-clr-200);
+    border-right: none;
+    border-left: none;
+    padding: 1em 0;
+}
+
+.question-page .question-more-info button.like-question {
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .7em;
+    background: none;
+    color: var(--white);
+}
+
+.question-page .question-functionalities {
+    display: flex; 
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1em;
+}
+
+.question-page .question-functionalities > * {
+    padding: .5em;
+    background: none;
+    color: var(--grey-clr-100);
+    font-size: .9em;
+    transition: var(--fast-transition);
+}
+
+.question-page .question-functionalities > *:hover {
+    color: var(--white);
+}

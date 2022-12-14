@@ -1,6 +1,4 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { useQuery } from 'react-query';
-import { useGlobalState } from './app/GlobalStateProvider';
 import Login from './pages/login/Login';
 import Register from './pages/Register/Register';
 import ShareYourWorkForm from './pages/share-your-work-form/ShareYourWorkForm';
@@ -9,14 +7,15 @@ import Main from './pages/main/Main';
 import Timeline from './pages/main/sections/timeline/Timeline';
 import QuestionsPage from './pages/main/sections/questions-page/QuestionsPage';
 import ProjectLinks from './pages/share-your-work-form/components/ProjectsLinks';
+import QuestionPage from './pages/main/sections/questions-page/components/QuestionPage';
 import QuestionCode from './pages/share-your-work-form/components/QuestionCode';
-import { ACTIONS } from './app/actions';
 import TestComp from './trash/TestComp'
-import { getCurrentUser } from './app/api'
+import useUser from './hooks/useUser';
+
 const initialState = {
     title: '',
     description: '',
-    technologies: [],
+    technologies: []
 }
 const projectLinks = [{
     id: new Date().getTime(),
@@ -27,36 +26,16 @@ const projectLinks = [{
 
 export default function App() {
     
-    const { dispatch, state } = useGlobalState();
-    const { token, SERVER_ERROR } = state;
-    
-    const { isLoading, error, data:response } = useQuery([`get-user`], () => getCurrentUser(), {
-        enabled: !!token,
-        onSuccess: (res) => {
-            dispatch({ type: ACTIONS.SET_SERVER_ERROR, payload: false });
-            if ('error' in res) {
-                dispatch({ type: ACTIONS.SET_SERVER_ERROR, payload: true });
-                return;
-            }
-            if (res.status === 200) {
-                dispatch({ type: ACTIONS.SET_USER, payload: res.data[0] }); 
-                return ; 
-            }
-        },
-        onError: (err) => console.log('Error ' + err),
-    });
+    const { isLoading, data:response, error } = useUser();
 
-    if (SERVER_ERROR) return <h1>Something Went Wrong</h1>
     if (isLoading) return <DevCommunityLoader />
     if (!!error) return <h1>Error : { error.message }</h1>
-
     if (response?.status !== 200) return ( 
         <Routes>
             <Route path="/register" element={<Register />} />
             <Route path="*" element={<Login />} />
         </Routes>
     )
-
     return (
         <Routes>
             <Route path="/" element={<Main><Timeline /></Main>} />
@@ -67,6 +46,8 @@ export default function App() {
 
             <Route path="/job-offers" element={<Main><h1>Job Offers</h1></Main>} />
 
+<Route path="/question-:id" element={<Main><QuestionPage /></Main>}/>
+
             <Route path="/share-project" element={
                 <ShareYourWorkForm initialState={{ ...initialState, projectLinks, postType: 'Project' }}>
                     <ProjectLinks />
@@ -74,12 +55,11 @@ export default function App() {
             } />
 
             <Route path="/new-question" element={
-                <ShareYourWorkForm initialState={{ ...initialState, questionCode: '', postType: 'Question' }}>
+                <ShareYourWorkForm initialState={{ ...initialState, questionCode: '', postType: 'question' }}>
                     <QuestionCode />
                 </ShareYourWorkForm>
             } />
 
-            <Route path="/project-id" element={<h1 style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>Comming Soon ...</h1>} />
 
             <Route path="/test" element={<TestComp />} />
 
