@@ -17,7 +17,8 @@ export default function EditPostModel() {
 
     const saveChanges = () => {
         
-        mutate({ newBody, postId }, {
+        const newPost = { post_body: newBody, post_type: 'post' }
+        mutate({ newPost, postId }, {
             onSuccess: () => {
                 queryClient.invalidateQueries(['get-posts'])
                 closeEditPostModel();

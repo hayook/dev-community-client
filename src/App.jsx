@@ -25,12 +25,12 @@ const projectLinks = [{
 ]
 
 export default function App() {
-    
-    const { isLoading, data:response, error } = useUser();
+
+    const { isLoading, data: response, error } = useUser();
 
     if (isLoading) return <DevCommunityLoader />
-    if (!!error) return <h1>Error : { error.message }</h1>
-    if (response?.status !== 200) return ( 
+    if (!!error) return <h1>Error : {error.message}</h1>
+    if (response?.status !== 200) return (
         <Routes>
             <Route path="/register" element={<Register />} />
             <Route path="*" element={<Login />} />
@@ -39,14 +39,22 @@ export default function App() {
     return (
         <Routes>
             <Route path="/" element={<Main><Timeline /></Main>} />
-
             <Route path="/questions" element={<Main><QuestionsPage /></Main>} />
-
-            {/* <Route path="/projects" element={<Main><h1>Projects</h1></Main>} /> */}
-
+            <Route path="/question-:id" element={<Main><QuestionPage /></Main>} />
             <Route path="/job-offers" element={<Main><h1>Job Offers</h1></Main>} />
+            <Route path="/new-question" element={
+                <ShareYourWorkForm initialState={{ ...initialState, questionCode: '', postType: 'question' }}>
+                    <QuestionCode />
+                </ShareYourWorkForm>
+            } />
+            <Route path="/edit-question-:id" element={
+                <ShareYourWorkForm initialState={{ ...initialState, questionCode: '', postType: 'question' }}>
+                    <QuestionCode />
+                </ShareYourWorkForm>
+            } />
 
-<Route path="/question-:id" element={<Main><QuestionPage /></Main>}/>
+
+
 
             <Route path="/share-project" element={
                 <ShareYourWorkForm initialState={{ ...initialState, projectLinks, postType: 'Project' }}>
@@ -54,15 +62,10 @@ export default function App() {
                 </ShareYourWorkForm>
             } />
 
-            <Route path="/new-question" element={
-                <ShareYourWorkForm initialState={{ ...initialState, questionCode: '', postType: 'question' }}>
-                    <QuestionCode />
-                </ShareYourWorkForm>
-            } />
+
 
 
             <Route path="/test" element={<TestComp />} />
-
             <Route path="*" element={<h1 style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>Not Found</h1>} />
         </Routes>
 

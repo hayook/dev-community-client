@@ -9,10 +9,14 @@ import { icons } from '../../../../../assets/icons/icons/'
 import { useState } from 'react'
 import { useMutation, useQueryClient } from "react-query"
 import { useGlobalState } from '../../../../../app/GlobalStateProvider'
-import { likePost, commentOnPost } from "../../../../../app/api"
+import { likePost, commentOnPost, deletePost } from "../../../../../app/api"
+import { useNavigate, Link } from 'react-router-dom'
 import Answers from './Answers'
+import DeleteModel from '.../../../../../../../components/delete-model/DeleteModel';
 
 export default function QuestionPage() {
+
+    const navigate  = useNavigate();
 
     const { id: questionId } = useParams();
     const queryClient = useQueryClient();
@@ -22,6 +26,10 @@ export default function QuestionPage() {
         description: '',
         code: '',
     });
+    const [deleteModel, setDeleteModel] = useState(false);
+
+    const closeDeleteModel = () => setDeleteModel(false)
+    const openDeleteModel = () => setDeleteModel(true)
 
     const { user_id: currentUserId } = useGlobalState().state.user;
     const { isLoading, data: response, error } = useQuestion(questionId, setQuestion)
@@ -49,9 +57,26 @@ export default function QuestionPage() {
         });
     }
 
+    const { mutate:mutateDelete, isLoading:isDeleting } = useMutation(deletePost)
+    const handleDeleteQuestion = () => {
+        mutateDelete(questionId, {
+            onSuccess: () => {
+                closeDeleteModel();
+                navigate('/questions')
+            },
+            onError: (err) => console.log('error ' + err)
+        })
+    }
+
     if (isLoading) return <Spinner dim="30px" />
     return (
         <section className="question-page">
+            { deleteModel && 
+            <DeleteModel type={'question'} 
+            isDeleting={isDeleting} 
+            cancelDelete={closeDeleteModel} 
+            submitDelete={handleDeleteQuestion} /> 
+            }
             <div className="container">
                 <div className="question-info">
                     <h2>{question.post_title}</h2>
@@ -60,8 +85,8 @@ export default function QuestionPage() {
                 </div>
                 {question.post_owner_id === currentUserId &&
                     <div className="question-functionalities">
-                        <button>Edit Question</button>
-                        <button>Delete Question</button>
+                        <Link to={`/edit-question-${questionId}`}>Edit Question</Link>
+                        <button onClick={openDeleteModel}>Delete Question</button>
                     </div>
                 }
                 <div className="question-more-info">

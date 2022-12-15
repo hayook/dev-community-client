@@ -80,7 +80,7 @@ export const sharePost = async (body) => api.post('/posts', body);
 export const likePost = (postId) => api.post(`/postlike/${postId}`);
 export const commentOnPost = ({ body, postId }) => api.post(`/posts/${postId}/comments`, body);
 export const likeComment = ({ commentId, postId }) => api.post(`/posts/${postId}/likecomment/${commentId}`);
-export const editPost = ({ newBody, postId }) => api.put(`/posts/${postId}`, { post_body: newBody, post_type: 'post' });
+export const editPost = ({ newPost, postId }) => api.put(`/posts/${postId}`, newPost);
 export const editComment = ({ newBody, postId, commentId }) => api.put(`/posts/${postId}/comments/${commentId}`, { comment_body: newBody });
 export const deleteComment = ({ commentId, postId }) => api.delete(`/posts/${postId}/likecomment/${commentId}`);
 export const deletePost = async (postId) => api.delete(`/posts/${postId}`);
