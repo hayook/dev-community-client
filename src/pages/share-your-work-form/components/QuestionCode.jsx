@@ -10,22 +10,29 @@ export default function QuestionCode() {
 
     const handleCode = ({ target }) => {
         updatePostInfo('questionCode', target.value);
-        const control = contentEditable.current.scrollHeight > contentEditable.current.clientHeight; 
-        contentEditable.current.style.overflowY = control ? 'scroll' : 'hidden'
+        // const control = contentEditable.current.scrollHeight > contentEditable.current.clientHeight; 
+        // contentEditable.current.style.overflowY = control ? 'scroll' : 'hidden'
     }
 
 
     return (
         <div className="question-code">
-            <h3>Code</h3>
-            <ContentEditable
+            <lable>Code</lable>
+            <textarea 
+            className="main-textarea code"
+            value={postInfo.questionCode}
+            onChange={handleCode}
+            rows={7}
+            ></textarea>
+            
+            {/* <ContentEditable
                 innerRef={contentEditable}
                 html={postInfo.questionCode}
                 disabled={false}
                 onChange={handleCode}
                 tagName='pre'
                 className='code'
-            />
+            /> */}
         </div>
     )
 }

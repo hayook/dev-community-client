@@ -48,7 +48,7 @@ export default function PostComments() {
     
     const queryClient = useQueryClient();
     const { mutate, isLoading } = useMutation(commentOnPost);
-    const hancleComment = (e) => {
+    const handleComment = (e) => {
         e.preventDefault();
         const body = { comment_body: comment };
         mutate({ body, postId }, {
@@ -67,7 +67,7 @@ export default function PostComments() {
 
             <CommentsSet />
 
-            <form onSubmit={hancleComment} className="comment">
+            <form onSubmit={handleComment} className="comment">
                 <textarea
                     className="main-textarea"
                     rows={1}

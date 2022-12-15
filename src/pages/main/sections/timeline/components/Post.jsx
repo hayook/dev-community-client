@@ -97,7 +97,7 @@ export default function Post({ postOwnerId, postOwnerUsername, postDate, postId,
                 </div>
 
                 <div className="functionalities">
-                    <button className="like-post" disabled={isLoading} onClick={handleLikePost}>
+                    <button className="like-post" onClick={handleLikePost}>
                         <SvgIcon path={icons.like} fill={likedPost && 'white'} />
                         <span>{ postNbrLikes }</span>
                     </button>

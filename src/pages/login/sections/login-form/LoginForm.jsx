@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from 'react-query'; 
 import Spinner from '../../../../components/spinner/Spinner'
-import { authUser } from '../../../../app/api';
+import { authUser, requestContents } from '../../../../app/api';
 import { useGlobalState } from '../../../../app/GlobalStateProvider';
 import '../../../Register/style.css'
 import { ACTIONS } from '../../../../app/actions';
@@ -20,7 +20,7 @@ export default function LoginForm() {
     const login = async (e) => {
         e.preventDefault();
         const user = {username: userCredentials.username, password: userCredentials.password };
-        mutate({endpoint: '/login', body: user }, {
+        mutate({endpoint: '/login', body: user, content: requestContents.urlencoded }, {
             onSuccess: (res) => {
                 if (res.status === 403) {
                     setLoginErr(res.data.detail); 

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useMutation } from 'react-query'
 import Spinner from '../../../components/spinner/Spinner'
-import { authUser } from '../../../app/api'
+import { authUser, requestContents } from '../../../app/api'
 import { Link } from 'react-router-dom'; 
 
 const initialState = {
@@ -23,37 +23,6 @@ export default function RegisterForm() {
 
     const handleRegister = (e) => {
         e.preventDefault();
-        if (userInfo.firstName === '') {
-            setRegistered({ ...registered, show: true, message: 'First Name Shouldn\'t Be Empty'})
-            return;
-        }
-
-        if (userInfo.lastName === '') {
-            setRegistered({ ...registered, show: true, message: 'Last Name Shouldn\'t Be Empty'})
-            return;
-        }
-
-        if (userInfo.username === '') {
-            setRegistered({ ...registered, show: true, message: 'Username Shouldn\'t Be Empty'})
-            return;
-        }
-
-        if (userInfo.email === '') {
-            setRegistered({ ...registered, show: true, message: 'Email Shouldn\'t Be Empty'})
-            return;
-        }
-
-        if (userInfo.password.length < 8) {
-            setRegistered({ ...registered, show: true, message: 'Password Should be at least 8 characters long'})
-            return;
-        }
-
-        if (userInfo.password !== userInfo.confirmPassword) {
-            setRegistered({ ...registered, show: true, message: 'Passwords Don\'t match' });
-            return;
-        }
-
-        console.log('Passed')
 
         const user = {
             first_name: userInfo.firstName,
@@ -63,7 +32,7 @@ export default function RegisterForm() {
             email: userInfo.email,
             phone_number: 0,
         }
-        mutate(({ endpoint: '/register', body: user, json: true}), {
+        mutate(({ endpoint: '/register', body: user, json: true, content: requestContents.json }), {
             onSuccess: (res) => {
                 if (res.status === 201) {
                     setRegErr(''); 

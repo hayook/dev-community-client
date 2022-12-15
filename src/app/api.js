@@ -86,11 +86,11 @@ export const deleteComment = ({ commentId, postId }) => api.delete(`/posts/${pos
 export const deletePost = async (postId) => api.delete(`/posts/${postId}`);
 
 // Register 
-export const authUser = async ({ endpoint, body }) => {
+export const authUser = async ({ endpoint, body, content }) => {
     const response = await fetch(`${api.url}${endpoint}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(body),
+        headers: { 'Content-Type': content.type },
+        body: content.parser(body),
     });
     try {
         return ({ ok: response.ok, status: response.status, data: await response.json() });

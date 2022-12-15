@@ -70,7 +70,7 @@ section.questions-page section.questions-list {
 }
 
 .question-page .container {
-    padding: 50px 20px 0;
+    padding: 50px 0;
     display: flex; 
     flex-direction: column;
     gap: 2em;
@@ -120,4 +120,37 @@ section.questions-page section.questions-list {
 
 .question-page .question-functionalities > *:hover {
     color: var(--white);
+}
+
+.question-page form.share-answer {
+    display: flex; 
+    flex-direction: column;
+}
+
+.question-page form.share-answer textarea {
+    margin-bottom: 1.1em;
+    margin-top: .5em;
+    resize: none;
+}
+.question-page form.share-answer > button {
+    width: fit-content; 
+    align-self: flex-end;
+}
+
+.question-page .question-answers {
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    gap: 1em;
+}
+
+.question-page .question-answers .question-answer {
+    display: grid; 
+    grid-gap: 1em;;
+    padding: 1.5em;
+    background: var(--grey-clr-300);
+}
+
+.question-page .question-answers .question-answer .profile {
+    width: fit-content;
 }

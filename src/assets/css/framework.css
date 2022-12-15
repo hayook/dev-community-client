@@ -30,6 +30,10 @@ textarea.main-textarea:focus {
     outline: 1px solid var(--blue-clr-100); 
 }
 
+textarea.main-textarea.code {
+    font-family: monospace;
+}
+
 .main-form-wrapper { 
     margin: 100px auto 0; 
     padding: 20px; 
