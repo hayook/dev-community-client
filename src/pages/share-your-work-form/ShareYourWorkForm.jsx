@@ -6,11 +6,14 @@ import Spinner from '../../components/spinner/Spinner'
 import './style.css'
 import { useParams } from 'react-router-dom';
 import { getQuestionById } from "../../hooks/useQuestion";
+import { useGlobalState } from '../../app/GlobalStateProvider'
 
 const shareSpecialPostContext = createContext();
 export const useShareSpecialPostContext = () => useContext(shareSpecialPostContext); 
 
 export default function ShareYourWorkForm({ children, initialState }) {
+
+    const { user_id:userId } = useGlobalState().state.user;
 
     const { id } = useParams();
     const [postInfo, setPostInfo] = useState(initialState);
@@ -19,7 +22,7 @@ export default function ShareYourWorkForm({ children, initialState }) {
     const { isLoading, error, data:response } = useQuery([`get-question-${id}`, 'toEdit'], () => getQuestionById(id), {
         enabled: !!id, 
         onSuccess: (res) => {
-            setPostInfo({ ...postInfo, title: res.data[0].post_title, description: res.data[0].post_body, questionCode: res.data[0].post_code })
+            setPostInfo({ ...postInfo, title: res.data[0].post_title, description: res.data[0].post_body, questionCode: res.data[0].post_code, questionOwnerId: res.data[0].post_owner_id })
         }
     });
 
@@ -47,7 +50,8 @@ export default function ShareYourWorkForm({ children, initialState }) {
         })
 
     }
-
+    
+    if (id && postInfo.questionOwnerId !== userId) return <h1>Not Found</h1> 
     if (isLoading) return <Spinner dim="30px" />
     if (error) return <h1>Error</h1>
     return (
