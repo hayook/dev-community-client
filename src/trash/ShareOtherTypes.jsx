@@ -7,7 +7,7 @@ export default function ShareOtherTypes() {
                 <hr />
             </div>
             <div className="functionalities">
-                <Link to="/new-question" className="secondary-button">Ask Question</Link>
+                <Link to="/questions/new" className="secondary-button">Ask Question</Link>
                 <Link to="/share-project" className="secondary-button">Share Your Work</Link>
             </div>
         </section>

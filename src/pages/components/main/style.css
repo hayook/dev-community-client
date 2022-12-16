@@ -1,0 +1,25 @@
+section.main > .container {
+    display: grid;
+    grid-template-columns: 20% 1fr 30%;
+    grid-gap: 0 55px;
+}
+
+section.main nav.main-nav,
+section.main section.working-rooms {
+    position: sticky;
+    top: var(--header-height);
+    height: calc(100vh - var(--header-height));
+    padding-top: 15px;
+}
+
+@media (max-width: 1000px) {
+
+    section.main nav.main-nav,
+    section.main section.working-rooms {
+        display: none;
+    }
+
+    section.main>.container {
+        grid-template-columns: 1fr;
+    }
+}
