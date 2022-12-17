@@ -4,6 +4,11 @@ section.main > .container {
     grid-gap: 0 55px;
 }
 
+section.main.dashboard > .container {
+    grid-template-columns: 10% 1fr;
+    grid-gap: 0 25px;
+}
+
 section.main nav.main-nav,
 section.main section.working-rooms {
     position: sticky;

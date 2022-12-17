@@ -4,14 +4,12 @@ import './style.css'
 
 const re = new RegExp("/question-[0-9]+")
 
-export default function Main({ children }) {
-
-    const { id } = useParams();
+export default function Main({ children, className }) {
 
     return (
         <>
             <Header />
-            <section className="main">
+            <section className={`main ${className}`}>
                 <div className="container">
                     {children}
                 </div>
