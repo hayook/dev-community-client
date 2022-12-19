@@ -1,0 +1,16 @@
+form.new-project {
+    display: flex; 
+    flex-direction: column;
+    padding: 50px 0; 
+}
+
+form.new-project > input, 
+form.new-project > textarea {
+    margin-bottom: 1.1em;
+    margin-top: .5em;
+    resize: none;
+}
+
+form.new-project > button.main-button {
+    align-self: flex-end;
+}

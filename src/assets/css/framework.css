@@ -1,4 +1,4 @@
-button.main-button {
+.main-button {
     padding: .6em 3em; 
     background: var(--blue-clr-200); 
     color: var(--fixed-white);  
@@ -75,4 +75,13 @@ textarea.main-textarea.code {
 .after-profile-content {
     margin: .7em 0 2.15em;
     padding: 0 1.42em 0 calc(.8em + 3em);
+}
+
+section.project-dashboard .heading {
+    display: flex; 
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5em;
+    padding-bottom: 1.7em;
+    border-bottom: 1px solid var(--grey-clr-200);
 }

@@ -7,7 +7,7 @@ export default function WorkingRooms() {
             <div className="working-rooms-container">
                 <h2>Your Current Projects</h2>
                 <div className="working-rooms-projects">
-                    <Link to="/projects/1" className="working-rooms-project">
+                    {/* <Link to="/projects/1" className="working-rooms-project">
                         <div className="profile-img"></div>
                         <h4>This is an awesome project</h4>
                         <div className="progress">
@@ -21,9 +21,9 @@ export default function WorkingRooms() {
                             <span>63%</span>
                             <div className="progress-container"><span style={{ width: '63%' }}></span></div>
                         </div>
-                    </Link>
+                    </Link> */}
                 </div>
-                <button className="main-button">Start A New Project</button>
+                <Link to="/projects/new" className="main-button">Start A New Project</Link>
             </div>
         </section>
     )

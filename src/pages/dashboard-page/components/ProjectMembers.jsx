@@ -1,23 +1,29 @@
-import ProjectMember from './ProjectMember'
+import { useState } from 'react';
+import AllMembersTab from './AllMembersTab'
 
 export default function ProjectMembers() {
+
+    const [currentTab, setCurrentTab] = useState('all-members')
+
+    const handleTarget = ({ target }) => {
+        setCurrentTab(target.getAttribute('target'));
+        document.querySelectorAll('ul.members-roles li').forEach(item => item.classList.remove('active'));
+        target.classList.add('active')
+    }
+
     return (
-        <>
-        <h1>Members</h1>
-            <ul className="members-roles">
-                <li>All Members</li>
-                <li>Admins</li>
-                <li>Teams</li>
-            </ul>
-            <div className="members-list">
-                <ProjectMember />
-                <ProjectMember />
-                <ProjectMember />
-                <ProjectMember />
-                <ProjectMember />
-                <ProjectMember />
-                <ProjectMember />
+        <section className='members'>
+            <div className="heading">
+                <h1>Members</h1>
+                <ul className="members-roles">
+                    <li onClick={handleTarget} target='all-members' className='active'>All Members</li>
+                    <li onClick={handleTarget} target='admins'>Admins</li>
+                    <li onClick={handleTarget} target='teams'>Teams</li>
+                </ul>
             </div>
-        </>
+            <div className="members-list-container">
+                { currentTab === 'all-members' && <AllMembersTab />}
+            </div>
+        </section>
     )
 }

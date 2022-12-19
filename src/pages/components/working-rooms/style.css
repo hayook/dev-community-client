@@ -15,7 +15,7 @@ section.main section.working-rooms h2 {
     font-weight: 400;
 }
 
-section.main section.working-rooms button.main-button {
+section.main section.working-rooms .main-button {
     display: block;
     padding-right: 1em;
     padding-left: 1em;

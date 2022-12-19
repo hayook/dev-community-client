@@ -1,59 +1,50 @@
-section.dashboard-page {
+section.project-dashboard {
     padding: 50px 0;
 }
 
-section.dashboard-page .heading {
-    display: flex; 
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid var(--grey-clr-200);
-    margin-bottom: 1.5em;   
-    padding-bottom: 1.7em;
-}
-
-section.dashboard-page .heading .project-title {
+section.project-dashboard> .heading .project-title {
     display: grid;
     grid-template-columns: auto 1fr;
     grid-gap: 0 1em;
 }
 
-section.dashboard-page .heading .project-title .profile-img {
+section.project-dashboard > .heading .project-title .profile-img {
     grid-row: span 2;
 }
 
 
-section.dashboard-page .heading .progress {
+section.project-dashboard > .heading .progress {
     display: flex;
     align-items: center;
     gap: .4em;
 }
 
-section.dashboard-page .heading .progress .progress-container {
+section.project-dashboard > .heading .progress .progress-container {
     height: 1.3em;
     width: 300px;
     border: 1px solid var(--blue-clr-100);
 }
 
-section.dashboard-page .heading .progress .progress-container span {
+section.project-dashboard > .heading .progress .progress-container span {
     display: block;
     height: 100%;
     background: var(--blue-clr-100);
 }
 
-section.dashboard-page .project-nav-tabs ul.tabs {
+section.project-dashboard .project-nav-tabs ul.tabs {
     display: flex; 
     align-items: center;
     justify-content: center;
 }
 
-section.dashboard-page .project-nav-tabs ul.tabs li {
+section.project-dashboard .project-nav-tabs ul.tabs li {
     padding: .8em 1.5em;
     margin: 0 1em;
     cursor: pointer;
     position: relative;
 }
 
-section.dashboard-page .project-nav-tabs ul.tabs li::before {
+section.project-dashboard .project-nav-tabs ul.tabs li::before {
     content: '';
     height: 2px; 
     background: var(--main-clr);
@@ -62,54 +53,158 @@ section.dashboard-page .project-nav-tabs ul.tabs li::before {
     left: 0;
 }
 
-section.dashboard-page .project-nav-tabs ul.tabs li:hover::before,
-section.dashboard-page .project-nav-tabs ul.tabs li.active::before {
+section.project-dashboard .project-nav-tabs ul.tabs li:hover::before,
+section.project-dashboard .project-nav-tabs ul.tabs li.active::before {
     width: 100%; 
+}
+
+/****************************************** Project Tasks Tab ***************************************/
+
+section.project-dashboard .dashboard-content section.tasks .heading {
+    display: flex; 
+    align-items: center;
+    justify-content: space-between;
+}
+
+section.project-dashboard .dashboard-content .heading button {
+    align-self: center;
 }
 
 /****************************************** Project Members Tab ***************************************/
 
-section.dashboard-page .dashboard-content ul.members-roles {
+
+section.project-dashboard .dashboard-content section.members > .heading {
+    padding: 0;
+}
+
+section.project-dashboard .dashboard-content section.members > .heading ul.members-roles {
     display: flex; 
     align-items: center;
     justify-content: center;
-    margin: 1em 0;
-    border-top: 1px solid var(--grey-clr-200);
-    border-bottom: 1px solid var(--grey-clr-200);
+    /* margin: 1em 0; */
 }
 
-section.dashboard-page .dashboard-content ul.members-roles li {
+section.project-dashboard .dashboard-content section.members > .heading ul.members-roles li {
     padding: .8em 1.5em;
     margin: 0 1em;
     cursor: pointer;
+    position: relative;
 }
 
-section.dashboard-page .dashboard-content .members-list {
+section.project-dashboard .dashboard-content section.members > .heading ul.members-roles li::before {
+    content: '';
+    height: 2px; 
+    background: var(--main-clr);
+    position: absolute; 
+    bottom: 0;
+    left: 0;
+}
+
+section.project-dashboard .dashboard-content section.members > .heading ul.members-roles li.active::before, 
+section.project-dashboard .dashboard-content section.members > .heading ul.members-roles li:hover::before {
+    width: 100%;
+}
+
+section.project-dashboard .dashboard-content section.members .members-list-container > * {
+    width: 70%; 
+    margin-inline: auto; 
+}
+
+section.project-dashboard .dashboard-content section.members .members-list-container > .heading button.main-button {
+    padding-inline: 1.3em;
+    transition: none;
+}
+
+section.project-dashboard .dashboard-content section.members .members-list-container > .heading button.back-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30.54px;
+    padding-inline: 1.3em;
+    font-size: 1.6em;
+    background: none; 
+    color: var(--white); 
+}
+
+section.project-dashboard .dashboard-content section.members .members-list-container .members-list {
     display: flex; 
     flex-direction: column;
     justify-content: center;
     gap: .7em;
-    width: 50%;
-    margin: 0 auto;
 }
 
-section.dashboard-page .dashboard-content .members-list .project-member {
+section.project-dashboard .dashboard-content section.members .members-list-container .invite-members {
+    display: flex; 
+    justify-content: center;
+    transition: var(--fast-transition);
+}
+
+section.project-dashboard .dashboard-content section.members .members-list-container .invite-members.active {
+    justify-content: space-between;
+    width: 100%; 
+}
+
+section.project-dashboard .dashboard-content section.members .members-list-container .invite-members .recommanded-members {
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    gap: 2em;
+    width: 70%; 
+}
+
+section.project-dashboard .dashboard-content section.members .members-list-container .invite-members.active .recommanded-members {
+    width: 44%; 
+}
+
+section.project-dashboard .dashboard-content section.members .members-list-container .invite-members .recommanded-members input {
+    width: 50%; 
+    align-self: center;
+    transition: var(--fast-transition);
+}
+
+section.project-dashboard .dashboard-content section.members .members-list-container .invite-members.active .recommanded-members input {
+    width: 100%; 
+}
+
+section.project-dashboard .dashboard-content section.members .members-list-container .invite-members .recommanded-members .recommanded-members-list {
+    display: flex; 
+    flex-direction: column;
+    justify-items: center;
+    gap: .7em;
+}
+
+section.project-dashboard .dashboard-content section.members .members-list-container .invite-members form.invite-member-form {
+    width: 49%; 
+    display: flex; 
+    flex-direction: column;
+    padding: 2em; 
+}
+
+section.project-dashboard .dashboard-content section.members .members-list-container .invite-members form.invite-member-form input {
+    margin: .5em 0 1.5em; 
+}
+
+section.project-dashboard .dashboard-content section.members .members-list-container .invite-members form.invite-member-form button {
+    align-self: flex-end;
+}
+
+section.project-dashboard .dashboard-content section.members .members-list-container .project-member {
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
     grid-gap: 0 .8em;
     border: 1px solid var(--grey-clr-200);
-    padding: 1em;
+    padding: .454em;
+    cursor: pointer; 
 }
 
-section.dashboard-page .dashboard-content .members-list .project-member .profile-img {
+section.project-dashboard .dashboard-content section.members .members-list-container .project-member .profile-img {
     grid-row: span 2;
+    width: 2.4em;
+    height: 2.4em;
 }
 
-section.dashboard-page .dashboard-content .members-list .project-member span.username {
-    font-size: 1.4em;
-}
 
-section.dashboard-page .dashboard-content .members-list .project-member span.user-role {
+section.project-dashboard .dashboard-content section.members .members-list-container .project-member span.user-role {
     font-size: .8em;
 }

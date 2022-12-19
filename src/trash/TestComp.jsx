@@ -1,5 +1,10 @@
 
 export default function TestComp() {
 
-    return <h1>Test</h1>
+    const handleRange = ({ target }) => {
+        console.log(target.value)
+    }
+
+
+    return <input onChange={handleRange} type='range' />
 }
