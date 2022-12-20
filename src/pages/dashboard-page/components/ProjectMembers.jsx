@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import AllMembersTab from './AllMembersTab'
+import MembersList from './MembersList';
 
 export default function ProjectMembers() {
 
@@ -23,6 +24,7 @@ export default function ProjectMembers() {
             </div>
             <div className="members-list-container">
                 { currentTab === 'all-members' && <AllMembersTab />}
+                { currentTab === 'admins' && <MembersList filter='admin' />}
             </div>
         </section>
     )

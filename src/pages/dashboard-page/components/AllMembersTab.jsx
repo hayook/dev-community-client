@@ -1,8 +1,7 @@
 import { useState } from 'react'
-import ProjectMember from "./ProjectMember"
 import InviteMembers from './InviteMembers';
 import { BiArrowBack } from 'react-icons/bi'
-import { projects } from '../../../trash/test-data';
+import MembersList from './MembersList'
 
 export default function AllMembersTab() {
 
@@ -21,11 +20,7 @@ export default function AllMembersTab() {
             {addMemberForm ?
                 <InviteMembers />
                 :
-                <div className="members-list">
-                    {
-                        projects[0].projectMembers.map(member => <ProjectMember key={member.userId} memberRole={member.userRole} memberId={member.userId} />)
-                    }
-                </div>
+                <MembersList filter='all' />
             }
         </>
     )

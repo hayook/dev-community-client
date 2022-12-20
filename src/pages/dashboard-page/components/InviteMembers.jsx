@@ -1,11 +1,19 @@
 import { useState } from 'react'
 import ProjectMember from "./ProjectMember";
-import { projects } from '../../../trash/test-data'
+import { projects, users } from '../../../trash/test-data'
 const project = projects[0]
 
 export default function InviteMembers() {
 
     const [targetUser, setTargetUser] = useState(null);
+    const [recommandedMembers, setRecommandedMembers] = useState(project.recommandedMembers);
+    const [search, setSearch] = useState('')
+
+    const handleSearch = ({ target }) => {
+        setSearch(target.value);
+        const temp = !!target.value ? users.filter(member => `user#${member.userId}`.includes(target.value)) : project.recommandedMembers
+        setRecommandedMembers(temp);
+    }
 
     const insertToInvite = (id) => {
         setTargetUser(true); 
@@ -21,11 +29,11 @@ export default function InviteMembers() {
     return (
         <div className={`invite-members ${!!targetUser ? 'active' : ''}`}>
             <div className="recommanded-members">
-                <input type="text" className='main-input' placeholder="Search" />
-                    <h2>Recommanded Members To Invite</h2>
+                <input onChange={handleSearch} type="text" className='main-input' value={search} placeholder="Search" />
+                    { !search && <h2>Recommanded Members To Invite</h2> }
                 <div className="members-list recommanded-members-list">
                     {
-                        project.recommandedMembers.map(member => {
+                        recommandedMembers.map(member => {
                             return <button onClick={() => insertToInvite(member.userId)}><ProjectMember memberId={member.userId}/></button>
                         })
                     }
