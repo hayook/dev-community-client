@@ -2,6 +2,7 @@ import { useState } from 'react'
 import ProjectMember from "./ProjectMember"
 import InviteMembers from './InviteMembers';
 import { BiArrowBack } from 'react-icons/bi'
+import { projects } from '../../../trash/test-data';
 
 export default function AllMembersTab() {
 
@@ -21,19 +22,9 @@ export default function AllMembersTab() {
                 <InviteMembers />
                 :
                 <div className="members-list">
-                    <ProjectMember />
-                    <ProjectMember />
-                    <ProjectMember />
-                    <ProjectMember />
-                    <ProjectMember />
-                    <ProjectMember />
-                    <ProjectMember />
-                    <ProjectMember />
-                    <ProjectMember />
-                    <ProjectMember />
-                    <ProjectMember />
-                    <ProjectMember />
-                    <ProjectMember />
+                    {
+                        projects[0].projectMembers.map(member => <ProjectMember key={member.userId} memberRole={member.userRole} memberId={member.userId} />)
+                    }
                 </div>
             }
         </>

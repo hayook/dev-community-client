@@ -1,15 +1,12 @@
-export default function ProjectMember({ setTargetUser }) {
+export default function ProjectMember({ memberId, memberRole }) {
 
-    const handleClick = () => {
-        setTargetUser(true); 
-        window.scrollTo({ top: 0, behavior: 'smooth' })
-    }
+    
 
     return (
-        <div onClick={handleClick} className="project-member">
+        <div className="project-member">
             <div className="profile-img"></div>
-            <span className='username'>user#id</span>
-            <span className="user-role">Member</span>
+            <span className='username'>user#{memberId}</span>
+            { memberRole && <span className="user-role">{ memberRole.toUpperCase() }</span> }
         </div>
     )
 }

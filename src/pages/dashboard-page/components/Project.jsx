@@ -2,11 +2,11 @@ import { useState } from 'react'
 import ProjectTasks from './ProjectTasks';
 import ProjectMembers from './ProjectMembers';
 import ProjectChat from './ProjectChat';
-import useProject from '../../../hooks/useProject'
+import { projects } from '../../../trash/test-data';
+
+const project = projects[0]
 
 export default function Project({ id }) {
-
-    const { isLoading, data, error } = useProject(id);
 
     const [currentTab, setCurrentTab] = useState('members')
 
@@ -15,15 +15,14 @@ export default function Project({ id }) {
         document.querySelectorAll('ul.tabs li').forEach(item => item.classList.remove('active'));
         target.classList.add('active');
     }
-
-    if (isLoading) return <h1>Loading...</h1>
+    
     return (
         <>
             <div className="heading">
                 <div className="project-title">
                     <div className="profile-img"></div>
-                    <h2>{data.projectTitle}</h2>
-                    <span>user#{data.userId}</span>
+                    <h2>{project.projectTitle}</h2>
+                    <span>user#{project.projectOwner.userId}</span>
                 </div>
                 <div className="project-nav-tabs">
                     <ul className="tabs">
@@ -33,8 +32,8 @@ export default function Project({ id }) {
                     </ul>
                 </div>
                 <div className="progress">
-                    <span>{data.progress}%</span>
-                    <div className="progress-container"><span style={{ width: `${data.progress}%` }}></span></div>
+                    <span>{project.projectProgress}%</span>
+                    <div className="progress-container"><span style={{ width: `${project.projectProgress}%` }}></span></div>
                 </div>
             </div>
             <div className="dashboard-content">

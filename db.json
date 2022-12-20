@@ -6,6 +6,62 @@
       "lastName": "me",
       "username": "its.me",
       "email": "hay@eddine.k"
+    },
+    {
+      "id": 1,
+      "firstName": "me",
+      "lastName": "me",
+      "username": "its.me",
+      "email": "hay@eddine.k"
+    },
+    {
+      "id": 2,
+      "firstName": "me",
+      "lastName": "me",
+      "username": "its.me",
+      "email": "hay@eddine.k"
+    },
+    {
+      "id": 3,
+      "firstName": "me",
+      "lastName": "me",
+      "username": "its.me",
+      "email": "hay@eddine.k"
+    },
+    {
+      "id": 4,
+      "firstName": "me",
+      "lastName": "me",
+      "username": "its.me",
+      "email": "hay@eddine.k"
+    },
+    {
+      "id": 5,
+      "firstName": "me",
+      "lastName": "me",
+      "username": "its.me",
+      "email": "hay@eddine.k"
+    },
+    {
+      "id": 6,
+      "firstName": "me",
+      "lastName": "me",
+      "username": "its.me",
+      "email": "hay@eddine.k"
+    },
+    {
+      "id": 2346,
+      "firstName": "me",
+      "lastName": "me",
+      "username": "its.me",
+      "email": "hay@eddine.k"
+    },
+    {
+      "id": 1235,
+      "firstName": "me",
+      "lastName": "me",
+      "username": "its.me",
+      "email": "hay@eddine.k"
     }
   ],
   "projects": [
@@ -17,9 +73,39 @@
       "id": 1
     }
   ],
-  "projectMembers": [
+  "members": [
     {
       "userId": 8,
+      "projectId": 1,
+      "id": 1
+    },
+    {
+      "userId": 1,
+      "projectId": 1,
+      "id": 1
+    },
+    {
+      "userId": 2,
+      "projectId": 1,
+      "id": 1
+    },
+    {
+      "userId": 3,
+      "projectId": 1,
+      "id": 1
+    },
+    {
+      "userId": 4,
+      "projectId": 1,
+      "id": 1
+    },
+    {
+      "userId": 5,
+      "projectId": 1,
+      "id": 1
+    },
+    {
+      "userId": 6,
       "projectId": 1,
       "id": 1
     }
