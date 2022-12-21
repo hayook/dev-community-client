@@ -10,6 +10,7 @@ import EditPostModel from './EditPostModel';
 import FuncsModel from './FuncsModel'
 import { likePost } from '../../../app/api'; 
 import { useGlobalState } from '../../../app/GlobalStateProvider';
+import { subStr } from '../../../utiles/string-utiles'
 
 const PostContext = createContext();
 export const usePostContext = () => useContext(PostContext);
@@ -78,7 +79,10 @@ export default function Post({ postOwnerId, postOwnerUsername, postDate, postId,
                     <div className="post-main">
                         <span>{ postOwnerUsername }</span>
                         <span className="date">{ postDate }</span>
-                        <p className="post-content">{body}</p>
+                        <p className="post-content">
+                        { subStr(body, 300) }
+                        { body.length > 300 && <span style={{whiteSpace: 'nowrap'}}>...Read More</span>}
+                        </p>
                         {state.user.user_id === postOwnerId &&
                             <button ref={funcsButtonRef} onClick={openFuncs} className="post-funcs" style={{ display: funcs && 'block' }}>
                                 <BsThreeDotsVertical />

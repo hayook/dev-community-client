@@ -1,6 +1,6 @@
 section.main > .container {
     display: grid;
-    grid-template-columns: 20% 1fr 30%;
+    grid-template-columns: 20% auto 30%;
     grid-gap: 0 55px;
 }
 

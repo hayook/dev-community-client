@@ -188,6 +188,8 @@ section.main section.timeline section.posts .post .post-info .post-main span.dat
 section.main section.timeline section.posts .post .post-info .post-main p.post-content {
     margin: .5em 0 1.5em;
     white-space: pre-wrap;
+    word-break: break-all;
+    width: 100%; 
 }
 
 section.main section.timeline section.posts .post .functionalities {
