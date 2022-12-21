@@ -209,3 +209,16 @@ section.members .members-list-container .invite-members form.invite-member-form 
     flex-direction: column;
     gap: 1em; 
 }
+
+section.members .members-list-container .teams-list {
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    gap: .7em;
+    width: 40%;
+}
+
+section.members .members-list-container .teams-list .project-team {
+    border: 1px solid var(--grey-clr-200);
+    padding: .454em;
+}

@@ -1,4 +1,5 @@
-export const filterByRole = (arr, filter) => {
-    if (filter === 'all') return arr; 
-    return arr.filter(member => member.userRole.trim().toLowerCase() === filter.trim().toLowerCase())
+export const filterByRole = (arr, role) => {
+    const roles = ['admin', 'member'];
+    if (!roles.includes(role)) return arr; 
+    return arr.filter(member => member.userRole.trim().toLowerCase() === role.trim().toLowerCase());
 }

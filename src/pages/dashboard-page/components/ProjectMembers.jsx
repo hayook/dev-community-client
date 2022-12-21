@@ -1,6 +1,9 @@
 import { useState } from 'react';
+import { projects } from '../../../trash/test-data'
 import AllMembersTab from './AllMembersTab'
-import MembersList from './MembersList';
+import AdminsTab from './AdminsTab'
+import TeamsTab from './TeamsTab'
+import { filterByRole } from '../../../utiles/filter-by-role'
 
 export default function ProjectMembers() {
 
@@ -23,8 +26,9 @@ export default function ProjectMembers() {
                 </ul>
             </div>
             <div className="members-list-container">
-                { currentTab === 'all-members' && <AllMembersTab />}
-                { currentTab === 'admins' && <MembersList filter='admin' />}
+            { currentTab === 'all-members' && <AllMembersTab membersList={projects[0].projectMembers} />}
+            { currentTab === 'admins' && <AdminsTab membersList={filterByRole(projects[0].projectMembers, 'admin')} />}
+            { currentTab === 'teams' && <TeamsTab />}
             </div>
         </section>
     )
