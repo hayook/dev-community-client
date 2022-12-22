@@ -192,6 +192,17 @@ section.main section.timeline section.posts .post .post-info .post-main p.post-c
     width: 100%; 
 }
 
+section.main section.timeline section.posts .post .post-info .post-main p.post-content span.read-more {
+    cursor: pointer;
+    color: var(--grey-clr-100); 
+    transition: .2s;
+    font-size: .9em; 
+}
+section.main section.timeline section.posts .post .post-info .post-main p.post-content span.read-more:hover {
+    text-decoration: underline;
+    color: var(--white); 
+}
+
 section.main section.timeline section.posts .post .functionalities {
     display: flex;
     align-items: center;

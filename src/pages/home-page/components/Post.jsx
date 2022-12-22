@@ -26,6 +26,7 @@ export default function Post({ postOwnerId, postOwnerUsername, postDate, postId,
     const [likedPost, setLikedPost] = useState(liked);
     const [postNbrLikes, setPostNbrLikes] = useState(nbrLikes);
     const [postNbrComments, setPostNbrComments] = useState(nbrComments)
+    const [fullPostContent, setFullPostContent] = useState(body.length <= 300);
 
     const openEditPostModel = () => setEditPost(true);
     const openDeletePostModel = () => setDeletePost(true);
@@ -80,8 +81,8 @@ export default function Post({ postOwnerId, postOwnerUsername, postDate, postId,
                         <span>{ postOwnerUsername }</span>
                         <span className="date">{ postDate }</span>
                         <p className="post-content">
-                        { subStr(body, 300) }
-                        { body.length > 300 && <span style={{whiteSpace: 'nowrap'}}>...Read More</span>}
+                        { fullPostContent ? body : subStr(body, 300) }
+                        { !fullPostContent && <span onClick={() => setFullPostContent(true)} className='read-more'>...Read More</span>}
                         </p>
                         {state.user.user_id === postOwnerId &&
                             <button ref={funcsButtonRef} onClick={openFuncs} className="post-funcs" style={{ display: funcs && 'block' }}>
