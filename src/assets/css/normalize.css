@@ -433,6 +433,7 @@ input[type="checkbox"]+label {
 }
 
 button {
+  transition: none!important; 
   border: none;
   cursor: pointer;
 }

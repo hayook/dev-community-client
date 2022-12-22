@@ -7,6 +7,21 @@ section.project-dashboard .heading {
     border-bottom: 1px solid var(--grey-clr-200);
 }
 
+section.project-dashboard .heading > button.main-button {
+    padding-inline: 1.3em;
+}
+
+.heading button.back-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30.54px;
+    padding-inline: 1.3em;
+    font-size: 1.6em;
+    background: none; 
+    color: var(--white); 
+}
+
 section.project-dashboard .project-member {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -140,22 +155,6 @@ section.members .members-list-container > * {
     margin-inline: auto; 
 }
 
-section.members .members-list-container > .heading button.main-button {
-    padding-inline: 1.3em;
-    transition: none;
-}
-
-section.members .members-list-container > .heading button.back-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 30.54px;
-    padding-inline: 1.3em;
-    font-size: 1.6em;
-    background: none; 
-    color: var(--white); 
-}
-
 section.members .members-list-container .members-list {
     display: flex; 
     flex-direction: column;
@@ -166,7 +165,6 @@ section.members .members-list-container .members-list {
 section.members .members-list-container .invite-members {
     display: flex; 
     justify-content: center;
-    transition: var(--fast-transition);
 }
 
 section.members .members-list-container .invite-members.active {
@@ -174,7 +172,8 @@ section.members .members-list-container .invite-members.active {
     width: 100%; 
 }
 
-section.members .members-list-container .invite-members .recommanded-members {
+section.members .members-list-container .invite-members .recommanded-members,
+section.members .members-list-container .teams-list-container .team-members-list .search-members {
     display: flex; 
     flex-direction: column;
     gap: 1.7em;
@@ -193,10 +192,10 @@ section.members .members-list-container .invite-members.active .recommanded-memb
     width: 44%; 
 }
 
-section.members .members-list-container .invite-members .recommanded-members input {
+section.members .members-list-container .invite-members .recommanded-members input,
+section.members .members-list-container .teams-list-container .team-members-list .search-members input {
     width: 50%; 
     align-self: center;
-    transition: var(--fast-transition);
 }
 
 section.members .members-list-container .invite-members.active .recommanded-members input {
@@ -210,15 +209,50 @@ section.members .members-list-container .invite-members form.invite-member-form 
     gap: 1em; 
 }
 
-section.members .members-list-container .teams-list {
+section.members .members-list-container .teams-list-container.active {
+    display: grid; 
+    grid-template-columns: repeat(2, 49%); 
+    align-items: flex-start;
+    width: 100%; 
+    justify-content: space-between;
+}
+
+section.members .members-list-container .teams-list-container .teams-list {
     display: flex; 
     flex-direction: column;
     justify-content: center;
     gap: .7em;
-    width: 40%;
 }
 
-section.members .members-list-container .teams-list .project-team {
+section.members .members-list-container .teams-list-container .teams-list > button {
+    background: none; 
+    border: none; 
+    color: var(--white);
+    text-align: start;
+
+}
+
+section.members .members-list-container .teams-list-container .teams-list .project-team {
     border: 1px solid var(--grey-clr-200);
     padding: .454em;
+}
+
+section.members .members-list-container .teams-list-container .team-members-list { 
+    display: flex; 
+    flex-direction: column;
+    gap: 1em; 
+}
+
+section.members .members-list-container .teams-list-container .team-members-list .search-members {
+    margin-inline: auto; 
+}
+
+section.members .members-list-container form.create-team-form {
+    display: flex;
+    align-items: center;
+    gap: 1em; 
+}
+
+section.members .members-list-container form.create-team-form > input {
+    flex: 1; 
 }
