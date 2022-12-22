@@ -1,0 +1,38 @@
+.radio {
+    display: flex; 
+    align-items: center;
+    gap: .5em; 
+    cursor: pointer;
+}
+
+.radio label {
+    cursor: pointer;
+}
+
+.radio input[type=radio] {
+    display: none;
+}
+
+.radio .check {
+    border: 3px solid var(--white);
+    border-radius: 50%;
+    height: 1.4em;
+    width: 1.4em;
+    position: relative; 
+}
+
+
+.radio .check::before {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    height: .8em;
+    width: .8em;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+input[type=radio]:checked~.check::before {
+    background: var(--white);
+}

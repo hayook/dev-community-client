@@ -209,6 +209,12 @@ section.members .members-list-container .invite-members form.invite-member-form 
     gap: 1em; 
 }
 
+section.members .members-list-container .invite-members form.invite-member-form .roles {
+    display: flex; 
+    flex-direction: column;
+    gap: .5em;
+}
+
 section.members .members-list-container .teams-list-container.active {
     display: grid; 
     grid-template-columns: repeat(2, 49%); 
