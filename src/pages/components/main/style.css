@@ -14,7 +14,7 @@ section.main section.working-rooms {
     position: sticky;
     top: var(--header-height);
     height: calc(100vh - var(--header-height));
-    padding-top: 15px;
+    padding: 15px;
 }
 
 @media (max-width: 1000px) {
