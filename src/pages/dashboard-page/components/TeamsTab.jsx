@@ -1,17 +1,36 @@
 import { useState } from 'react'
+import { useMutation } from 'react-query'
 import TeamsList from './TeamsList'
 import { BiArrowBack } from 'react-icons/bi'
-import ProjectMember from './ProjectMember'
+import Spinner from '../../components/spinner/Spinner';
+import { useParams } from 'react-router-dom';
+import useProjectTeams from '../../../hooks/useProjectTeams';
+import { createTeam } from '../../../app/api'
 
 
 export default function TeamsTab() {
 
+    const [teamInfo, setTeamInfo] = useState({ teamName: '' })
+    const { id: projectId } = useParams();
+    const { isLoading, data: response, error } = useProjectTeams(projectId)
     const [createTeamForm, setCreateTeamForm] = useState(false);
+
+    const { isLoading:isCreating, mutate } = useMutation(createTeam)
+    const nadleSubmit = e => {
+        e.preventDefault();
+        const team = { team_name: teamInfo.teamName }
+        mutate({ team, projectId }, {
+            onSuccess: (res) => {
+                setCreateTeamForm(false)
+            }
+        })
+
+    }
 
     return (
         <>
             <div className="heading">
-                <h1>Project Teams</h1>
+                <h2>Project Teams</h2>
                 {createTeamForm ?
                     <button onClick={() => setCreateTeamForm(false)} className='back-button'><BiArrowBack /></button>
                     :
@@ -19,13 +38,20 @@ export default function TeamsTab() {
                 }
             </div>
             {createTeamForm ?
-                <form className="create-team-form">
+                <form onSubmit={nadleSubmit} className="create-team-form">
                     <label>Team Name</label>
-                    <input type="text" className="main-input" />
-                    <button className='main-button'>Submit</button>
+                    <input onChange={({ target }) => setTeamInfo(prev => ({ ...prev, teamName: target.value }))} type="text" className="main-input" value={teamInfo.teamName} />
+                    <button className='main-button' disabled={isCreating}>{ isCreating ? <Spinner /> : 'Submit' }</button>
                 </form>
                 :
-                <TeamsList />
+                <>
+                    { isLoading && <Spinner dim='30px' /> }
+                    { response?.ok && response?.data?.length === 0 && <p style={{ width: 'fit-content' }}>No Teams</p> }
+                    { response?.ok && response?.data?.length !== 0 && 
+                        <TeamsList />
+                    }
+                </>
+                
             }
         </>
     )

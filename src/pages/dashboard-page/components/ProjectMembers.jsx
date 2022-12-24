@@ -1,11 +1,16 @@
 import { useState } from 'react';
+import { useParams } from 'react-router-dom'
 import { projects } from '../../../trash/test-data'
 import AllMembersTab from './AllMembersTab'
 import AdminsTab from './AdminsTab'
 import TeamsTab from './TeamsTab'
-import { filterByRole } from '../../../utiles/filter-by-role'
+import useProjectMembers from '../../../hooks/useProjectMembers'
+import Spinner from '../../components/spinner/Spinner'
 
 export default function ProjectMembers() {
+
+    const { id:projectId } = useParams();
+    const { isLoading, data:response, error } = useProjectMembers(projectId); 
 
     const [currentTab, setCurrentTab] = useState('all-members')
 
@@ -15,7 +20,8 @@ export default function ProjectMembers() {
         target.classList.add('active')
     }
 
-    return (
+    if (isLoading) return <Spinner dim='30px' />
+    if (response.ok && 'data' in response) return (
         <section className='members'>
             <div className="heading">
                 <h1>Members</h1>
@@ -26,10 +32,12 @@ export default function ProjectMembers() {
                 </ul>
             </div>
             <div className="members-list-container">
-            { currentTab === 'all-members' && <AllMembersTab membersList={projects[0].projectMembers} />}
-            { currentTab === 'admins' && <AdminsTab membersList={filterByRole(projects[0].projectMembers, 'admin')} />}
+            { currentTab === 'all-members' && <AllMembersTab />}
+            { currentTab === 'admins' && <AdminsTab />}
             { currentTab === 'teams' && <TeamsTab />}
             </div>
         </section>
     )
+    if (!response.ok) return <h1>{ response.status }</h1>
+    return <h1>Error { error?.message }</h1>
 }

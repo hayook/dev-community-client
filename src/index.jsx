@@ -19,7 +19,7 @@ root.render(
         <GlobalStateProvider>
           <App />
         </GlobalStateProvider>
-        <ReactQueryDevtools initialIsOpen={true} position='bottom-right' />
+        <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />
       </QueryClientProvider>
     </BrowserRouter>
   </React.StrictMode>

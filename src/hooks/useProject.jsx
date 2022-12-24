@@ -1,7 +1,10 @@
 import { useQuery } from "react-query";
+import { api } from '../app/api'
 
-const getProjectById = (projectId) => fetch(`http://localhost:3000/projects/${projectId}`).then(res => res.json())
+const getProjectById = (projectId) => api.get(`/projects/${projectId}`); 
 
 export default function useProject(projectId) {
-    return useQuery([`get-project-${projectId}`], () => getProjectById(projectId));
+    return useQuery([`get-project-${projectId}`], () => getProjectById(projectId), {
+        select: res => ({ ...res, data: res.data[0] }),
+    });
 }

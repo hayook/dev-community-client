@@ -1,0 +1,14 @@
+.profile-img {
+    border: 1px solid var(--grey-clr-200);
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.profile-img > img {
+    position: absolute; 
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 100%;
+}

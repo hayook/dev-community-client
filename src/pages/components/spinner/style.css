@@ -5,6 +5,7 @@
     filter: brightness(1.5);
     border-radius: 50%;
     position: relative;
+    margin-inline: auto; 
   }
   .outer::before {
     content: '';

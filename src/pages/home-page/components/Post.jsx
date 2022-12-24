@@ -11,6 +11,7 @@ import FuncsModel from './FuncsModel'
 import { likePost } from '../../../app/api'; 
 import { useGlobalState } from '../../../app/GlobalStateProvider';
 import { subStr } from '../../../utiles/string-utiles'
+import ProfileImg from '../../components/profile-img/ProfileImg'
 
 const PostContext = createContext();
 export const usePostContext = () => useContext(PostContext);
@@ -76,7 +77,7 @@ export default function Post({ postOwnerId, postOwnerUsername, postDate, postId,
                 {deletePost && <DeletePostModel />}
 
                 <div className="post-info">
-                    <div className="profile-img"></div>
+                    <ProfileImg />
                     <div className="post-main">
                         <span>{ postOwnerUsername }</span>
                         <span className="date">{ postDate }</span>

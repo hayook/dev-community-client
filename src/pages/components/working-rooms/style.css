@@ -2,7 +2,7 @@
 section.main section.working-rooms {
     display: flex; 
     flex-direction: column;
-    gap: 1em; 
+    gap: 2em; 
     border-left: 1px solid var(--grey-clr-200);
 }
 
@@ -11,7 +11,7 @@ section.main section.working-rooms>.user-invites {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 1.7em;
+    gap: 1.4em;
 }
 
 section.main section.working-rooms h2 {

@@ -1,16 +1,14 @@
 import { Link } from 'react-router-dom'; 
-import { projects } from '../../../../trash/test-data'
+import ProfileImg from '../../profile-img/ProfileImg'
 
-const project = projects[0]; 
-
-export default function ProjectShowcase() {
+export default function ProjectShowcase({ projectId, projectTitle }) {
     return (
-        <Link to={`/projects/${project.projectId}`} className="working-rooms-project">
-            <div className="profile-img"></div>
-            <h4>{ project.projectTitle }</h4>
+        <Link to={`/projects/${projectId}`} className="working-rooms-project">
+            <ProfileImg />
+            <h4>{ projectTitle }</h4>
             <div className="progress">
-                <span>{ project.projectProgress }%</span>
-                <div className="progress-container"><span style={{ width: `${project.projectProgress }%` }}></span></div>
+                <span>0%</span>
+                <div className="progress-container"><span style={{ width: `0%` }}></span></div>
             </div>
         </Link>
     )

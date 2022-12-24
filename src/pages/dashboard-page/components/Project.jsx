@@ -2,11 +2,14 @@ import { useState } from 'react'
 import ProjectTasks from './ProjectTasks';
 import ProjectMembers from './ProjectMembers';
 import ProjectChat from './ProjectChat';
-import { projects } from '../../../trash/test-data';
+import Spinner from '../../components/spinner/Spinner'
+import useProject from '../../../hooks/useProject'
+import ProfileImg from '../../components/profile-img/ProfileImg'
 
-const project = projects[0]
 
 export default function Project({ id }) {
+
+    const { isLoading, data: response, error } = useProject(id);
 
     const [currentTab, setCurrentTab] = useState('members')
 
@@ -15,14 +18,15 @@ export default function Project({ id }) {
         document.querySelectorAll('ul.tabs li').forEach(item => item.classList.remove('active'));
         target.classList.add('active');
     }
-    
-    return (
+
+    if (isLoading) return <Spinner dim='30px' />
+    if (response.ok && 'data' in response) return (
         <>
             <div className="heading">
                 <div className="project-title">
-                    <div className="profile-img"></div>
-                    <h2>{project.projectTitle}</h2>
-                    <span>user#{project.projectOwner.userId}</span>
+                    <ProfileImg />
+                    <h2>{ response.data.project_name }</h2>
+                    <span>user#{response.data.project_owner_id}</span>
                 </div>
                 <div className="project-nav-tabs">
                     <ul className="tabs">
@@ -32,8 +36,8 @@ export default function Project({ id }) {
                     </ul>
                 </div>
                 <div className="progress">
-                    <span>{project.projectProgress}%</span>
-                    <div className="progress-container"><span style={{ width: `${project.projectProgress}%` }}></span></div>
+                    <span>0%</span>
+                    <div className="progress-container"><span style={{ width: `0%` }}></span></div>
                 </div>
             </div>
             <div className="dashboard-content">
@@ -43,4 +47,6 @@ export default function Project({ id }) {
             </div>
         </>
     )
+    if (!response.ok) return <h1>{ response.status }</h1>
+    return <h1>Error { error?.message }</h1>
 }

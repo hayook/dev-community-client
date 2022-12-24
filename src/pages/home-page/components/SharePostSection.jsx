@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query';
 import Spinner from '../../components/spinner/Spinner'
 import { sharePost } from '../../../app/api'
+import ProfileImg from '../../components/profile-img/ProfileImg'
 
 export default function SharePostSection() {
 
@@ -22,11 +23,11 @@ export default function SharePostSection() {
             }
         });
     }
-
+ProfileImg
 
     return (
             <section className="share-post">
-                <div className="profile-img"></div>
+                <ProfileImg />
                 <textarea
                 value={postBody}
                 onChange={handleSharePostTextarea}

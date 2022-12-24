@@ -9,6 +9,7 @@ import FuncsModel from './FuncsModel';
 import { usePostContext } from './Post';
 import DeleteCommentModel from './DeleteCommentModel';
 import EditCommentModel from './EditCommentModel';
+import ProfileImg from '../../components/profile-img/ProfileImg'
 
 export default function Comment({ commentOwnerId, commentId, commentBody, liked, commentOwnerUsername, commentDate, nbrLikes }) {
 
@@ -47,7 +48,7 @@ export default function Comment({ commentOwnerId, commentId, commentBody, liked,
         {editCommentModel && <EditCommentModel closeEditCommentModel={closeEditCommentModel} commentId={commentId} commentBody={commentBody} />}
 
         <div className="post-info comment">
-            <div className="profile-img"></div>
+            <ProfileImg />
             <div className="post-main">
                 <span>{commentOwnerUsername}</span>
                 <span className="date">{commentDate}</span>

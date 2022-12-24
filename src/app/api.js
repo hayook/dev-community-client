@@ -75,17 +75,7 @@ export const api = {
 }
 
 
-
-export const sharePost = async (body) => api.post('/posts', body);
-export const likePost = (postId) => api.post(`/postlike/${postId}`);
-export const commentOnPost = ({ body, postId }) => api.post(`/posts/${postId}/comments`, body);
-export const likeComment = ({ commentId, postId }) => api.post(`/posts/${postId}/likecomment/${commentId}`);
-export const editPost = ({ newPost, postId }) => api.put(`/posts/${postId}`, newPost);
-export const editComment = ({ newBody, postId, commentId }) => api.put(`/posts/${postId}/comments/${commentId}`, { comment_body: newBody });
-export const deleteComment = ({ commentId, postId }) => api.delete(`/posts/${postId}/likecomment/${commentId}`);
-export const deletePost = async (postId) => api.delete(`/posts/${postId}`);
-
-// Register 
+// Users
 export const authUser = async ({ endpoint, body, content }) => {
     const response = await fetch(`${api.url}${endpoint}`, {
         method: 'POST',
@@ -98,3 +88,22 @@ export const authUser = async ({ endpoint, body, content }) => {
         return ({ ok: response.ok, status: response.status });
     }
 }
+
+// Posts
+export const sharePost = async (body) => api.post('/posts', body);
+export const likePost = (postId) => api.post(`/postlike/${postId}`);
+export const commentOnPost = ({ body, postId }) => api.post(`/posts/${postId}/comments`, body);
+export const likeComment = ({ commentId, postId }) => api.post(`/posts/${postId}/likecomment/${commentId}`);
+export const editPost = ({ newPost, postId }) => api.put(`/posts/${postId}`, newPost);
+export const editComment = ({ newBody, postId, commentId }) => api.put(`/posts/${postId}/comments/${commentId}`, { comment_body: newBody });
+export const deleteComment = ({ commentId, postId }) => api.delete(`/posts/${postId}/likecomment/${commentId}`);
+export const deletePost = async (postId) => api.delete(`/posts/${postId}`);
+
+// Projects
+export const createProject = (projectInfo) => api.post('/projects', projectInfo)
+export const createTeam = ({ team, projectId }) => api.post(`/projects/${projectId}/teams`, team);
+export const inviteMember = ({ projectId, newMember }) => api.post(`/projects/${projectId}/invites`, newMember);
+export const acceptInvite = (inviteId) => api.post(`/user/invites/${inviteId}`);
+export const rejectInvite = (inviteId) => api.delete(`/user/invites/${inviteId}`);
+
+

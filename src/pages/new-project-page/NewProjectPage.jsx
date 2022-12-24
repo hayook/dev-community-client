@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Main from '../components/main/Main'
+import { useMutation } from 'react-query'
 import NavSideBar from '../components/nav-side-bar/NavSideBar'
+import { createProject } from '../../app/api'
+import Spinner from '../components/spinner/Spinner'
+
 import './style.css'
 
 export default function NewProjectPage() {
@@ -13,10 +17,15 @@ export default function NewProjectPage() {
         projectDescription: '',
     });
 
+    const { isLoading, mutate } = useMutation(createProject)
     const handleSubmit = e => {
         e.preventDefault();
-        // post the project & navigate to /projects/:id   
-        navigate('/projects/1'); 
+        const body = { project_name: projectInfo.projectTitle, project_description: projectInfo.projectDescription }
+        mutate(body, {
+            onSuccess: res => {
+                navigate(`/projects/${res.data[0].project_id}`)
+            }
+        })
     }
 
     return (
@@ -41,7 +50,7 @@ export default function NewProjectPage() {
                     value={projectInfo.projectDescription} 
                     />
 
-                    <button className="main-button">Submit</button>
+                    <button className="main-button" disabled={isLoading} >{ isLoading ? <Spinner /> : 'Submit'}</button>
 
                 </form>
             </Main>
