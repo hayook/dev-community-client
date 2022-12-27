@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useMutation } from 'react-query'
+import { useQueryClient, useMutation } from 'react-query'
 import TeamsList from './TeamsList'
 import { BiArrowBack } from 'react-icons/bi'
 import Spinner from '../../components/spinner/Spinner';
@@ -15,13 +15,16 @@ export default function TeamsTab() {
     const { isLoading, data: response, error } = useProjectTeams(projectId)
     const [createTeamForm, setCreateTeamForm] = useState(false);
 
+    const queryClient = useQueryClient()
     const { isLoading:isCreating, mutate } = useMutation(createTeam)
     const nadleSubmit = e => {
         e.preventDefault();
         const team = { team_name: teamInfo.teamName }
         mutate({ team, projectId }, {
             onSuccess: (res) => {
+                queryClient.invalidateQueries([`get-project-${projectId}-teams`]);
                 setCreateTeamForm(false)
+                setTeamInfo(prev => ({ ...prev, teamName: '' }))
             }
         })
 
@@ -48,7 +51,7 @@ export default function TeamsTab() {
                     { isLoading && <Spinner dim='30px' /> }
                     { response?.ok && response?.data?.length === 0 && <p style={{ width: 'fit-content' }}>No Teams</p> }
                     { response?.ok && response?.data?.length !== 0 && 
-                        <TeamsList />
+                        <TeamsList membersList={response?.data} />
                     }
                 </>
                 

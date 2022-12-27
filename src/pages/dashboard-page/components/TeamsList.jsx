@@ -3,29 +3,29 @@ import { projects } from '../../../trash/test-data'
 import ProjectMember from './ProjectMember'
 import { BiArrowBack } from 'react-icons/bi'
 import MembersList from './MembersList'
+import TeamMembersList from './TeamMembersList'
 
-export default function TeamsList() {
+export default function TeamsList({ membersList }) {
 
-    const [teamMembers, setTeamMembers] = useState([]);
+    const [targetTeam, setTargetTeam] = useState(null);
     const [addMemberToTeam, setAddMemberToTeam] = useState(false);
 
-    const handleClick = () => { }
-
-    const showTeamMembers = (id) => {
-        setTeamMembers(projects[0].projectTeams.filter(team => team.id === id)[0].teamMembers);
+    const showtargetTeam = (id) => {
+        // setTargetTeam(projects[0].projectTeams.filter(team => team.id === id)[0].targetTeam);
+        setTargetTeam(id)
     }
 
     return (
-        <div className={`teams-list-container ${(teamMembers.length !== 0 && !addMemberToTeam) ? 'active' : ''}`}>
+        <div className={`teams-list-container ${(!!targetTeam && !addMemberToTeam) ? 'active' : ''}`}>
             {!addMemberToTeam &&
                 <div className="teams-list">
-                    {projects[0].projectTeams.map(team => <button onClick={() => showTeamMembers(team.id)}><div className='project-team' key={team.id}>{team.name}</div></button>)}
+                    {membersList.map(team => <button onClick={() => showtargetTeam(team.team_id)}><div className='project-team' key={team.team_id}>{team.team_name}</div></button>)}
                 </div>
             }
-            {teamMembers.length !== 0 &&
+            {!!targetTeam &&
                 <div className={`team-members-list ${addMemberToTeam ? 'active' : ''}`}>
                     <div className="heading">
-                        <h2>{ addMemberToTeam ? 'Add Member' : 'Team Members'}</h2>
+                        <h2>{addMemberToTeam ? 'Add Member' : 'Team Members'}</h2>
 
                         {addMemberToTeam ?
                             <button onClick={() => setAddMemberToTeam(false)} className='back-button'><BiArrowBack /></button>
@@ -41,7 +41,7 @@ export default function TeamsList() {
                         </div>
                         :
                         <div className="members-list">
-                            {teamMembers.map(member => <ProjectMember memberId={member.userId} />)}
+                            <TeamMembersList teamId={targetTeam} />
                         </div>
                     }
                 </div>

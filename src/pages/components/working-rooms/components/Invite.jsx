@@ -10,7 +10,10 @@ export default function Invite({ projectId, inviteId }) {
     const { isLoading:isAccepting, mutate:mutateAccept } = useMutation(acceptInvite)
     const handleAccept = () => {
         mutateAccept(inviteId, {
-            onSuccess: () => queryClient.invalidateQueries([`get-user-${userId}-invites`])
+            onSuccess: () => {
+                queryClient.invalidateQueries([`get-user-${userId}-invites`])
+                queryClient.invalidateQueries([`get-user${userId}-current-projects`]);
+            }
         });
     }
 
