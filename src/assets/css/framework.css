@@ -76,3 +76,11 @@ textarea.main-textarea.code {
     margin: .7em 0 2.15em;
     padding: 0 1.42em 0 calc(.8em + 3em);
 }
+
+.user-profile {
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    gap: .8em;
+    cursor: pointer;
+}

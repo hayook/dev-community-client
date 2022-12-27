@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useMutation } from 'react-query'
 import Spinner from '../../components/spinner/Spinner'
 import { authUser, requestContents } from '../../../app/api'
-import { Link } from 'react-router-dom'; 
+import { Link, useNavigate } from 'react-router-dom'; 
 
 const initialState = {
     firstName: '',
@@ -14,6 +14,8 @@ const initialState = {
 }
 
 export default function RegisterForm() {
+
+    const navigate = useNavigate()
 
     const [userInfo, setUserInfo] = useState(initialState);
     const [registered, setRegistered] = useState({ show: false, success: false, message: 'Registration Success!' });
@@ -38,6 +40,7 @@ export default function RegisterForm() {
                     setRegErr(''); 
                     setRegistered(true);
                     setUserInfo(initialState);
+                    navigate('/')
                     return;
                 }
                 console.log(res)

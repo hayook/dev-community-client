@@ -2,8 +2,7 @@ import { useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from 'react-query'; 
 import Spinner from '../../components/spinner/Spinner'
 import { authUser, requestContents } from '../../../app/api';
-import { useGlobalState } from '../../../app/GlobalStateProvider';
-import { ACTIONS } from '../../../app/actions';
+import useUser from '../../../hooks/useUser'
 import '../../register-page/style.css'
 
 
@@ -11,10 +10,9 @@ export default function LoginForm() {
 
     const [loginErr, setLoginErr] = useState('')
     const [userCredentials, setUserCredentials] = useState({ username: '', password: '' });  
-    
-    const { dispatch } = useGlobalState();
 
-    const queryClient = useQueryClient();
+    const { refetch:refetchUser } = useUser()
+
     const { isLoading, mutate } = useMutation(authUser); 
 
     const login = async (e) => {
@@ -28,8 +26,7 @@ export default function LoginForm() {
                 }
                 if (res.status === 200) {
                     localStorage.setItem('token', res.data.access_token);
-                    dispatch({ type: ACTIONS.SET_TOKEN, payload: res.data.access_token});
-                    queryClient.invalidateQueries('get-user')
+                    refetchUser()
                     return;
                 }
             },

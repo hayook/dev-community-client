@@ -7,6 +7,7 @@ export default function useQuestion(questionId, setQuestion) {
     return useQuery([`get-question-${questionId}`], () => getQuestionById(questionId), {
         onSuccess: res => {
             const question = res.data[0];
+            console.log(question)
             setQuestion({ ...question, liked: question.liked === 'true'});
         },
         onError: (err) => console.log('Error', err)
