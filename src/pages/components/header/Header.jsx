@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useQueryClient } from 'react-query'
+import { useQueryClient, QueryCache } from 'react-query'
 import ProfileImg from '../profile-img/ProfileImg'
 import useUser from '../../../hooks/useUser'
 import './style.css'
@@ -7,14 +7,14 @@ import './style.css'
 
 export default function Header() {
 
-    const { refetch:refetchUser } = useUser()
+    const { refetch: refetchUser } = useUser()
     const queryClient = useQueryClient()
     const { username } = queryClient.getQueryData(['get-user']).data[0];
-
 
     const logout = () => {
         localStorage.removeItem('token')
         refetchUser()
+        queryClient.removeQueries()
     }
 
     return (
