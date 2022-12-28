@@ -77,7 +77,7 @@ export default function Question() {
                     cancelDelete={closeDeleteModel}
                     submitDelete={handleDeleteQuestion} />
             }
-            <div className="container">
+            <div className="question-container">
                 <div className="question-info">
                     <h2>{question.post_title}</h2>
                     <p>{question.post_body}</p>
