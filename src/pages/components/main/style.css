@@ -5,7 +5,7 @@ section.main > .container {
 }
 
 section.main.dashboard > .container {
-    grid-template-columns: 10% 1fr;
+    grid-template-columns: auto 1fr;
     grid-gap: 0 25px;
 }
 
