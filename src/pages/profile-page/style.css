@@ -1,0 +1,53 @@
+.profile-page {
+    padding: 55px 0;
+    grid-column: span 2;
+}
+
+.profile-page .model .model-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+
+.profile-page section.hero {
+    display: flex; 
+    align-items: center;
+    gap: 2em;
+}
+
+.profile-page section.hero .user-pic {
+    position: relative;
+    border: 5px solid var(--white);
+    border-radius: 50%;
+}
+
+.profile-page section.hero .user-pic button.upload-pic {
+    --dim: 2.5em; 
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    height: var(--dim);
+    width: var(--dim);
+    position: absolute; 
+    bottom: 0;
+    right: 0;
+    transform: translate(-20%, -20%);
+}
+
+.profile-page section.hero .user-pic button.upload-pic svg {
+    width: 100%; 
+    height: 100%; 
+}
+
+.profile-page section.hero .basic-info {
+    display: flex; 
+    flex-direction: column;
+    gap: 1em; 
+}
+
+.profile-page section.hero .basic-info nav ul {
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    gap: 1em; 
+}
