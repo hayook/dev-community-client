@@ -1,17 +1,38 @@
 import { useState } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import ProjectTasks from './ProjectTasks';
 import ProjectMembers from './ProjectMembers';
 import ProjectChat from './ProjectChat';
 import Spinner from '../../components/spinner/Spinner'
 import useProject from '../../../hooks/useProject'
 import ProfileImg from '../../components/profile-img/ProfileImg'
+import DeletePostModel from '../../components/delete-model/DeleteModel';
+import { QueryClient, useMutation } from 'react-query';
+import { removeProject } from '../../../app/api';
 
 
 export default function Project({ id }) {
 
+    const navigate = useNavigate()
+
+    const { id:projectId } = useParams()
     const { isLoading, data: response, error } = useProject(id);
 
     const [currentTab, setCurrentTab] = useState('members')
+    const [deleteProjectModel, setDeleteProjectModel] = useState(false)
+
+    const openModel = () => setDeleteProjectModel(true)
+    const closeModel = () => setDeleteProjectModel(false)
+
+    const { isLoading:isDeleting, mutate } = useMutation(removeProject)
+    const removeProjectHandler = () => {
+        mutate({ projectId }, {
+            onSuccess: res => {
+                closeModel()
+                navigate('/')
+            }
+        })
+    }
 
     const handleTarget = ({ target }) => {
         setCurrentTab(target.getAttribute('target'));
@@ -22,11 +43,24 @@ export default function Project({ id }) {
     if (isLoading) return <Spinner dim='30px' />
     if (response.ok && 'data' in response) return (
         <>
+            {deleteProjectModel && 
+                <DeletePostModel
+                modelHeading='Delete Project'
+                type='project'
+                cancelDelete={closeModel}
+                submitDelete={removeProjectHandler}
+                isDeleting={isDeleting}
+                />
+            }
             <div className="heading">
                 <div className="project-title">
                     <ProfileImg />
                     <h2>{ response.data.project_name }</h2>
                     <span>user#{response.data.project_owner_id}</span>
+                    <div className="settings">
+                        <Link to={`/projects/${projectId}/edit`}>Edit Project</Link>
+                        <button onClick={openModel}>Delete Project</button>
+                    </div>
                 </div>
                 <div className="project-nav-tabs">
                     <ul className="tabs">

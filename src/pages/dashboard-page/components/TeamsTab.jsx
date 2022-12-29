@@ -4,7 +4,6 @@ import TeamsList from './TeamsList'
 import { BiArrowBack } from 'react-icons/bi'
 import Spinner from '../../components/spinner/Spinner';
 import { useParams } from 'react-router-dom';
-import useProjectTeams from '../../../hooks/useProjectTeams';
 import { createTeam } from '../../../app/api'
 
 
@@ -12,7 +11,6 @@ export default function TeamsTab() {
 
     const [teamInfo, setTeamInfo] = useState({ teamName: '' })
     const { id: projectId } = useParams();
-    const { isLoading, data: response, error } = useProjectTeams(projectId)
     const [createTeamForm, setCreateTeamForm] = useState(false);
 
     const queryClient = useQueryClient()
@@ -47,13 +45,7 @@ export default function TeamsTab() {
                     <button className='main-button' disabled={isCreating}>{ isCreating ? <Spinner /> : 'Submit' }</button>
                 </form>
                 :
-                <>
-                    { isLoading && <Spinner dim='30px' /> }
-                    { response?.ok && response?.data?.length === 0 && <p style={{ width: 'fit-content' }}>No Teams</p> }
-                    { response?.ok && response?.data?.length !== 0 && 
-                        <TeamsList membersList={response?.data} />
-                    }
-                </>
+                <TeamsList />
                 
             }
         </>

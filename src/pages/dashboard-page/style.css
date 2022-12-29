@@ -22,24 +22,70 @@ section.project-dashboard .heading > button.main-button {
     color: var(--white); 
 }
 
-section.project-dashboard .project-member {
+section.project-dashboard .project-member,
+section.project-dashboard .project-team {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    padding: .454em; 
+    border: 1px solid var(--grey-clr-200);
+}
+
+section.project-dashboard .project-member .member-info {
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
     grid-gap: 0 .8em;
-    border: 1px solid var(--grey-clr-200);
-    padding: .454em; 
 }
 
-section.project-dashboard .project-member .profile-img {
-    grid-row: span 2;
+section.project-dashboard .project-member .member-info .profile-img {
     width: 2.4em;
     height: 2.4em;
+}
+
+section.project-dashboard .project-member .member-info.role .profile-img {
+    grid-row: span 2;
 }
 
 
 section.project-dashboard .project-member span.user-role {
     font-size: .8em;
+}
+
+section.project-dashboard .project-member .functionalities,
+section.project-dashboard .project-team .functionalities {
+    display: none; 
+    align-items: center;
+    justify-content: center;
+    transition: .2s;
+}
+
+section.project-dashboard .project-member:hover .functionalities,
+section.project-dashboard .project-team:hover .functionalities {
+    display: flex; 
+}
+
+section.project-dashboard .project-member .functionalities > button,
+section.project-dashboard .project-team .functionalities > button {
+    --dim: 2em;
+    height: var(--dim) !important;
+    width: var(--dim) !important;
+    color: var(--white) !important;
+    position: relative !important;
+    background: none;
+}
+
+
+section.project-dashboard .project-member .functionalities > button > svg,
+section.project-dashboard .project-team .functionalities > button > svg {
+    position: absolute !important; 
+    top: calc(50% + 1px) !important; 
+    left: calc(50% + 1px) !important;
+    transform: translate(-50%, -50%) !important;
+    height: 60% !important; 
+    width: 60% !important;
+
 }
 
 /****************************************** Dashboard Page ***************************************/
@@ -51,13 +97,31 @@ section.project-dashboard {
 section.project-dashboard> .heading .project-title {
     display: grid;
     grid-template-columns: auto 1fr;
-    grid-gap: 0 1em;
+    align-items: center;
+    grid-gap: .5em 1em;
 }
 
 section.project-dashboard > .heading .project-title .profile-img {
     grid-row: span 2;
 }
 
+section.project-dashboard> .heading .project-title .settings {
+    display: flex; 
+    align-items: center;
+    gap: 1em; 
+    grid-column-start: 2;
+}
+
+section.project-dashboard> .heading .project-title .settings > * {
+    background: none;
+    color: var(--grey-clr-100);
+    transition: .2s;
+}
+
+section.project-dashboard> .heading .project-title .settings > *:hover {
+    color: var(--white);
+    text-decoration: underline;
+}
 
 section.project-dashboard > .heading .progress {
     display: flex;
@@ -153,6 +217,14 @@ section.members > .heading ul.members-roles li:hover::before {
 section.members .members-list-container > * {
     width: 70%; 
     margin-inline: auto; 
+}
+
+section.members .members-list-container .overlay {
+    width: 100%;
+}
+
+section.members .members-list-container .model {
+    width: 500px;
 }
 
 section.members .members-list-container .members-list {

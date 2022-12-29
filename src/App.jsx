@@ -13,6 +13,7 @@ import NewProjectPage from './pages/new-project-page/NewProjectPage'
 import ProfilePage from './pages/profile-page/ProfilePage'
 import TestComp from './trash/TestComp'
 import useUser from './hooks/useUser';
+import EditProjectPage from './pages/edit-project-page/EditProjectPage'
 
 export default function App() {
 
@@ -35,6 +36,7 @@ export default function App() {
             <Route path="/questions/:id" element={<QuestionPage />} />
             <Route path="/questions/:id/edit" element={<NewQuestionPage />} />
             <Route path="projects/new" element={<NewProjectPage />} />
+            <Route path="/projects/:id/edit" element={<EditProjectPage />} />
             <Route path="/projects/:id" element={<DashboardPage />} />
             <Route path="/job-offers" element={<JobOffersPage />} />
             <Route path="/user/8" element={<ProfilePage />} />
