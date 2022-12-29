@@ -8,6 +8,7 @@ import { filterByRole } from '../../../utiles/filter-by-role';
 import DeleteModel from '../../components/delete-model/DeleteModel'
 import { removeProjectMember } from "../../../app/api";
 import { BsTrash } from "react-icons/bs";
+import { isAdmin } from '../../../utiles/is-admin'
 
 export default function AdminsTab() {
 
@@ -43,10 +44,13 @@ export default function AdminsTab() {
             }
             <div className="heading">
                 <h2>Project Admins</h2>
-                {addMemberForm ?
-                    <button onClick={() => setAddMemberForm(false)} className='back-button'><BiArrowBack /></button>
-                    :
-                    <button onClick={() => setAddMemberForm(true)} className='main-button'>Invite</button>
+                {isAdmin(queryClient, projectId) &&
+                    (
+                        addMemberForm ?
+                            <button onClick={() => setAddMemberForm(false)} className='back-button'><BiArrowBack /></button>
+                            :
+                            <button onClick={() => setAddMemberForm(true)} className='main-button'>Invite</button>
+                    )
                 }
             </div>
             {addMemberForm ?

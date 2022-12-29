@@ -13,6 +13,7 @@ import { addToTeam } from '../../../app/api'
 import ProjectTeam from './ProjectTeam';
 import DeleteModel from '../../components/delete-model/DeleteModel'
 import { removeProjectTeam } from '../../../app/api'
+import { isAdmin } from '../../../utiles/is-admin';
 
 export default function TeamsList() {
 
@@ -29,7 +30,7 @@ export default function TeamsList() {
 
     const showtargetTeam = (id) => setTargetTeam(id)
 
-    const { isLoading:isDeleting, mutate:mutateRemoveTeam } = useMutation(removeProjectTeam)
+    const { isLoading: isDeleting, mutate: mutateRemoveTeam } = useMutation(removeProjectTeam)
     const removeTeamHandler = () => {
         mutateRemoveTeam({ projectId, teamId: teamToDelete }, {
             onSuccess: res => {
@@ -66,7 +67,9 @@ export default function TeamsList() {
                                 teamName={team.team_name}
                             >
                                 <div className="functionalities">
-                                    <button onClick={() => openModel(team.team_id)}><BsTrash /></button>
+                                    {isAdmin(queryClient, projectId) &&
+                                        <button onClick={() => openModel(team.team_id)}><BsTrash /></button>
+                                    }
                                     <button onClick={() => showtargetTeam(team.team_id)}><HiOutlineUserGroup /></button>
                                 </div>
                             </ProjectTeam>
@@ -78,10 +81,13 @@ export default function TeamsList() {
                         <div className="heading">
                             <h2>{addMemberToTeam ? 'Add Member' : 'Team Members'}</h2>
 
-                            {addMemberToTeam ?
-                                <button onClick={() => setAddMemberToTeam(false)} className='back-button'><BiArrowBack /></button>
-                                :
-                                <button onClick={() => setAddMemberToTeam(true)} className='main-button'>Add Member</button>
+                            {isAdmin(queryClient, projectId) &&
+                                (
+                                    addMemberToTeam ?
+                                        <button onClick={() => setAddMemberToTeam(false)} className='back-button'><BiArrowBack /></button>
+                                        :
+                                        <button onClick={() => setAddMemberToTeam(true)} className='main-button'>Add Member</button>
+                                )
                             }
 
                         </div>

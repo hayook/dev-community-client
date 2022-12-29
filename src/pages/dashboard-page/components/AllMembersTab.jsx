@@ -7,6 +7,7 @@ import ProjectMember from "./ProjectMember";
 import { BsTrash } from "react-icons/bs";
 import { removeProjectMember } from "../../../app/api";
 import DeleteModel from '../../components/delete-model/DeleteModel'
+import { isAdmin } from '../../../utiles/is-admin'
 
 export default function AllMembersTab() {
 
@@ -43,10 +44,11 @@ export default function AllMembersTab() {
             }
             <div className="heading">
                 <h2>All Members</h2>
-                {addMemberForm ?
+                {isAdmin(queryClient, projectId) &&
+                (addMemberForm ?
                     <button onClick={() => setAddMemberForm(false)} className='back-button'><BiArrowBack /></button>
                     :
-                    <button onClick={() => setAddMemberForm(true)} className='main-button'>Invite</button>
+                    <button onClick={() => setAddMemberForm(true)} className='main-button'>Invite</button>)
                 }
             </div>
             {addMemberForm ?

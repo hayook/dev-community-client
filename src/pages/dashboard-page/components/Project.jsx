@@ -7,16 +7,18 @@ import Spinner from '../../components/spinner/Spinner'
 import useProject from '../../../hooks/useProject'
 import ProfileImg from '../../components/profile-img/ProfileImg'
 import DeletePostModel from '../../components/delete-model/DeleteModel';
-import { QueryClient, useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { removeProject } from '../../../app/api';
+import { isAdmin } from '../../../utiles/is-admin'
 
 
 export default function Project({ id }) {
 
     const navigate = useNavigate()
 
-    const { id:projectId } = useParams()
+    const { id: projectId } = useParams()
     const { isLoading, data: response, error } = useProject(id);
+    const queryClient = useQueryClient()
 
     const [currentTab, setCurrentTab] = useState('members')
     const [deleteProjectModel, setDeleteProjectModel] = useState(false)
@@ -24,7 +26,7 @@ export default function Project({ id }) {
     const openModel = () => setDeleteProjectModel(true)
     const closeModel = () => setDeleteProjectModel(false)
 
-    const { isLoading:isDeleting, mutate } = useMutation(removeProject)
+    const { isLoading: isDeleting, mutate } = useMutation(removeProject)
     const removeProjectHandler = () => {
         mutate({ projectId }, {
             onSuccess: res => {
@@ -43,24 +45,26 @@ export default function Project({ id }) {
     if (isLoading) return <Spinner dim='30px' />
     if (response.ok && 'data' in response) return (
         <>
-            {deleteProjectModel && 
+            {deleteProjectModel &&
                 <DeletePostModel
-                modelHeading='Delete Project'
-                type='project'
-                cancelDelete={closeModel}
-                submitDelete={removeProjectHandler}
-                isDeleting={isDeleting}
+                    modelHeading='Delete Project'
+                    type='project'
+                    cancelDelete={closeModel}
+                    submitDelete={removeProjectHandler}
+                    isDeleting={isDeleting}
                 />
             }
             <div className="heading">
                 <div className="project-title">
                     <ProfileImg />
-                    <h2>{ response.data.project_name }</h2>
+                    <h2>{response.data.project_name}</h2>
                     <span>user#{response.data.project_owner_id}</span>
-                    <div className="settings">
-                        <Link to={`/projects/${projectId}/edit`}>Edit Project</Link>
-                        <button onClick={openModel}>Delete Project</button>
-                    </div>
+                    {isAdmin(queryClient, projectId) &&
+                        <div className="settings">
+                            <Link to={`/projects/${projectId}/edit`}>Edit Project</Link>
+                            <button onClick={openModel}>Delete Project</button>
+                        </div>
+                    }
                 </div>
                 <div className="project-nav-tabs">
                     <ul className="tabs">
@@ -81,6 +85,6 @@ export default function Project({ id }) {
             </div>
         </>
     )
-    if (!response.ok) return <h1>{ response.status }</h1>
-    return <h1>Error { error?.message }</h1>
+    if (!response.ok) return <h1>{response.status}</h1>
+    return <h1>Error {error?.message}</h1>
 }

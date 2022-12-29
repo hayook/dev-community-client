@@ -5,6 +5,7 @@ import { BiArrowBack } from 'react-icons/bi'
 import Spinner from '../../components/spinner/Spinner';
 import { useParams } from 'react-router-dom';
 import { createTeam } from '../../../app/api'
+import { isAdmin } from '../../../utiles/is-admin'
 
 
 export default function TeamsTab() {
@@ -14,7 +15,7 @@ export default function TeamsTab() {
     const [createTeamForm, setCreateTeamForm] = useState(false);
 
     const queryClient = useQueryClient()
-    const { isLoading:isCreating, mutate } = useMutation(createTeam)
+    const { isLoading: isCreating, mutate } = useMutation(createTeam)
     const nadleSubmit = e => {
         e.preventDefault();
         const team = { team_name: teamInfo.teamName }
@@ -32,21 +33,24 @@ export default function TeamsTab() {
         <>
             <div className="heading">
                 <h2>Project Teams</h2>
-                {createTeamForm ?
-                    <button onClick={() => setCreateTeamForm(false)} className='back-button'><BiArrowBack /></button>
-                    :
-                    <button onClick={() => setCreateTeamForm(true)} className='main-button'>Create Team</button>
+                {isAdmin(queryClient, projectId) &&
+                    (
+                        createTeamForm ?
+                            <button onClick={() => setCreateTeamForm(false)} className='back-button'><BiArrowBack /></button>
+                            :
+                            <button onClick={() => setCreateTeamForm(true)} className='main-button'>Create Team</button>
+                    )
                 }
             </div>
             {createTeamForm ?
                 <form onSubmit={nadleSubmit} className="create-team-form">
                     <label>Team Name</label>
                     <input onChange={({ target }) => setTeamInfo(prev => ({ ...prev, teamName: target.value }))} type="text" className="main-input" value={teamInfo.teamName} />
-                    <button className='main-button' disabled={isCreating}>{ isCreating ? <Spinner /> : 'Submit' }</button>
+                    <button className='main-button' disabled={isCreating}>{isCreating ? <Spinner /> : 'Submit'}</button>
                 </form>
                 :
                 <TeamsList />
-                
+
             }
         </>
     )
