@@ -1,12 +1,12 @@
 import { useQuery } from "react-query";
-import { useGlobalState } from '../app/GlobalStateProvider'
+import useCurrentUserData from './useCurrentUserData'
 import { api } from '../app/api'
 
 const getInvites = () => api.get('/user/invites/');
 
 export default function useInvites() {
 
-    const { user_id:userId } = useGlobalState().state.user;
+    const { currentUserId } = useCurrentUserData()
 
-    return useQuery([`get-user-${userId}-invites`], getInvites)
+    return useQuery([`get-user-${currentUserId}-invites`], getInvites)
 }

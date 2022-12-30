@@ -7,7 +7,7 @@ import useCurrentUserData from '../../../hooks/useCurrentUserData'
 
 export default function SharePostSection() {
 
-    const { img_url:profileImg } = useCurrentUserData()
+    const { currentUserProfileImg } = useCurrentUserData()
 
     const [postBody, setPostBody] = useState('');
     const [showFunctionalities, setShowFunctionalities] = useState(false);
@@ -29,7 +29,7 @@ export default function SharePostSection() {
 
     return (
             <section className="share-post">
-                <ProfileImg url={profileImg} />
+                <ProfileImg url={currentUserProfileImg} />
                 <textarea
                 value={postBody}
                 onChange={handleSharePostTextarea}

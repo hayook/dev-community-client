@@ -4,17 +4,17 @@ import { likeComment } from '../../../app/api'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import { icons } from '../../../assets/icons/icons'
 import SvgIcon from '../../../assets/icons/SvgIcon'
-import { useGlobalState } from '../../../app/GlobalStateProvider';
 import FuncsModel from './FuncsModel';
 import { usePostContext } from './Post';
 import DeleteCommentModel from './DeleteCommentModel';
 import EditCommentModel from './EditCommentModel';
 import ProfileImg from '../../components/profile-img/ProfileImg'
+import useCurrentUserData from '../../../hooks/useCurrentUserData';
 
 export default function Comment({ commentOwnerId, commentId, commentBody, liked, commentOwnerUsername, commentDate, nbrLikes }) {
 
     const { postId } = usePostContext()
-    const { state } = useGlobalState()
+    const { currentUserId } = useCurrentUserData()
     const funcsButtonRef = useRef()
     const [funcs, setFuncs] = useState(false);
     const [deleteCommentModel, setDeleteCommentModel] = useState(false);
@@ -57,7 +57,7 @@ export default function Comment({ commentOwnerId, commentId, commentBody, liked,
                     <SvgIcon path={icons.like} fill={likedComment && 'white'} />
                     <span>{commentNbrLikes}</span>
                 </button>
-                {state.user.user_id === commentOwnerId &&
+                {currentUserId === commentOwnerId &&
                     <button ref={funcsButtonRef} onClick={openFuncs} className="post-funcs" style={{ display: funcs && 'block' }}>
                         <BsThreeDotsVertical />
                     </button>

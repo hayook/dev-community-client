@@ -9,10 +9,10 @@ import { splitDate } from '../../../utiles/split-date'
 import Code from '../../components/code/Code'
 import SvgIcon from '../../../assets/icons/SvgIcon'
 import { icons } from '../../../assets/icons/icons'
-import { useGlobalState } from '../../../app/GlobalStateProvider'
 import { likePost, commentOnPost, deletePost } from "../../../app/api"
 import Answers from './Answers'
 import DeleteModel from '../../components/delete-model/DeleteModel';
+import useCurrentUserData from '../../../hooks/useCurrentUserData'
 
 export default function Question() {
 
@@ -31,7 +31,7 @@ export default function Question() {
     const closeDeleteModel = () => setDeleteModel(false)
     const openDeleteModel = () => setDeleteModel(true)
 
-    const { user_id: currentUserId } = useGlobalState().state.user;
+    const { currentUserId } = useCurrentUserData()
     const { isLoading, data: response, error } = useQuestion(questionId, setQuestion)
 
     const { mutate: mutateLike } = useMutation(likePost);

@@ -5,18 +5,18 @@ import ProjectTechnologies from './components/ProjectTechnologies';
 import { editPost, sharePost } from '../../app/api'
 import Spinner from '../components/spinner/Spinner'
 import { getQuestionById } from "../../hooks/useQuestion";
-import { useGlobalState } from '../../app/GlobalStateProvider'
 import Main from '../components/main/Main';
 import NavSideBar from '../components/nav-side-bar/NavSideBar';
 import QuestionCode from './components/QuestionCode';
 import './style.css'
+import useCurrentUserData from "../../hooks/useCurrentUserData";
 
 const NewQuestionContext = createContext();
 export const useNewQuestionContext = () => useContext(NewQuestionContext);
 
 export default function ShareYourWorkForm() {
 
-    const { user_id: userId } = useGlobalState().state.user;
+    const { currentUserId } = useCurrentUserData()
 
     const { id } = useParams();
     const [postInfo, setPostInfo] = useState({
@@ -60,7 +60,7 @@ export default function ShareYourWorkForm() {
 
     }
 
-    if (id && postInfo.questionOwnerId !== userId) return <h1>Not Found</h1>
+    if (id && postInfo.questionOwnerId !== currentUserId) return <h1>Not Found</h1>
     if (isLoading) return <Spinner dim="30px" />
     if (error) return <h1>Error</h1>
     return (

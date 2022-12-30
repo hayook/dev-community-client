@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from 'react-query'; 
 import Spinner from '../../components/spinner/Spinner'
 import { authUser, requestContents } from '../../../app/api';
-import useUser from '../../../hooks/useUser'
+import useCurrentUser from '../../../hooks/useCurrentUser'
 import '../../register-page/style.css'
 
 
@@ -11,7 +11,7 @@ export default function LoginForm() {
     const [loginErr, setLoginErr] = useState('')
     const [userCredentials, setUserCredentials] = useState({ username: '', password: '' });  
 
-    const { refetch:refetchUser } = useUser()
+    const { refetch:refetchUser } = useCurrentUser()
 
     const { isLoading, mutate } = useMutation(authUser); 
 

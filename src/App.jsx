@@ -12,13 +12,13 @@ import DashboardPage from './pages/dashboard-page/DashboardPage'
 import NewProjectPage from './pages/new-project-page/NewProjectPage'
 import ProfilePage from './pages/profile-page/ProfilePage'
 import TestComp from './trash/TestComp'
-import useUser from './hooks/useUser';
+import useCurrentUser from './hooks/useCurrentUser';
 import EditProjectPage from './pages/edit-project-page/EditProjectPage'
 
 export default function App() {
 
     
-    const { isLoading, data: response, error, isRefetching } = useUser();
+    const { isLoading, data: response, error, isRefetching } = useCurrentUser();
     
     if (isLoading) return <DevCommunityLoader />
     if (!!error) return <h1>Error : {error.message}</h1>

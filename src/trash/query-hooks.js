@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import { getPosts } from './api'
+import { getPosts } from '../app/api'
 
 export function usePosts() {
     return useQuery(['get-posts'], getPosts, {

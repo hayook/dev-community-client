@@ -9,16 +9,16 @@ import DeletePostModel from './DeletePostModel'
 import EditPostModel from './EditPostModel';
 import FuncsModel from './FuncsModel'
 import { likePost } from '../../../app/api'; 
-import { useGlobalState } from '../../../app/GlobalStateProvider';
 import { subStr } from '../../../utiles/string-utiles'
 import ProfileImg from '../../components/profile-img/ProfileImg'
+import useCurrentUserData from '../../../hooks/useCurrentUserData';
 
 const PostContext = createContext();
 export const usePostContext = () => useContext(PostContext);
 
 export default function Post({ postOwnerId, profileImg, postOwnerUsername, postDate, postId, body, nbrLikes, nbrComments, liked }) {
 
-    const { state } = useGlobalState();
+    const { currentUserId } = useCurrentUserData()
 
     const [funcs, setFuncs] = useState(false);
     const [editPost, setEditPost] = useState(false);
@@ -85,7 +85,7 @@ export default function Post({ postOwnerId, profileImg, postOwnerUsername, postD
                         { fullPostContent ? body : subStr(body, 300) }
                         { !fullPostContent && <span onClick={() => setFullPostContent(true)} className='read-more'>...Read More</span>}
                         </p>
-                        {state.user.user_id === postOwnerId &&
+                        {currentUserId === postOwnerId &&
                             <button ref={funcsButtonRef} onClick={openFuncs} className="post-funcs" style={{ display: funcs && 'block' }}>
                                 <BsThreeDotsVertical />
                             </button>
