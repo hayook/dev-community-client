@@ -48,8 +48,7 @@ export default function ProfilePage() {
         const body = new FormData()
         body.append('image', uploadImgRef.current.files[0])
         mutate(body, {
-            onSuccess: res => {
-                console.log(res); 
+            onSuccess: res => { 
                 queryClient.invalidateQueries(['get-user'])
                 closeUploadModel();
             }

@@ -2,18 +2,18 @@ import { Link } from 'react-router-dom'
 import { useQueryClient, QueryCache } from 'react-query'
 import ProfileImg from '../profile-img/ProfileImg'
 import useUser from '../../../hooks/useUser'
+import useCurrentUserData from '../../../hooks/useCurrentUserData'
 import './style.css'
 
 
 export default function Header() {
 
-    const { refetch: refetchUser } = useUser()
     const queryClient = useQueryClient()
-    const { username } = queryClient.getQueryData(['get-user']).data[0];
+    const { username, img_url:profileImg } = useCurrentUserData()
 
     const logout = () => {
         localStorage.removeItem('token')
-        refetchUser()
+        queryClient.invalidateQueries(['get-user'])
         queryClient.removeQueries()
     }
 
@@ -23,7 +23,7 @@ export default function Header() {
                 <input type="text" className="main-input search" placeholder="search" />
                 <div className="user">
                     <Link to='/user/8' className="user-profile">
-                        <ProfileImg />
+                        <ProfileImg url={profileImg} />
                         <span>{username}</span>
                     </Link>
                     <button onClick={logout} className='main-button'>Logout</button>

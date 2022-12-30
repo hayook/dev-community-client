@@ -3,8 +3,11 @@ import { useMutation, useQueryClient } from 'react-query';
 import Spinner from '../../components/spinner/Spinner'
 import { sharePost } from '../../../app/api'
 import ProfileImg from '../../components/profile-img/ProfileImg'
+import useCurrentUserData from '../../../hooks/useCurrentUserData'
 
 export default function SharePostSection() {
+
+    const { img_url:profileImg } = useCurrentUserData()
 
     const [postBody, setPostBody] = useState('');
     const [showFunctionalities, setShowFunctionalities] = useState(false);
@@ -23,11 +26,10 @@ export default function SharePostSection() {
             }
         });
     }
-ProfileImg
 
     return (
             <section className="share-post">
-                <ProfileImg />
+                <ProfileImg url={profileImg} />
                 <textarea
                 value={postBody}
                 onChange={handleSharePostTextarea}

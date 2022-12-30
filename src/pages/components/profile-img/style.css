@@ -3,7 +3,7 @@
     position: relative;
     overflow: hidden;
     border-radius: 50%;
-    background: white;
+    /* background: white; */
 }
 
 .profile-img > img {

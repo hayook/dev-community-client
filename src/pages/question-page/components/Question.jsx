@@ -91,7 +91,7 @@ export default function Question() {
                 }
                 <div className="question-more-info">
                     <Link to={`/user/${question.post_owner_id}`} className="user-profile">
-                        <ProfileImg />
+                        <ProfileImg url={question.img_url} />
                         <span>{question.username}</span>
                     </Link>
                     <span className="date">{splitDate(question.post_creation_date)}</span>

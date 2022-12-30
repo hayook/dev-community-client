@@ -21,6 +21,7 @@ export default function Posts() {
                 postId={post.post_id} 
                 nbrLikes={post.post_number_likes} 
                 nbrComments={post.post_number_comments}
+                profileImg={post.img_url}
                 body={post.post_body} 
                 liked={post.liked === 'true'}
                 />

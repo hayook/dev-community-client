@@ -16,7 +16,7 @@ import ProfileImg from '../../components/profile-img/ProfileImg'
 const PostContext = createContext();
 export const usePostContext = () => useContext(PostContext);
 
-export default function Post({ postOwnerId, postOwnerUsername, postDate, postId, body, nbrLikes, nbrComments, liked }) {
+export default function Post({ postOwnerId, profileImg, postOwnerUsername, postDate, postId, body, nbrLikes, nbrComments, liked }) {
 
     const { state } = useGlobalState();
 
@@ -77,7 +77,7 @@ export default function Post({ postOwnerId, postOwnerUsername, postDate, postId,
                 {deletePost && <DeletePostModel />}
 
                 <div className="post-info">
-                    <ProfileImg />
+                    <ProfileImg url={profileImg} />
                     <div className="post-main">
                         <span>{ postOwnerUsername }</span>
                         <span className="date">{ postDate }</span>
