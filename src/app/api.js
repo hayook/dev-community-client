@@ -109,8 +109,9 @@ export const addToTeam = ({ projectId, teamId, memberId }) => api.post(`/project
 export const removeProjectMember = ({ projectId, memberId }) => api.delete(`/projects/${projectId}/members/${memberId}`)
 export const removeProjectTeam = ({ projectId, teamId }) => api.delete(`/projects/${projectId}/teams/${teamId}`)
 export const removeTeamMember = ({ projectId, teamId, memberId }) => api.delete(`/projects/${projectId}/teams/${teamId}/members/${memberId}`)
-export const removeProject = ({ projectId }) => api.delete(`/projects/${projectId}`) 
+export const removeProject = ({ projectId }) => api.delete(`/projects/${projectId}`)
 export const editProject = ({ projectId, project }) => api.put(`/projects/${projectId}`, project)
+export const cancelInvite = ({ inviteId, projectId }) => api.delete(`/projects/${projectId}/invites/${inviteId}`);
 
 
 

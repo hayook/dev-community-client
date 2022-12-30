@@ -1,6 +1,7 @@
-import ProfileImg from '../pages/components/profile-img/ProfileImg'
 
 export default function TestComp() {
+    
+    const element = <h1>Element</h1>
 
-    return <ProfileImg />
+    return element 
 }

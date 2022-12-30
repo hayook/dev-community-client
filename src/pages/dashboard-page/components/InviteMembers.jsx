@@ -4,7 +4,7 @@ import RadioButton from '../../components/radio-button/RadioButton';
 import useUsers from '../../../hooks/useUsers'
 import { useParams } from 'react-router-dom';
 import Spinner from '../../components/spinner/Spinner'
-import { useMutation } from 'react-query';
+import { QueryClient, useMutation, useQueryClient } from 'react-query';
 import { inviteMember } from '../../../app/api'
 import { BsChevronRight } from 'react-icons/bs'
 
@@ -28,13 +28,15 @@ export default function InviteMembers() {
         setTargetUser({ username, memberId });
         window.scrollTo({ top: 0, behavior: 'smooth' })
     }
-
+    
+    const queryClient = useQueryClient()
     const { isLoading: isSending, mutate } = useMutation(inviteMember)
     const handleInvite = e => {
         e.preventDefault();
         const newMember = { username: targetUser?.username };
         mutate({ projectId, newMember }, {
             onSuccess: res => {
+                queryClient.invalidateQueries([`get-project-${projectId}-recommanded-users`])
                 setTargetUser(null);
             }
         })

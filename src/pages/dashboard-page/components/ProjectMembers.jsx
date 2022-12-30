@@ -6,6 +6,7 @@ import AdminsTab from './AdminsTab'
 import TeamsTab from './TeamsTab'
 import useProjectMembers from '../../../hooks/useProjectMembers'
 import Spinner from '../../components/spinner/Spinner'
+import InvitesTab from './InvitesTab'
 
 export default function ProjectMembers() {
 
@@ -29,12 +30,14 @@ export default function ProjectMembers() {
                     <li onClick={handleTarget} target='all-members' className='active'>All Members</li>
                     <li onClick={handleTarget} target='admins'>Admins</li>
                     <li onClick={handleTarget} target='teams'>Teams</li>
+                    <li onClick={handleTarget} target='invites'>Invites</li>
                 </ul>
             </div>
             <div className="members-list-container">
             { currentTab === 'all-members' && <AllMembersTab />}
             { currentTab === 'admins' && <AdminsTab />}
             { currentTab === 'teams' && <TeamsTab />}
+            { currentTab === 'invites' && <InvitesTab />}
             </div>
         </section>
     )
