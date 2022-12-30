@@ -39,7 +39,7 @@ export default function App() {
             <Route path="/projects/:id/edit" element={<EditProjectPage />} />
             <Route path="/projects/:id" element={<DashboardPage />} />
             <Route path="/job-offers" element={<JobOffersPage />} />
-            <Route path="/user/8" element={<ProfilePage />} />
+            <Route path="/user/:id" element={<ProfilePage />} />
             <Route path="/test" element={<TestComp />} />
             <Route path="*" element={<NotFoundPage />} />
         </Routes>

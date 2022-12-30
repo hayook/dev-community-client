@@ -8,7 +8,7 @@ import './style.css'
 export default function Header() {
 
     const queryClient = useQueryClient()
-    const { currentUserUsername, currentUserProfileImg } = useCurrentUserData()
+    const { currentUserId, currentUserUsername, currentUserProfileImg } = useCurrentUserData()
 
     const logout = () => {
         localStorage.removeItem('token')
@@ -21,7 +21,7 @@ export default function Header() {
             <div className="container">
                 <input type="text" className="main-input search" placeholder="search" />
                 <div className="user">
-                    <Link to='/user/8' className="user-profile">
+                    <Link to={`/user/${currentUserId}`} className="user-profile">
                         <ProfileImg url={currentUserProfileImg} />
                         <span>{currentUserUsername}</span>
                     </Link>
