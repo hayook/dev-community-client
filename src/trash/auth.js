@@ -1,4 +1,8 @@
 
+// new authentication approach to avoid duplicate user queries
+    // will be applied only if the data is same between /userprofile and /user/{id}
+    // the state will solve the problem of errors in console
+
 const [isAuth, setIsAuth] = useState(false)
 
 if (!isAuth) {
@@ -6,10 +10,13 @@ if (!isAuth) {
     const { isLoading, data:response, error } = useAuth({ enabled: token})
     if (isAuthenticating) return <Spinner />
     if (response.status !== 200) return <Login />
-    setIsAuth({ userId: response.data.user_id })
+    if ('data' in response) {
+        setIsAuth({ userId: response.data.user_id })
+        return; // to avoid different number of hooks rendered in previous render 
+    }
 }
 
-const { isLoading, data:response, error} = useUser(isAuth?.userId)
+const { isLoading, data:response, error} = useCurrentUser()
 
 if (isLoading) return <Spinner />
 if (response.status !== 200) {

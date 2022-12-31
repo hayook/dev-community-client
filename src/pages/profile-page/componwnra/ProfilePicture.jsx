@@ -48,7 +48,7 @@ export default function ProfilePicture() {
         body.append('image', uploadImgButtonRef.current.files[0])
         mutate(body, {
             onSuccess: res => {
-                queryClient.invalidateQueries([`get-user-${userId}`])
+                queryClient.invalidateQueries([`get-user-${userId}`, 'get-user'])
                 closeUploadModel();
             }
         })
