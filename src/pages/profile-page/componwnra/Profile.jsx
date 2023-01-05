@@ -14,20 +14,25 @@ export default function Profile() {
         <>
             <section className="hero">
                 <ProfilePicture />
-                <div className="basic-info">
-                    <h2>
-                        {response.data.first_name} {response.data.last_name}
-                    </h2>
-                    <span>{response.data.username}</span>
+                <div className="main">
+                    <div className="basic-info">
+                        <div className="user-name">
+                            <h2>
+                                {response.data.first_name} {response.data.last_name}
+                            </h2>
+                            <span className="username">@{response.data.username}</span>
+                        </div>
+                        <button className='main-button'>Edit profile</button>
+                    </div>
+                    <nav>
+                        <ul className='main-ul'>
+                            <li className='active'>Posts</li>
+                            <li>Questions</li>
+                            <li>Projects</li>
+                            <li>About</li>
+                        </ul>
+                    </nav>
                 </div>
-                <nav>
-                    <ul>
-                        <li>Posts</li>
-                        <li>Questions</li>
-                        <li>Projects</li>
-                        <li>About</li>
-                    </ul>
-                </nav>
             </section>
         </>
     )

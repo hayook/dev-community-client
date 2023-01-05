@@ -10,12 +10,13 @@
 }
 
 .profile-page section.hero {
-    display: flex; 
+    display: flex;
     align-items: center;
-    gap: 2em;
+    gap: 2em; 
 }
 
 .profile-page section.hero .user-pic {
+    grid-row: span 2;
     position: relative;
     border: 5px solid var(--white);
     border-radius: 50%;
@@ -39,15 +40,28 @@
     height: 100%; 
 }
 
-.profile-page section.hero .basic-info {
-    display: flex; 
+.profile-page section.hero .main {
+    display: flex;
     flex-direction: column;
-    gap: 1em; 
+    justify-content: center;
+    gap: 2em;
 }
 
-.profile-page section.hero .basic-info nav ul {
-    display: flex; 
+.profile-page section.hero .main .basic-info {
+    display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 1em; 
+    gap: 3em;
+    
+}
+
+.profile-page section.hero .main .basic-info .user-name .username {
+    color: var(--grey-clr-100)
+}
+
+.profile-page section.hero .main .basic-info button {
+    padding-inline: 1em;
+}
+
+.profile-page section.hero .main nav {
+    width: fit-content;
 }

@@ -84,3 +84,29 @@ textarea.main-textarea.code {
     gap: .8em;
     cursor: pointer;
 }
+
+ul.main-ul {
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+}
+
+ul.main-ul li {
+    padding: .8em 1.5em;
+    cursor: pointer;
+    position: relative;
+}
+
+ul.main-ul li::before {
+    content: '';
+    height: 2px; 
+    background: var(--main-clr);
+    position: absolute; 
+    bottom: 0;
+    left: 0;
+}
+
+ul.main-ul li:hover::before,
+ul.main-ul li.active::before {
+    width: 100%; 
+}
