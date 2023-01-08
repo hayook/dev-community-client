@@ -10,11 +10,14 @@ import DeletePostModel from '../../components/delete-model/DeleteModel';
 import { useMutation, useQueryClient } from 'react-query';
 import { removeProject } from '../../../app/api';
 import { isAdmin } from '../../../utiles/is-admin'
+import { activateTab } from '../../../utiles/dom'
+import { useRef } from 'react';
 
 
 export default function Project({ id }) {
 
     const navigate = useNavigate()
+    const ulRef = useRef()
 
     const { id: projectId } = useParams()
     const { isLoading, data: response, error } = useProject(id);
@@ -38,8 +41,6 @@ export default function Project({ id }) {
 
     const handleTarget = ({ target }) => {
         setCurrentTab(target.getAttribute('target'));
-        document.querySelectorAll('ul.tabs li').forEach(item => item.classList.remove('active'));
-        target.classList.add('active');
     }
 
     if (isLoading) return <Spinner dim='30px' />
@@ -67,7 +68,7 @@ export default function Project({ id }) {
                     }
                 </div>
                 <div className="project-nav-tabs">
-                    <ul className="tabs">
+                    <ul ref={ulRef} className="tabs" onClick={e => activateTab(ulRef, e)} >
                         <li onClick={handleTarget} target='tasks'>Tasks</li>
                         <li onClick={handleTarget} target='members' className='active'>Members</li>
                         <li onClick={handleTarget} target='chat'>Chat</li>

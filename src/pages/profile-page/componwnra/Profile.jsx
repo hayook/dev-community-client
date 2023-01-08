@@ -2,9 +2,12 @@ import ProfilePicture from './ProfilePicture'
 import useUser from '../../../hooks/useUser'
 import { useParams } from 'react-router-dom'
 import Spinner from '../../components/spinner/Spinner'
+import { useRef } from 'react'
+import { activateTab } from '../../../utiles/dom'
 
 export default function Profile() {
 
+    const ulRef = useRef()
     const { id: userId } = useParams()
 
     const { isLoading, data: response, error } = useUser(userId)
@@ -25,7 +28,7 @@ export default function Profile() {
                         <button className='main-button'>Edit profile</button>
                     </div>
                     <nav>
-                        <ul className='main-ul'>
+                        <ul ref={ulRef} onClick={(e) => activateTab(ulRef, e)} className='main-ul'>
                             <li className='active'>Posts</li>
                             <li>Questions</li>
                             <li>Projects</li>
