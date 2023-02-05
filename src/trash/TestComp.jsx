@@ -1,7 +1,10 @@
 
 export default function TestComp() {
-    
-    const element = <h1>Element</h1>
 
-    return element 
+    const element = ''
+    return (
+        <>
+          <div dangerouslySetInnerHTML={{__html: element}}></div>      
+        </>
+    )
 }

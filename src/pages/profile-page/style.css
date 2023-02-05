@@ -3,12 +3,6 @@
     grid-column: span 2;
 }
 
-.profile-page .model .model-container {
-    display: flex;
-    align-items: center;
-    justify-content: center; 
-}
-
 .profile-page section.hero {
     display: flex;
     align-items: center;
@@ -58,10 +52,14 @@
     color: var(--grey-clr-100)
 }
 
-.profile-page section.hero .main .basic-info button {
+.profile-page section.hero .main .basic-info a.main-button {
     padding-inline: 1em;
 }
 
 .profile-page section.hero .main nav {
     width: fit-content;
+}
+
+.profile-page section.profile-content {
+    margin: 2em 0;
 }

@@ -1,12 +1,15 @@
-import ProfilePicture from './ProfilePicture'
+import { useState } from 'react'
 import useUser from '../../../hooks/useUser'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import Spinner from '../../components/spinner/Spinner'
 import { useRef } from 'react'
 import { activateTab } from '../../../utiles/dom'
+import UserPosts  from './UserPosts'
+import ProfileImg from '../../components/profile-img/ProfileImg'
 
 export default function Profile() {
 
+    const [targetContent, setTargetContent] = useState('posts')
     const ulRef = useRef()
     const { id: userId } = useParams()
 
@@ -16,7 +19,12 @@ export default function Profile() {
     if (response?.ok && 'data' in response) return (
         <>
             <section className="hero">
-                <ProfilePicture />
+                <div className="user-pic">
+                    <ProfileImg 
+                        dim='150px'
+                        url={response.data.img_url}
+                    />
+                </div>
                 <div className="main">
                     <div className="basic-info">
                         <div className="user-name">
@@ -25,17 +33,23 @@ export default function Profile() {
                             </h2>
                             <span className="username">@{response.data.username}</span>
                         </div>
-                        <button className='main-button'>Edit profile</button>
+                        <Link to={`/user/${userId}/edit`} className='main-button'>Edit Profile</Link>
                     </div>
                     <nav>
-                        <ul ref={ulRef} onClick={(e) => activateTab(ulRef, e)} className='main-ul'>
-                            <li className='active'>Posts</li>
-                            <li>Questions</li>
-                            <li>Projects</li>
-                            <li>About</li>
+                        <ul ref={ulRef} onClick={(e) => activateTab(ulRef, e, setTargetContent)} className='main-ul'>
+                            <li className='active' target="posts">Posts</li>
+                            <li target="questions">Questions</li>
+                            <li target="projects">Projects</li>
+                            <li target="about">About</li>
                         </ul>
                     </nav>
                 </div>
+            </section>
+            <section className='profile-content'>
+                { targetContent === 'posts' && <UserPosts />}
+                { targetContent === 'questions' && <p>questions</p>}
+                { targetContent === 'projects' && <p>projects</p>}
+                { targetContent === 'about' && <p>about</p>}
             </section>
         </>
     )

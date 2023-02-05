@@ -2,7 +2,7 @@ import { useState, useRef } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { RiImageAddFill } from 'react-icons/ri'
 import ProfileImg from '../../components/profile-img/ProfileImg'
-import UploadImageModel from './UploadImageModel'
+import UploadImageModel from '../../edit-profile-page/components/UploadImageModel'
 import { useParams } from 'react-router-dom'
 
 const uploadImage = async (body) => {
@@ -48,7 +48,7 @@ export default function ProfilePicture() {
         body.append('image', uploadImgButtonRef.current.files[0])
         mutate(body, {
             onSuccess: res => {
-                queryClient.invalidateQueries([`get-user-${userId}`, 'get-user'])
+                queryClient.invalidateQueries([`get-user-${userId}`])
                 closeUploadModel();
             }
         })

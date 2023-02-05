@@ -98,6 +98,8 @@ export const editPost = ({ newPost, postId }) => api.put(`/posts/${postId}`, new
 export const editComment = ({ newBody, postId, commentId }) => api.put(`/posts/${postId}/comments/${commentId}`, { comment_body: newBody });
 export const deleteComment = ({ commentId, postId }) => api.delete(`/posts/${postId}/likecomment/${commentId}`);
 export const deletePost = async (postId) => api.delete(`/posts/${postId}`);
+export const getUserPosts = async () => api.get('/userprofile/posts');
+
 
 // Projects
 export const createProject = (projectInfo) => api.post('/projects', projectInfo)

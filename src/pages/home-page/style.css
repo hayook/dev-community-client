@@ -190,6 +190,7 @@ section.main section.timeline section.posts .post .post-info .post-main p.post-c
     white-space: pre-wrap;
     word-break: break-all;
     width: 100%; 
+    
 }
 
 section.main section.timeline section.posts .post .post-info .post-main p.post-content span.read-more {

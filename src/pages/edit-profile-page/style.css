@@ -1,0 +1,63 @@
+section.edit-profile-page {
+    padding: 55px 0;
+    grid-column: span 2;
+}
+
+section.edit-profile-page .model .model-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+
+.edit-profile-page form.edit-profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+    width: 60%;
+    margin-inline: auto;
+}
+
+.edit-profile-page form.edit-profile-form > div {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    justify-content: flex-start;
+    gap: 1em;
+}
+
+.edit-profile-page form.edit-profile-form .edit-profile-image {
+    width: fit-content;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 0 .7em;
+}
+
+.edit-profile-page form.edit-profile-form .edit-profile-image .profile-img {
+    grid-row: span 2;
+}
+
+.edit-profile-page form.edit-profile-form .edit-profile-image button {
+    background: none; 
+    color: #bbb;
+    transition: var(--fast-transition);
+}
+
+.edit-profile-page form.edit-profile-form .edit-profile-image button:hover {
+    color: var(--white);
+    text-decoration: underline;
+}
+
+
+.edit-profile-page form.edit-profile-form > div input.main-input {
+    width: 100%; 
+}
+
+.edit-profile-page form.edit-profile-form > div textarea.main-textarea {
+    resize: none;
+    min-width: 100%;
+    max-width: 100%;
+}
+
+.edit-profile-page form.edit-profile-form button {
+    align-self: flex-end;
+}
+

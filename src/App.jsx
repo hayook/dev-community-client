@@ -8,12 +8,17 @@ import QuestionPage from './pages/question-page/QuestionPage';
 import NotFoundPage from './pages/not-found-page/NotFoundPage'
 import DevCommunityLoader from './pages/components/dev-community-loader/DevCommunityLoader'
 import JobOffersPage from './pages/job-offers-page/JobOffersPage'
-import DashboardPage from './pages/dashboard-page/DashboardPage'
+// import DashboardPage from './pages/dashboard-page/DashboardPage'
 import NewProjectPage from './pages/new-project-page/NewProjectPage'
+import EditProjectPage from './pages/edit-project-page/EditProjectPage'
 import ProfilePage from './pages/profile-page/ProfilePage'
 import TestComp from './trash/TestComp'
 import useCurrentUser from './hooks/useCurrentUser';
-import EditProjectPage from './pages/edit-project-page/EditProjectPage'
+import { lazy, Suspense } from 'react';
+import DashboardPage from './pages/dashboard-page/DashboardPage'
+import EditProfilePage from './pages/edit-profile-page/EditProfilePage'
+
+// const DashboardPage = lazy(() => import('./pages/dashboard-page/DashboardPage'))
 
 export default function App() {
 
@@ -40,6 +45,7 @@ export default function App() {
             <Route path="/projects/:id" element={<DashboardPage />} />
             <Route path="/job-offers" element={<JobOffersPage />} />
             <Route path="/user/:id" element={<ProfilePage />} />
+            <Route path="/user/:id/edit" element={<EditProfilePage />} />
             <Route path="/test" element={<TestComp />} />
             <Route path="*" element={<NotFoundPage />} />
         </Routes>
