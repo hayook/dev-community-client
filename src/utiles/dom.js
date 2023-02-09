@@ -6,3 +6,8 @@ export function activateTab(ulRef, e, setTarget) {
     e.target.classList.add('active')
     setTarget(e.target.getAttribute('target'))
 }
+
+export function adjustInputHeight(element, initialHeight) {
+    element.style.height = initialHeight;
+    element.style.height = `${element.scrollHeight + 2}px`;
+}

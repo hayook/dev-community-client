@@ -4,6 +4,7 @@ import Spinner from '../../components/spinner/Spinner'
 import { sharePost } from '../../../app/api'
 import ProfileImg from '../../components/profile-img/ProfileImg'
 import useCurrentUserData from '../../../hooks/useCurrentUserData'
+import { adjustInputHeight } from '../../../utiles/dom';
 
 export default function SharePostSection() {
 
@@ -12,7 +13,10 @@ export default function SharePostSection() {
     const [postBody, setPostBody] = useState('');
     const [showFunctionalities, setShowFunctionalities] = useState(false);
 
-    const handleSharePostTextarea = ({ target }) => setPostBody(target.value);
+    const handleSharePostTextarea = ({ target }) => {
+        setPostBody(target.value);
+        adjustInputHeight(target, '100px')
+    }
 
     const queryClient = useQueryClient()
     const { mutate, isLoading:isPosting } = useMutation(sharePost); 
@@ -36,6 +40,7 @@ export default function SharePostSection() {
                 onFocus={() => setShowFunctionalities(true)}
                 className="main-textarea"
                 placeholder="Write Something"
+                style={{ height: '100px' }}
             ></textarea>
 
                 {showFunctionalities &&

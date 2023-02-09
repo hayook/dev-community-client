@@ -7,6 +7,7 @@ import { usePostContext } from './Post'
 import { commentOnPost } from '../../../app/api';
 import { handleDate } from '../../../utiles/handle-date.js';
 import usePostComments from '../../../hooks/usePostComments';
+import { adjustInputHeight } from '../../../utiles/dom.js'
 
 function CommentsSet() {
 
@@ -60,6 +61,11 @@ export default function PostComments() {
         });
     }
 
+    const handleInputChange = ({ target }) => {
+        setComment(target.value);
+        adjustInputHeight(target, '44px')
+    }
+
     return (
         <div className="post-comments">
             <h3>Comments</h3>
@@ -72,7 +78,7 @@ export default function PostComments() {
                     rows={1}
                     placeholder='Write A Comment'
                     value={comment}
-                    onChange={({ target }) => setComment(target.value)}
+                    onChange={handleInputChange}
                 ></textarea>
                 <button className="submit-comment">{isLoading ? <Spinner /> : <BiSend /> }</button>
             </form>
