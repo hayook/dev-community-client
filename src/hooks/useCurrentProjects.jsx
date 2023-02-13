@@ -1,12 +1,13 @@
 import { useQuery } from "react-query";
 import useCurrentUserData from './useCurrentUserData'
-import { api } from '../app/api'
+import { getUserProjects } from '../app/api'
 
-const getCurrentProjects = () => api.get('/user/projects/'); 
 
 export default function useCurrentProjects() {
 
-    const { currentUserId } = useCurrentUserData()
+    const { currentUserId: userId } = useCurrentUserData()
 
-    return useQuery([`get-user${currentUserId}-current-projects`], getCurrentProjects)
+    return useQuery([`get-user${userId}-current-projects`], () => getUserProjects(userId), {
+        onSuccess: res => console.log(res)
+    })
 }

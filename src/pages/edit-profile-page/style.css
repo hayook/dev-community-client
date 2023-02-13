@@ -57,7 +57,10 @@ section.edit-profile-page .model .model-container {
     max-width: 100%;
 }
 
-.edit-profile-page form.edit-profile-form button {
-    align-self: flex-end;
+.edit-profile-page form.edit-profile-form .functionalities {
+    display: flex; 
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1em; 
 }
 

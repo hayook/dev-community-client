@@ -1,14 +1,47 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useMutation, useQueryClient } from "react-query";
 import Main from "../components/main/Main";
 import NavSideBar from "../components/nav-side-bar/NavSideBar"
 import ProfileImg from "../components/profile-img/ProfileImg";
 import UploadImageModel from './components/UploadImageModel'
+import { uploadImage, updateUserInfo } from '../../app/api'
+import useUser from '../../hooks/useUser';
 import './style.css'
 
 export default function EditProfilePage() {
 
+    const { id: userId } = useParams()
+
     const imageRef = useRef(null)
-    const previewImg = useRef(null)
+
+    const [newUserInfo, setNewUserInfo] = useState({
+        firstname: '',
+        lastname: '',
+        username: '',
+        email: '',
+        about: '',
+        password: '',
+        newPassword: '',
+        confirmPassword: '',
+    })
+
+    const { isLoading, data: response, error } = useUser(userId)
+    useEffect(() => {
+        if (!!response) setNewUserInfo(prev => {
+            return ({
+                firstname: response.data.first_name,
+                lastname: response.data.last_name,
+                username: response.data.username,
+                email: response.data.email,
+                about: response.data.about,
+                password: '',
+                newPassword: '',
+                confirmPassword: '',
+            })
+        })
+    }, [response])
+    // console.log({ isLoading: isLoading, isRefetching: isRefetching, data: response })
 
     const [imageUploaded, setImageUploaded] = useState(null)
     const closeUploadModel = () => {
@@ -28,6 +61,37 @@ export default function EditProfilePage() {
         setImageUploaded(imageUrl)
     }
 
+    const queryClient = useQueryClient()
+    const { mutate, isLoading: isUploading } = useMutation(uploadImage)
+    const uploadImageHandler = () => {
+        const body = new FormData()
+        body.append('image', imageRef.current.files[0])
+        mutate(body, {
+            onSuccess: res => {
+                queryClient.invalidateQueries([`get-user-${userId}`])
+                closeUploadModel()
+            }
+        })
+    }
+
+    const { mutate: mutateEditInfo, isLoading: isEditting } = useMutation(updateUserInfo)
+    const submitEdit = e => {
+        e.preventDefault()
+        const user = {
+            first_name: newUserInfo.firstname,
+            last_name: newUserInfo.lastname,
+            username: newUserInfo.username,
+            email: newUserInfo.email,
+            about: newUserInfo.about,
+            password: newUserInfo.password,
+            new_password: newUserInfo.newPassword,
+        }
+        mutateEditInfo(user, {
+            onSuccess: res => console.log('done')
+        })
+    }
+
+    if (isLoading) return <h1>Loading...</h1>
     return (
         <Main>
             <NavSideBar />
@@ -35,10 +99,12 @@ export default function EditProfilePage() {
                 {!!imageUploaded &&
                     <UploadImageModel
                         imgUrl={imageUploaded}
+                        submitUpload={uploadImageHandler}
                         cancelUpload={closeUploadModel}
+                        isUploading={isUploading}
                     />
                 }
-                <form className="edit-profile-form">
+                <form onSubmit={submitEdit} className="edit-profile-form">
                     <h1>Profile Image</h1>
                     <div className="edit-profile-image">
                         <ProfileImg />
@@ -49,26 +115,31 @@ export default function EditProfilePage() {
 
                     <h1>Basic Info</h1>
                     <div className="edit-basic-info">
-                        <label>Name</label>
-                        <input type="text" className="main-input" />
+                        <label>Firstname</label>
+                        <input type="text" className="main-input" value={newUserInfo.firstname} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, firstname: target.value })} />
+                        <label>Lastname</label>
+                        <input type="text" className="main-input" value={newUserInfo.lastname} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, lastname: target.value })} />
                         <label>Username</label>
-                        <input type="text" className="main-input" />
+                        <input type="text" className="main-input" value={newUserInfo.username} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, username: target.value })} />
                         <label>Email</label>
-                        <input type="email" className="main-input" />
+                        <input type="email" className="main-input" value={newUserInfo.email} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, email: target.value })} />
                         <label>About</label>
-                        <textarea rows={5} className="main-textarea" />
+                        <textarea rows={5} className="main-textarea" value={newUserInfo.about} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, about: target.value })} />
                     </div>
                     <h1>Password</h1>
                     <div className="edit-password">
                         <label>Your Password</label>
-                        <input type="password" className="main-input" />
+                        <input type="password" className="main-input" value={newUserInfo.password} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, password: target.value })} />
                         <label>New Password</label>
-                        <input type="password" className="main-input" />
+                        <input type="password" className="main-input" value={newUserInfo.newPassword} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, newPassword: target.value })} />
                         <label>Confirm Password</label>
-                        <input type="password" className="main-input" />
+                        <input type="password" className="main-input" value={newUserInfo.confirmPassword} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, confirmPassword: target.value })} />
                     </div>
 
-                    <button className="main-button">Save</button>
+                    <div className="functionalities">
+                        <button type='button' className="main-button">Cancel</button>
+                        <button className="main-button">Save</button>
+                    </div>
                 </form>
             </section>
         </Main>

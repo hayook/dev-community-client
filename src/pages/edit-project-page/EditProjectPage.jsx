@@ -16,8 +16,6 @@ export default function NewProjectPage() {
 
     const { isLoading: isFetching, data: response, error } = useProject(projectId)
 
-    const queryClient = useQueryClient();
-
     const [projectInfo, setProjectInfo] = useState({
         projectTitle: response?.project_name,
         projectDescription: response?.project_description,

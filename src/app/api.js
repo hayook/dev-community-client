@@ -89,6 +89,8 @@ export const authUser = async ({ endpoint, body, content }) => {
     }
 }
 
+export const updateUserInfo = async (body) => api.put(`/userprofile`, body);
+
 // Posts
 export const sharePost = async (body) => api.post('/posts', body);
 export const likePost = (postId) => api.post(`/postlike/${postId}`);
@@ -98,7 +100,10 @@ export const editPost = ({ newPost, postId }) => api.put(`/posts/${postId}`, new
 export const editComment = ({ newBody, postId, commentId }) => api.put(`/posts/${postId}/comments/${commentId}`, { comment_body: newBody });
 export const deleteComment = ({ commentId, postId }) => api.delete(`/posts/${postId}/likecomment/${commentId}`);
 export const deletePost = async (postId) => api.delete(`/posts/${postId}`);
-export const getUserPosts = async () => api.get('/userprofile/posts');
+
+export const getUserPosts = async (userId) => api.get(`/user/${userId}/posts?type=post`);
+export const getUserQuestions = async (userId) => api.get(`/user/${userId}/posts?type=question`)
+export const getUserProjects = async (userId) => api.get(`/user/${userId}/projects`)
 
 
 // Projects
@@ -117,3 +122,17 @@ export const cancelInvite = ({ inviteId, projectId }) => api.delete(`/projects/$
 
 
 
+export const uploadImage = async (body) => {
+    const response = await fetch(`http://localhost:3000/user_profile_img`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+        body,
+    })
+    try {
+        return ({ ok: response.ok, status: response.status, data: await response.json() })
+    } catch {
+        return ({ ok: response.ok, status: response.status })
+    }
+}

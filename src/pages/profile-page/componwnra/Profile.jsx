@@ -5,6 +5,8 @@ import Spinner from '../../components/spinner/Spinner'
 import { useRef } from 'react'
 import { activateTab } from '../../../utiles/dom'
 import UserPosts  from './UserPosts'
+import UserQuestions from './UserQuestions'
+import UserProjects from './UserProjects'
 import ProfileImg from '../../components/profile-img/ProfileImg'
 
 export default function Profile() {
@@ -47,8 +49,8 @@ export default function Profile() {
             </section>
             <section className='profile-content'>
                 { targetContent === 'posts' && <UserPosts />}
-                { targetContent === 'questions' && <p>questions</p>}
-                { targetContent === 'projects' && <p>projects</p>}
+                { targetContent === 'questions' && <UserQuestions />}
+                { targetContent === 'projects' && <UserProjects />}
                 { targetContent === 'about' && <p>about</p>}
             </section>
         </>
