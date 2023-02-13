@@ -6,7 +6,7 @@
 .profile-page section.hero {
     display: flex;
     align-items: center;
-    gap: 2em; 
+    gap: 2em;
 }
 
 .profile-page section.hero .user-pic {
@@ -17,21 +17,21 @@
 }
 
 .profile-page section.hero .user-pic button.upload-pic {
-    --dim: 2.5em; 
-    display: flex; 
+    --dim: 2.5em;
+    display: flex;
     align-items: center;
     justify-content: center;
     height: var(--dim);
     width: var(--dim);
-    position: absolute; 
+    position: absolute;
     bottom: 0;
     right: 0;
     transform: translate(-20%, -20%);
 }
 
 .profile-page section.hero .user-pic button.upload-pic svg {
-    width: 100%; 
-    height: 100%; 
+    width: 100%;
+    height: 100%;
 }
 
 .profile-page section.hero .main {
@@ -45,7 +45,7 @@
     display: flex;
     align-items: center;
     gap: 3em;
-    
+
 }
 
 .profile-page section.hero .main .basic-info .user-name .username {
@@ -61,5 +61,14 @@
 }
 
 .profile-page section.profile-content {
-    margin: 2em 0;
+    display: flex; 
+    justify-content: center;
+    margin: 3em 0;
+}
+
+.profile-page section.profile-content .profile-content-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    width: 60%;
 }

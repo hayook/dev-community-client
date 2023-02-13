@@ -7,7 +7,7 @@ import Spinner from '../../components/spinner/Spinner'
 
 export default function EditPostModel() {
 
-    const { closeEditPostModel, body, postId } = usePostContext();
+    const { closeEditPostModel, body, postId, postOwnerId:userId } = usePostContext();
     const [newBody, setNewBody] = useState(body)
 
     const handleCursor = ({ target }) => target.selectionStart = target.value.length
@@ -21,6 +21,7 @@ export default function EditPostModel() {
         mutate({ newPost, postId }, {
             onSuccess: () => {
                 queryClient.invalidateQueries(['get-posts'])
+                queryClient.invalidateQueries([`get-user-${userId}-posts`])
                 closeEditPostModel();
             },
             onError: (err) => console.log('error ' + err),

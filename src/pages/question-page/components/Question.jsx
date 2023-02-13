@@ -62,7 +62,7 @@ export default function Question() {
         mutateDelete(questionId, {
             onSuccess: () => {
                 closeDeleteModel();
-                navigate('/questions')
+                navigate(-1)
             },
             onError: (err) => console.log('error ' + err)
         })

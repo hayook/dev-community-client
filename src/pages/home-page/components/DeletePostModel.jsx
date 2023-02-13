@@ -6,8 +6,7 @@ import Spinner from '../../components/spinner/Spinner';
 
 export default function DeletePostModel() {
 
-    const { closeDeletePostModel, postId } = usePostContext();
-
+    const { closeDeletePostModel, postId, postOwnerId:userId } = usePostContext();
 
     const queryClient = useQueryClient(); 
     const { mutate, isLoading:isDeleting } = useMutation(deletePost)
@@ -15,6 +14,7 @@ export default function DeletePostModel() {
         mutate(postId, {
             onSuccess: () => {
                 queryClient.invalidateQueries('get-posts');
+                queryClient.invalidateQueries([`get-user-${userId}-posts`])
                 closeDeletePostModel();
             },
             onError: (err) => console.log('error ' + err)

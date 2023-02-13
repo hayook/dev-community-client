@@ -28,11 +28,10 @@ section.main section.working-rooms .main-button {
 section.main section.working-rooms .projects-list {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     gap: 1.3em;
 }
 
-section.main section.working-rooms .projects-list .working-rooms-project {
+a.working-rooms-project {
     display: grid;
     grid-template-columns: auto 1fr;
     grid-gap: .6em .7em;
@@ -43,33 +42,33 @@ section.main section.working-rooms .projects-list .working-rooms-project {
     background: var(--grey-clr-300)
 }
 
-section.main section.working-rooms .projects-list a.working-rooms-project:hover {
+a.working-rooms-project:hover {
     filter: brightness(1.3)
 }
 
-section.main section.working-rooms .projects-list a.working-rooms-project .profile-img {
+a.working-rooms-project .profile-img {
     width: 2.3em;
     height: 2.3em;
     grid-row: span 2;
 }
 
-section.main section.working-rooms .projects-list .working-rooms-project h4 {
+.working-rooms-project h4 {
     font-weight: 400;
 }
 
-section.main section.working-rooms .projects-list a.working-rooms-project .progress {
+a.working-rooms-project .progress {
     display: flex;
     align-items: center;
     gap: .4em;
 }
 
-section.main section.working-rooms .projects-list a.working-rooms-project .progress .progress-container {
+a.working-rooms-project .progress .progress-container {
     height: 1.3em;
     width: 100%;
     border: 1px solid var(--blue-clr-100);
 }
 
-section.main section.working-rooms .projects-list a.working-rooms-project .progress .progress-container span {
+a.working-rooms-project .progress .progress-container span {
     display: block;
     height: 100%;
     background: var(--blue-clr-100);

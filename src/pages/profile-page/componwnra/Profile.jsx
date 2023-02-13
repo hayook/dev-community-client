@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 import Spinner from '../../components/spinner/Spinner'
 import { useRef } from 'react'
 import { activateTab } from '../../../utiles/dom'
-import UserPosts  from './UserPosts'
+import UserPosts from './UserPosts'
 import UserQuestions from './UserQuestions'
 import UserProjects from './UserProjects'
 import ProfileImg from '../../components/profile-img/ProfileImg'
@@ -22,7 +22,7 @@ export default function Profile() {
         <>
             <section className="hero">
                 <div className="user-pic">
-                    <ProfileImg 
+                    <ProfileImg
                         dim='150px'
                         url={response.data.img_url}
                     />
@@ -48,10 +48,12 @@ export default function Profile() {
                 </div>
             </section>
             <section className='profile-content'>
-                { targetContent === 'posts' && <UserPosts />}
-                { targetContent === 'questions' && <UserQuestions />}
-                { targetContent === 'projects' && <UserProjects />}
-                { targetContent === 'about' && <p>about</p>}
+                <div className="profile-content-container">
+                    {targetContent === 'posts' && <UserPosts />}
+                    {targetContent === 'questions' && <UserQuestions />}
+                    {targetContent === 'projects' && <UserProjects />}
+                    {targetContent === 'about' && <p>{ response.data.about }</p>}
+                </div>
             </section>
         </>
     )

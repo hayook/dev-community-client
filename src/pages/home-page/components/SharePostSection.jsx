@@ -45,7 +45,7 @@ export default function SharePostSection() {
 
                 {showFunctionalities &&
                     <div className="functionalities">
-                        <button onClick={handleSharePost} className="post main-button" disabled={isPosting}>{isPosting ? <Spinner /> : 'Post'}</button>
+                        <button onClick={handleSharePost} className="main-button" disabled={isPosting}>{isPosting ? <Spinner /> : 'Post'}</button>
                     </div>
                 }
             </section>

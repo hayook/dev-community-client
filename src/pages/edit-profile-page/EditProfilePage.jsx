@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
 import Main from "../components/main/Main";
 import NavSideBar from "../components/nav-side-bar/NavSideBar"
@@ -12,6 +12,7 @@ import './style.css'
 export default function EditProfilePage() {
 
     const { id: userId } = useParams()
+    const navigate = useNavigate()
 
     const imageRef = useRef(null)
 
@@ -137,8 +138,8 @@ export default function EditProfilePage() {
                     </div>
 
                     <div className="functionalities">
-                        <button type='button' className="main-button">Cancel</button>
-                        <button className="main-button">Save</button>
+                        <Link to={`/user/${userId}`} className="main-button">Cancel</Link>
+                        <button className={`main-button ${isEditting ? 'disabled' : ''}`} disabled={isEditting}>Save</button>
                     </div>
                 </form>
             </section>

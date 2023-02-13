@@ -7,7 +7,5 @@ export default function useCurrentProjects() {
 
     const { currentUserId: userId } = useCurrentUserData()
 
-    return useQuery([`get-user${userId}-current-projects`], () => getUserProjects(userId), {
-        onSuccess: res => console.log(res)
-    })
+    return useQuery([`get-user${userId}-current-projects`], () => getUserProjects(userId))
 }

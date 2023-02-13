@@ -6,6 +6,11 @@
     transition: var(--fast-transition); 
 }
 
+.main-button.disabled {
+    filter: brightness(0.8);
+    cursor:no-drop;
+}
+
 .secondary-button {
     padding: .6em 3em;
     color: var(--white); 
@@ -13,7 +18,7 @@
     border: 1px solid var(--blue-clr-100);
 }
 
-.main-button:hover {
+.main-button:not(.main-button.disabled):hover {
     filter: brightness(1.2); 
 }
 
