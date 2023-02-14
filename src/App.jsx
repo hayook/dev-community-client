@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import LoginPage from './pages/login-page/LoginPage';
 import RegisterPage from './pages/register-page/RegisterPage';
 import HomePage from './pages/home-page/HomePage'
@@ -14,7 +14,7 @@ import EditProjectPage from './pages/edit-project-page/EditProjectPage'
 import ProfilePage from './pages/profile-page/ProfilePage'
 import TestComp from './trash/TestComp'
 import useCurrentUser from './hooks/useCurrentUser';
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import DashboardPage from './pages/dashboard-page/DashboardPage'
 import EditProfilePage from './pages/edit-profile-page/EditProfilePage'
 import ProtectedPage from './pages/protected-page/ProtectedPage'
@@ -23,22 +23,28 @@ import ProtectedPage from './pages/protected-page/ProtectedPage'
 
 export default function App() {
 
-    
+    console.log('App Rerendered')
+
     const { isLoading, data: response, error, isRefetching } = useCurrentUser();
-    
+
+    const navigate = useNavigate()
+    useEffect(() => {
+        if (response?.status !== 200) navigate('/')
+    }, [response?.status])
+
     if (isLoading) return <DevCommunityLoader />
     if (!!error) return <h1>Error : {error.message}</h1>
     if (response?.status !== 200) return (
-        <Routes>
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="*" element={<LoginPage />} />
-        </Routes>
-    )
+            <Routes>
+                <Route path="/register" element={<RegisterPage />} />
+                <Route path="*" element={<LoginPage />} />
+            </Routes>
+        )
     return (
         <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<HomePage />} /> 
             <Route path="/questions" element={<QuestionsPage />} />
-            <Route path="/questions/new" element={<NewQuestionPage />}/>
+            <Route path="/questions/new" element={<NewQuestionPage />} />
             <Route path="/questions/:id" element={<QuestionPage />} />
             <Route path="/questions/:id/edit" element={<NewQuestionPage />} />
             <Route path="projects/new" element={<NewProjectPage />} />
