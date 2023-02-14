@@ -70,6 +70,7 @@ export default function EditProfilePage() {
         mutate(body, {
             onSuccess: res => {
                 queryClient.invalidateQueries([`get-user-${userId}`])
+                queryClient.invalidateQueries(['get-user'])
                 closeUploadModel()
             }
         })

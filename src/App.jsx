@@ -17,6 +17,7 @@ import useCurrentUser from './hooks/useCurrentUser';
 import { lazy, Suspense } from 'react';
 import DashboardPage from './pages/dashboard-page/DashboardPage'
 import EditProfilePage from './pages/edit-profile-page/EditProfilePage'
+import ProtectedPage from './pages/protected-page/ProtectedPage'
 
 // const DashboardPage = lazy(() => import('./pages/dashboard-page/DashboardPage'))
 
@@ -45,7 +46,7 @@ export default function App() {
             <Route path="/projects/:id" element={<DashboardPage />} />
             <Route path="/job-offers" element={<JobOffersPage />} />
             <Route path="/user/:id" element={<ProfilePage />} />
-            <Route path="/user/:id/edit" element={<EditProfilePage />} />
+            <Route path="/user/:id/edit" element={<ProtectedPage><EditProfilePage /></ProtectedPage>} />
             <Route path="/test" element={<TestComp />} />
             <Route path="*" element={<NotFoundPage />} />
         </Routes>

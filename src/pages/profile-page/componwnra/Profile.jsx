@@ -8,12 +8,14 @@ import UserPosts from './UserPosts'
 import UserQuestions from './UserQuestions'
 import UserProjects from './UserProjects'
 import ProfileImg from '../../components/profile-img/ProfileImg'
+import useCurrentUserData from '../../../hooks/useCurrentUserData'
 
 export default function Profile() {
 
     const [targetContent, setTargetContent] = useState('posts')
     const ulRef = useRef()
     const { id: userId } = useParams()
+    const { currentUserId } = useCurrentUserData()
 
     const { isLoading, data: response, error } = useUser(userId)
 
@@ -29,14 +31,10 @@ export default function Profile() {
                 </div>
                 <div className="main">
                     <div className="basic-info">
-                        <div className="user-name">
-                            <h2>
-                                {response.data.first_name} {response.data.last_name}
-                            </h2>
-                            <span className="username">@{response.data.username}</span>
-                        </div>
-                        <Link to={`/user/${userId}/edit`} className='main-button'>Edit Profile</Link>
+                        <h2>{response.data.first_name} {response.data.last_name}</h2>
+                        <span className="username">@{response.data.username}</span>
                     </div>
+                    <Link to={`/user/${userId}/edit`} className='edit-profile'>Edit Profile</Link>
                     <nav>
                         <ul ref={ulRef} onClick={(e) => activateTab(ulRef, e, setTargetContent)} className='main-ul'>
                             <li className='active' target="posts">Posts</li>
@@ -52,7 +50,7 @@ export default function Profile() {
                     {targetContent === 'posts' && <UserPosts />}
                     {targetContent === 'questions' && <UserQuestions />}
                     {targetContent === 'projects' && <UserProjects />}
-                    {targetContent === 'about' && <p>{ response.data.about }</p>}
+                    {targetContent === 'about' && <p>{response.data.about}</p>}
                 </div>
             </section>
         </>

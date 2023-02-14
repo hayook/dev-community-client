@@ -8,6 +8,7 @@ import Spinner from '../components/spinner/Spinner'
 import '../new-project-page/style.css'
 import useProject from '../../hooks/useProject'
 import { useEffect } from 'react';
+import NotFoundPage from '../not-found-page/NotFoundPage'
 
 export default function NewProjectPage() {
 
@@ -24,8 +25,8 @@ export default function NewProjectPage() {
     useEffect(() => {
         if (!!response) setProjectInfo(prev => {
             return ({
-                projectTitle: response?.data.project_name,
-                projectDescription: response?.data.project_description,
+                projectTitle: response?.data?.project_name,
+                projectDescription: response?.data?.project_description,
             })
         })
     }, [response]);
@@ -46,7 +47,8 @@ export default function NewProjectPage() {
         
     }
 
-    return (
+    if (isFetching) return <Spinner dim='30px' />
+   if (response?.ok && 'data' in response) return (
         <Main>
             <NavSideBar />
             <form className='new-project' onSubmit={submitEdit}>
@@ -77,4 +79,9 @@ export default function NewProjectPage() {
 
         </Main>
     )
+    if (!response?.ok) {
+        if (response?.status === 403) return <NotFoundPage />
+        return <h1>{response?.status}</h1>
+    }
+    if (error) return <h1>Error [ error.message ]</h1>
 }

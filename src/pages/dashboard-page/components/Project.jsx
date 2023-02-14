@@ -11,6 +11,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { removeProject } from '../../../app/api';
 import { isAdmin } from '../../../utiles/is-admin'
 import { activateTab } from '../../../utiles/dom'
+import { NotFound } from '../../not-found-page/NotFoundPage'
 import { useRef } from 'react';
 
 
@@ -86,6 +87,9 @@ export default function Project({ id }) {
             </div>
         </>
     )
-    if (!response.ok) return <h1>{response.status}</h1>
+    if (!response.ok) {
+        if (response.status === 403) return <NotFound />
+        return <h1>{response.status}</h1>
+    }
     return <h1>Error {error?.message}</h1>
 }

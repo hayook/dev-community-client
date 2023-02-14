@@ -10,6 +10,7 @@ import NavSideBar from '../components/nav-side-bar/NavSideBar';
 import QuestionCode from './components/QuestionCode';
 import './style.css'
 import useCurrentUserData from "../../hooks/useCurrentUserData";
+import NotFoundPage from '../not-found-page/NotFoundPage'
 
 const NewQuestionContext = createContext();
 export const useNewQuestionContext = () => useContext(NewQuestionContext);
@@ -60,7 +61,7 @@ export default function ShareYourWorkForm() {
 
     }
 
-    if (id && postInfo.questionOwnerId !== currentUserId) return <h1>Not Found</h1>
+    if (id && postInfo.questionOwnerId !== currentUserId) return <NotFoundPage />
     if (isLoading) return <Spinner dim="30px" />
     if (error) return <h1>Error</h1>
     return (
