@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { acceptInvite, rejectInvite } from "../../../../app/api"
 import Spinner from '../../spinner/Spinner'
+import MainButton from '../../main-button/MainButton'
 
 export default function Invite({ projectId, inviteId }) {
 
@@ -29,8 +30,8 @@ export default function Invite({ projectId, inviteId }) {
             <div className="invite">
                 <h4>Project#{ projectId }</h4>
                 <div className="functionalities">
-                    <button onClick={handleAccept} className="main-button" disabled={isAccepting}>{ isAccepting ? <Spinner /> : 'Accept'}</button>
-                    <button onClick={handleReject} className="main-button reject" disabled={isRejecting}>{ isRejecting ? <Spinner /> : 'Reject'}</button>
+                    <MainButton onClick={handleAccept} disabled={isAccepting}>Accept</MainButton>
+                    <MainButton onClick={handleReject} disabled={isRejecting} style={{ backgroundColor: 'var(--red-clr-300)'}}>Reject</MainButton>
                 </div>
             </div>
         </div>

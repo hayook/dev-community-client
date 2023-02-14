@@ -5,6 +5,7 @@ import useProjectInvites from '../../../hooks/useProjectInvites'
 import Spinner from '../../components/spinner/Spinner'
 import { useMutation, useQueryClient } from 'react-query'
 import { cancelInvite } from '../../../app/api'
+import MainButton from '../../components/main-button/MainButton'
 
 export default function InvitesTab() {
 
@@ -30,13 +31,10 @@ export default function InvitesTab() {
                         response.data.map(invite => {
                             return (
                                 <ProjectMember memberUsername={invite.user_id}>
-                                    <button 
-                                    onClick={() => calcelInviteHandler(invite.invite_id)} 
-                                    className='main-button'
+                                    <MainButton
+                                    onClick={() => calcelInviteHandler(invite.invite_id)}
                                     disabled={isCanceling}
-                                    >
-                                        {isCanceling ? <Spinner /> : 'Cancel'}
-                                        </button>
+                                    >Cancel</MainButton>
                                 </ProjectMember>
                             )
                         })

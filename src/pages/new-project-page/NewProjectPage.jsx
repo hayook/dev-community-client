@@ -5,6 +5,7 @@ import { useMutation } from 'react-query'
 import NavSideBar from '../components/nav-side-bar/NavSideBar'
 import { createProject } from '../../app/api'
 import Spinner from '../components/spinner/Spinner'
+import MainButton from '../components/main-button/MainButton'
 
 import './style.css'
 
@@ -50,7 +51,7 @@ export default function NewProjectPage() {
                     value={projectInfo.projectDescription} 
                     />
 
-                    <button className="main-button" disabled={isLoading} >{ isLoading ? <Spinner /> : 'Submit'}</button>
+                    <MainButton disabled={isLoading}>Submit</MainButton>
 
                 </form>
             </Main>

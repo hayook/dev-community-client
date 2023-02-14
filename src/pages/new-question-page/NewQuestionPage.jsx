@@ -1,5 +1,5 @@
 import { useState, createContext, useContext } from "react"
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useMutation, useQuery } from 'react-query';
 import ProjectTechnologies from './components/ProjectTechnologies';
 import { editPost, sharePost } from '../../app/api'
@@ -11,6 +11,7 @@ import QuestionCode from './components/QuestionCode';
 import './style.css'
 import useCurrentUserData from "../../hooks/useCurrentUserData";
 import NotFoundPage from '../not-found-page/NotFoundPage'
+import MainButton from '../components/main-button/MainButton'
 
 const NewQuestionContext = createContext();
 export const useNewQuestionContext = () => useContext(NewQuestionContext);
@@ -18,6 +19,7 @@ export const useNewQuestionContext = () => useContext(NewQuestionContext);
 export default function ShareYourWorkForm() {
 
     const { currentUserId } = useCurrentUserData()
+    const navigate = useNavigate()
 
     const { id } = useParams();
     const [postInfo, setPostInfo] = useState({
@@ -47,7 +49,7 @@ export default function ShareYourWorkForm() {
             post_type: postInfo.postType,
         };
         mutateShare(question, {
-            onSuccess: (res) => console.log(res)
+            onSuccess: (res) => console.log('navigate')
         })
     }
 
@@ -56,7 +58,7 @@ export default function ShareYourWorkForm() {
         e.preventDefault();
         const newQuestion = { post_title: postInfo.title, post_body: postInfo.description, post_code: postInfo.questionCode, post_type: 'question' }
         mutateEdit({ newPost: newQuestion, postId: id }, {
-            onSuccess: () => console.log('success'),
+            onSuccess: res => navigate(`/questions/${res.data[0].post_id}`),
         })
 
     }
@@ -78,7 +80,7 @@ export default function ShareYourWorkForm() {
                     <ProjectTechnologies />
                 </NewQuestionContext.Provider>
 
-                <button className="main-button" disabled={isSharing || isEditing}>{(isEditing || isSharing) ? <Spinner dim="20px" /> : 'Submit'}</button>
+                <MainButton disabled={isSharing || isEditing}>Submit</MainButton>
             </form>
         </Main>
     )

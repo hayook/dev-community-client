@@ -9,6 +9,7 @@ import '../new-project-page/style.css'
 import useProject from '../../hooks/useProject'
 import { useEffect } from 'react';
 import NotFoundPage from '../not-found-page/NotFoundPage'
+import MainButton from '../components/main-button/MainButton'
 
 export default function NewProjectPage() {
 
@@ -70,9 +71,8 @@ export default function NewProjectPage() {
                             className='main-textarea'
                             value={projectInfo.projectDescription}
                         />
-
-                        <button className="main-button" disabled={isSubmitting} >{isSubmitting ? <Spinner /> : 'Submit'}</button>
-                    </>
+                        <MainButton disabled={isSubmitting}>Submit</MainButton>
+                        </>
 
                 }
             </form>

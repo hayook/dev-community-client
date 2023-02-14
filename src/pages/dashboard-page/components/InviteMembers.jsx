@@ -7,6 +7,7 @@ import Spinner from '../../components/spinner/Spinner'
 import { QueryClient, useMutation, useQueryClient } from 'react-query';
 import { inviteMember } from '../../../app/api'
 import { BsChevronRight } from 'react-icons/bs'
+import MainButton from '../../components/main-button/MainButton'
 
 export default function InviteMembers() {
 
@@ -78,7 +79,7 @@ export default function InviteMembers() {
                         <RadioButton value='admin' label='Admin' setValue={setRole} checked={role === 'admin'} />
                         <RadioButton value='member' label='Member' setValue={setRole} checked={role === 'member'} />
                     </div>
-                    <button className='main-button' disabled={isSending}>{isSending ? <Spinner /> : 'Invite'}</button>
+                    <MainButton disabled={isSending}>Invite</MainButton>
                 </form>
             }
         </div>

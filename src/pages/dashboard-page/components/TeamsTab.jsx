@@ -6,6 +6,7 @@ import Spinner from '../../components/spinner/Spinner';
 import { useParams } from 'react-router-dom';
 import { createTeam } from '../../../app/api'
 import { isAdmin } from '../../../utiles/is-admin'
+import MainButton from '../../components/main-button/MainButton'
 
 
 export default function TeamsTab() {
@@ -46,7 +47,7 @@ export default function TeamsTab() {
                 <form onSubmit={nadleSubmit} className="create-team-form">
                     <label>Team Name</label>
                     <input onChange={({ target }) => setTeamInfo(prev => ({ ...prev, teamName: target.value }))} type="text" className="main-input" value={teamInfo.teamName} />
-                    <button className='main-button' disabled={isCreating}>{isCreating ? <Spinner /> : 'Submit'}</button>
+                    <MainButton disabled={isCreating}>Submit</MainButton>
                 </form>
                 :
                 <TeamsList />

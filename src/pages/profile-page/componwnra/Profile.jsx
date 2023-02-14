@@ -34,7 +34,9 @@ export default function Profile() {
                         <h2>{response.data.first_name} {response.data.last_name}</h2>
                         <span className="username">@{response.data.username}</span>
                     </div>
-                    <Link to={`/user/${userId}/edit`} className='edit-profile'>Edit Profile</Link>
+                    {Number(userId) === currentUserId &&
+                        <Link to={`/user/${userId}/edit`} className='edit-profile'>Edit Profile</Link>
+                    }
                     <nav>
                         <ul ref={ulRef} onClick={(e) => activateTab(ulRef, e, setTargetContent)} className='main-ul'>
                             <li className='active' target="posts">Posts</li>

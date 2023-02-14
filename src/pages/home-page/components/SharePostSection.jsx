@@ -6,6 +6,7 @@ import { sharePost } from '../../../app/api'
 import ProfileImg from '../../components/profile-img/ProfileImg'
 import useCurrentUserData from '../../../hooks/useCurrentUserData'
 import { adjustInputHeight } from '../../../utiles/dom';
+import MainButton from '../../components/main-button/MainButton'
 
 export default function SharePostSection() {
 
@@ -46,7 +47,7 @@ export default function SharePostSection() {
 
                 {showFunctionalities &&
                     <div className="functionalities">
-                        <button onClick={handleSharePost} className="main-button" disabled={isPosting}>{isPosting ? <Spinner /> : 'Post'}</button>
+                        <MainButton disabled={isPosting} onClick={handleSharePost} >Post</MainButton>
                     </div>
                 }
             </section>

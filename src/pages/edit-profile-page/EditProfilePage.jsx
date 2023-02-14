@@ -6,6 +6,7 @@ import NavSideBar from "../components/nav-side-bar/NavSideBar"
 import ProfileImg from "../components/profile-img/ProfileImg";
 import UploadImageModel from './components/UploadImageModel'
 import { uploadImage, updateUserInfo } from '../../app/api'
+import MainButton from '../components/main-button/MainButton'
 import useUser from '../../hooks/useUser';
 import './style.css'
 
@@ -89,7 +90,7 @@ export default function EditProfilePage() {
             new_password: newUserInfo.newPassword,
         }
         mutateEditInfo(user, {
-            onSuccess: res => console.log('done')
+            onSuccess: res => navigate(`/user/${userId}`)
         })
     }
 
@@ -140,7 +141,7 @@ export default function EditProfilePage() {
 
                     <div className="functionalities">
                         <Link to={`/user/${userId}`} className="main-button">Cancel</Link>
-                        <button className={`main-button ${isEditting ? 'disabled' : ''}`} disabled={isEditting}>Save</button>
+                        <MainButton disabled={isEditting}>Submit</MainButton>
                     </div>
                 </form>
             </section>
