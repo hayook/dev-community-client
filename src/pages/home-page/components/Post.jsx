@@ -1,4 +1,5 @@
 import { useState, useRef, useContext, createContext } from 'react'
+import { Link } from 'react-router-dom'
 import { useQueryClient, useMutation } from 'react-query'; 
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import SvgIcon from '../../../assets/icons/SvgIcon'
@@ -77,9 +78,9 @@ export default function Post({ postOwnerId, profileImg, postOwnerUsername, postD
                 {deletePost && <DeletePostModel />}
 
                 <div className="post-info">
-                    <ProfileImg url={profileImg} />
+                    <Link to={`/user/${postOwnerId}`}><ProfileImg url={profileImg} /></Link>
                     <div className="post-main">
-                        <span>{ postOwnerUsername }</span>
+                    <Link to={`/user/${postOwnerId}`}><span>{ postOwnerUsername }</span></Link>
                         <span className="date">{ postDate }</span>
                         <p className="post-content">
                         { fullPostContent ? body : subStr(body, 300) }

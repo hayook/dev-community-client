@@ -60,6 +60,8 @@ export default function AllMembersTab() {
                             key={member.user_id}
                             memberRole={member.member_role}
                             memberUsername={member.username}
+                            memberImg={member.img_url}
+                            memberId={member.member_id}
                         >
                             <div className="functionalities">
                                 <button onClick={() => openModel(member.member_id)}><BsTrash /></button>

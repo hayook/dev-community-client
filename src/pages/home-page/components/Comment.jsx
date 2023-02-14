@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { Link } from 'react-router-dom'
 import { useMutation, useQueryClient } from 'react-query';
 import { likeComment } from '../../../app/api'
 import { BsThreeDotsVertical } from 'react-icons/bs'
@@ -11,7 +12,7 @@ import EditCommentModel from './EditCommentModel';
 import ProfileImg from '../../components/profile-img/ProfileImg'
 import useCurrentUserData from '../../../hooks/useCurrentUserData';
 
-export default function Comment({ commentOwnerId, commentId, commentBody, liked, commentOwnerUsername, commentDate, nbrLikes }) {
+export default function Comment({ commentOwnerId, commentId, commentOwnerImg, commentBody, liked, commentOwnerUsername, commentDate, nbrLikes }) {
 
     const { postId } = usePostContext()
     const { currentUserId } = useCurrentUserData()
@@ -48,9 +49,9 @@ export default function Comment({ commentOwnerId, commentId, commentBody, liked,
         {editCommentModel && <EditCommentModel closeEditCommentModel={closeEditCommentModel} commentId={commentId} commentBody={commentBody} />}
 
         <div className="post-info comment">
-            <ProfileImg />
+            <Link to={`/user/${commentOwnerId}`}><ProfileImg url={commentOwnerImg} /></Link>
             <div className="post-main">
-                <span>{commentOwnerUsername}</span>
+            <Link to={`/user/${commentOwnerId}`}><span>{commentOwnerUsername}</span></Link>
                 <span className="date">{commentDate}</span>
                 <p className="post-content">{commentBody}</p>
                 <button className='like-comment' onClick={handleLikeComment}>

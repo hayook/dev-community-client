@@ -27,6 +27,7 @@ function CommentsSet() {
                 comment_body:commentBody,
                 comment_date:commentDate,
                 comment_number_likes:nbrLikes,
+                img_url: commentOwnerImg
             } = comment;
             return <Comment key={commentId}
             commentOwnerUsername={commentOwnerUsername}
@@ -35,6 +36,7 @@ function CommentsSet() {
             commentBody={commentBody}
             commentDate={handleDate(commentDate)}
             nbrLikes={nbrLikes}
+            commentOwnerImg={commentOwnerImg}
             liked={comment.liked === 'true'}
             />
         })

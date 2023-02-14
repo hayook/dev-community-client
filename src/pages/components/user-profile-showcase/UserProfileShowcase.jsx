@@ -1,11 +1,12 @@
 import ProfileImg from '../profile-img/ProfileImg'
+import { Link } from 'react-router-dom'
 import './style.css';
 
-export default function UserProfileShowcase({ userId, children }) {
+export default function UserProfileShowcase({ userId, userImg, username, children }) {
     return (
         <div className="profile">
-            <ProfileImg />
-            <p className="profile-username">{`user#${userId}`}</p>
+            <Link to={`/user/${userId}`}><ProfileImg url={userImg} /></Link>
+            <p className="profile-username">{ username }</p>
             { children }
         </div>
     )

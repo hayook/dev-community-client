@@ -5,6 +5,6 @@ const getTeamMembers = (projectId, teamId) => api.get(`/projects/${projectId}/te
 
 export default function useTeamMembers(projectId, teamId) {
     return useQuery([`get-project-${projectId}-team-${teamId}-members`], () => getTeamMembers(projectId, teamId), {
-        onError: err => console.log(err),
+        onError: err => console.log(err)
     })
 }

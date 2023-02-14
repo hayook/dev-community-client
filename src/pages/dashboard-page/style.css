@@ -39,12 +39,7 @@ section.project-dashboard .project-member .member-info {
     grid-gap: 0 .8em;
 }
 
-section.project-dashboard .project-member .member-info .profile-img {
-    width: 2.4em;
-    height: 2.4em;
-}
-
-section.project-dashboard .project-member .member-info.role .profile-img {
+section.project-dashboard .project-member .member-info.role a.profile-img {
     grid-row: span 2;
 }
 
@@ -101,7 +96,7 @@ section.project-dashboard> .heading .project-title {
     grid-gap: .5em 1em;
 }
 
-section.project-dashboard > .heading .project-title .profile-img {
+section.project-dashboard > .heading .project-title a.profile-img {
     grid-row: span 2;
 }
 

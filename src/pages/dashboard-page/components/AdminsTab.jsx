@@ -62,6 +62,8 @@ export default function AdminsTab() {
                             key={member.user_id}
                             memberRole={member.member_role}
                             memberUsername={member.username}
+                            memberId={member.member_id}
+                            memberImg={member.img_url}
                         >
                             <div className="functionalities">
                                 <button onClick={() => openModel(member.member_id)}><BsTrash /></button>

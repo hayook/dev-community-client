@@ -6,7 +6,7 @@ export default function Code({ language, code }) {
 
     useEffect(() => hljs.highlightAll(), []);
 
-    return (
+    if (code) return (
         <pre>
             <code className={`language-${language}`}>
                 {code}

@@ -6,6 +6,6 @@ export const getPostComments = (postId) => api.get(`/posts/${postId}/comments`);
 export default function usePostComments(postId) {
 
     return useQuery([`get-post-${postId}-comments`], () => getPostComments(postId), { 
-        onError: err => console.log('Error ' + err)
+        onError: err => console.log('Error ' + err),
     });
 }

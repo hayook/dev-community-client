@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'; 
 import ProfileImg from '../../profile-img/ProfileImg'
 
-export default function ProjectShowcase({ projectId, projectTitle }) {
+export default function ProjectShowcase({ projectId, projectTitle, projectOwnerImg }) {
     return (
         <Link to={`/projects/${projectId}`} className="working-rooms-project">
-            <ProfileImg />
+            <ProfileImg url={projectOwnerImg} />
             <h4>{ projectTitle }</h4>
             <div className="progress">
                 <span>0%</span>

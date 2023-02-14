@@ -108,8 +108,8 @@ export default function EditProfilePage() {
                 <form onSubmit={submitEdit} className="edit-profile-form">
                     <h1>Profile Image</h1>
                     <div className="edit-profile-image">
-                        <ProfileImg />
-                        <p>Username</p>
+                        <ProfileImg url={response.data.img_url} />
+                        <span>{ response.data.username}</span>
                         <button onClick={handleChangeImage}>Change Profile Image</button>
                         <input type="file" ref={imageRef} style={{ display: 'none' }} onChange={previewImage} />
                     </div>

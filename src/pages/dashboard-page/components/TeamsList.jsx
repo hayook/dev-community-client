@@ -97,6 +97,8 @@ export default function TeamsList() {
                                     return <ProjectMember
                                         memberUsername={member.username}
                                         memberRole={member.member_role}
+                                        memberId={member.user_id}
+                                        memberImg={member.img_url}
                                     >
                                         <div className="functionalities">
                                             <button onClick={() => addToTeamHandler(member.member_id)}>

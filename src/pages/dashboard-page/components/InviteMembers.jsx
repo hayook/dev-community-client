@@ -55,6 +55,8 @@ export default function InviteMembers() {
                                 response.data.map(member => {
                                     return <ProjectMember
                                     memberUsername={member.username}
+                                    memberImg={member.img_url}
+                                    memberId={member.user_id}
                                     >
                                         <div className="functionalities">
                                             <button onClick={() => insertToInvite(member.member_id, member.username)}>

@@ -66,12 +66,15 @@
 
 .question-page .question-answers .question-answer {
     display: grid; 
-    grid-gap: 1em;;
+    grid-gap: 1em;
     padding: 1.5em;
     background: var(--grey-clr-300);
 }
 
 .question-page .question-answers .question-answer .profile {
+    display: flex; 
+    align-items: center;
+    gap: .6em;
     width: fit-content;
 }
 

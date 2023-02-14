@@ -20,6 +20,8 @@ export default function Answers({ question }) {
                     answerId={answer.comment_id}
                     answerDescription={answer.comment_body}
                     answerCode={answer.comment_code}
+                    answerOwnerImg={answer.img_url}
+                    username={answer.username}
 
                     />
                 })

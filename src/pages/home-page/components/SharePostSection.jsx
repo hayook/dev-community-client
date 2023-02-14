@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom';
 import { useMutation, useQueryClient } from 'react-query';
 import Spinner from '../../components/spinner/Spinner'
 import { sharePost } from '../../../app/api'
@@ -8,7 +9,7 @@ import { adjustInputHeight } from '../../../utiles/dom';
 
 export default function SharePostSection() {
 
-    const { currentUserProfileImg } = useCurrentUserData()
+    const { currentUserProfileImg, currentUserId } = useCurrentUserData()
 
     const [postBody, setPostBody] = useState('');
     const [showFunctionalities, setShowFunctionalities] = useState(false);
@@ -33,7 +34,7 @@ export default function SharePostSection() {
 
     return (
             <section className="share-post">
-                <ProfileImg url={currentUserProfileImg} />
+                <Link to={`/user/${currentUserId}`}><ProfileImg url={currentUserProfileImg} /></Link>
                 <textarea
                 value={postBody}
                 onChange={handleSharePostTextarea}
