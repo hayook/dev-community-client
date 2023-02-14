@@ -7,6 +7,7 @@ import ProfileImg from '../../components/profile-img/ProfileImg'
 import Spinner from '../../components/spinner/Spinner'
 import { splitDate } from '../../../utiles/split-date'
 import Code from '../../components/code/Code'
+import MainButton from '../../components/main-button/MainButton'
 import SvgIcon from '../../../assets/icons/SvgIcon'
 import { icons } from '../../../assets/icons/icons'
 import { likePost, commentOnPost, deletePost } from "../../../app/api"
@@ -117,7 +118,7 @@ export default function Question() {
                         rows={7}
                     ></textarea>
 
-                    <button className="main-button">Answer</button>
+                    <MainButton disabled={isCommenting}>Answer</MainButton>
                 </form>
             </div>
         </section>
