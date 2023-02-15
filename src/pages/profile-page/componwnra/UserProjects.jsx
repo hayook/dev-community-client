@@ -17,6 +17,7 @@ export default function UserProjects() {
                     key={project.poject_id}
                     projectId={project.project_id}
                     projectTitle={project.project_name}
+                    projectOwnerImg={project.img_url}
                 />
             })
         )
