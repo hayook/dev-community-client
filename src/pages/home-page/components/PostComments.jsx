@@ -82,7 +82,7 @@ export default function PostComments() {
                     value={comment}
                     onChange={handleInputChange}
                 ></textarea>
-                <button className="submit-comment">{isLoading ? <Spinner /> : <BiSend /> }</button>
+                <button className="submit-comment" disabled={!comment || isLoading}>{isLoading ? <Spinner /> : <BiSend /> }</button>
             </form>
         </div>
     )
