@@ -58,9 +58,9 @@ export default function Project({ id }) {
             }
             <div className="heading">
                 <div className="project-title">
-                    <Link className="profile-img" to={`/user/${response.data.user_id}`}><ProfileImg /></Link>
+                    <Link className="profile-img" to={`/user/${response.data.user_id}`}><ProfileImg url={response.data.img_url} /></Link>
                     <h2>{response.data.project_name}</h2>
-                    <span>user#{response.data.project_owner_id}</span>
+                    <span>{response.data.username}</span>
                     {isAdmin(queryClient, projectId) &&
                         <div className="settings">
                             <Link to={`/projects/${projectId}/edit`}>Edit Project</Link>

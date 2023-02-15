@@ -49,7 +49,7 @@ export default function ShareYourWorkForm() {
             post_type: postInfo.postType,
         };
         mutateShare(question, {
-            onSuccess: (res) => console.log('navigate')
+            onSuccess: res => navigate(`/questions/${res.data}`)
         })
     }
 

@@ -14,7 +14,7 @@ export default function InvitesTab() {
     const { isLoading, data: response, error } = useProjectInvites(projectId)
 
     const queryClient = useQueryClient()
-    const { isLoading:isCanceling, mutate } = useMutation(cancelInvite)
+    const { isLoading: isCanceling, mutate } = useMutation(cancelInvite)
     const calcelInviteHandler = (inviteId) => {
         mutate({ inviteId, projectId }, {
             onSuccess: () => queryClient.invalidateQueries([`get-project-${projectId}-invites`])
@@ -27,13 +27,18 @@ export default function InvitesTab() {
             </div>
             <div className="invites-list">
                 {isLoading ? <Spinner dim='30px' /> :
-                    response?.data.length == 0 ? <p style={{ textAlign: 'center',}}>No Invites</p> :
+                    response?.data.length == 0 ? <p style={{ textAlign: 'center', }}>No Invites</p> :
                         response.data.map(invite => {
                             return (
-                                <ProjectMember memberUsername={invite.user_id}>
+                                <ProjectMember
+                                    key={invite.user_id}
+                                    mamberImg={invite.img_url}
+                                    memberUsername={invite.username}
+                                    memberId={invite.user_id}
+                                >
                                     <MainButton
-                                    onClick={() => calcelInviteHandler(invite.invite_id)}
-                                    disabled={isCanceling}
+                                        onClick={() => calcelInviteHandler(invite.invite_id)}
+                                        disabled={isCanceling}
                                     >Cancel</MainButton>
                                 </ProjectMember>
                             )

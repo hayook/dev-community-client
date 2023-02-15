@@ -23,14 +23,7 @@ import ProtectedPage from './pages/protected-page/ProtectedPage'
 
 export default function App() {
 
-    console.log('App Rerendered')
-
     const { isLoading, data: response, error, isRefetching } = useCurrentUser();
-
-    const navigate = useNavigate()
-    useEffect(() => {
-        if (response?.status !== 200) navigate('/')
-    }, [response?.status])
 
     if (isLoading) return <DevCommunityLoader />
     if (!!error) return <h1>Error : {error.message}</h1>

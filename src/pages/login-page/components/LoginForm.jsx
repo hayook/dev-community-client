@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { useMutation, useQuery, useQueryClient } from 'react-query'; 
 import Spinner from '../../components/spinner/Spinner'
 import { authUser, requestContents } from '../../../app/api';
@@ -8,6 +8,8 @@ import '../../register-page/style.css'
 
 
 export default function LoginForm() {
+
+    const navigate = useNavigate()
 
     const [loginErr, setLoginErr] = useState('')
     const [userCredentials, setUserCredentials] = useState({ username: '', password: '' });  
@@ -55,7 +57,7 @@ export default function LoginForm() {
             type="password" 
             placeholder="Enter Password" 
             />
-
+            
             <button className="main-button" disabled={isLoading}>{ isLoading ? <Spinner dim='20px' /> : 'Login' }</button>
         </form>
     )
