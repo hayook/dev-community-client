@@ -4,6 +4,7 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import Spinner from '../../components/spinner/Spinner'
 import { authUser, requestContents } from '../../../app/api';
 import useCurrentUser from '../../../hooks/useCurrentUser'
+import MainButton from '../../components/main-button/MainButton'
 import '../../register-page/style.css'
 
 
@@ -57,8 +58,8 @@ export default function LoginForm() {
             type="password" 
             placeholder="Enter Password" 
             />
-            
-            <button className="main-button" disabled={isLoading}>{ isLoading ? <Spinner dim='20px' /> : 'Login' }</button>
+
+            <MainButton disabled={isLoading}>Login</MainButton>
         </form>
     )
 }

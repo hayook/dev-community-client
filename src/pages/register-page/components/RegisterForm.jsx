@@ -3,6 +3,7 @@ import { useMutation } from 'react-query'
 import Spinner from '../../components/spinner/Spinner'
 import { authUser, requestContents } from '../../../app/api'
 import { Link, useNavigate } from 'react-router-dom'; 
+import MainButton from '../../components/main-button/MainButton'
 
 const initialState = {
     firstName: '',
@@ -114,7 +115,7 @@ export default function RegisterForm() {
                 placeholder="Confirm Password"
             />
 
-            <button className="main-button" disabled={isLoading}>{isLoading ? <Spinner dim='20px' /> : 'Register'}</button>
+            <MainButton disabled={isLoading}>Register</MainButton>
         </form>
     )
 }
