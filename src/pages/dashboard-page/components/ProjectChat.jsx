@@ -10,9 +10,9 @@ export default function ProjectChat() {
 
     const messagesContent = useRef(null)
     const { id: projectId } = useParams()
-    const { currentUserId: memberId, currentUserProfileImg, currentUserUsername } = useCurrentUserData()
+    const { currentUserId, currentUserProfileImg, currentUserUsername } = useCurrentUserData()
 
-    const [messages, setMessages] = useState([])
+    const [payloads, setPayloads] = useState([])
     const [messageBody, setMessageBody] = useState('')
     const [webSocket, setWebSocket] = useState(null)
 
@@ -32,21 +32,22 @@ export default function ProjectChat() {
     useEffect(() => {
         if (webSocket !== null) {
             webSocket.onmessage = e => {
-                const message = JSON.parse(e.data);
-                const allMessages = [...messages, message]
-                setMessages(allMessages)
+                const payload = JSON.parse(e.data);
+                const allMessages = [...payloads, payload]
+                setPayloads(allMessages)
             };
         }
-    }, [webSocket, messages])
+    }, [webSocket, payloads])
 
     const sendMessage = e => {
         e.preventDefault()
-        const message = {
-            body: messageBody, 
+        const payload = {
+            message: messageBody, 
             senderUsername:  currentUserUsername,
             senderProfileImg: currentUserProfileImg,
+	    senderId: currentUserId,
         }
-        webSocket.send(JSON.stringify(message));
+        webSocket.send(JSON.stringify(payload));
         setMessageBody('');
     }
 
@@ -54,13 +55,13 @@ export default function ProjectChat() {
         <section className="chat-container">
             <div className="chat-content">
                 <div className="messages" ref={messagesContent}>
-                    {messages.map((message, idx) => {
+                    {payloads.map((payload, idx) => {
                         return <Message 
                         key={idx} 
-                        body={message.body} 
-                        senderUsername={message.sender_username}
-                        senderProfileImg={message.sender_profile_img}
-                        messageTime={message.message_time}
+                        body={payload.message} 
+                        senderUsername={payload.sender_username}
+                        senderProfileImg={payload.sender_profile_img}
+                        messageTime={payload.message_time}
                         />
                     })}
                 </div>
