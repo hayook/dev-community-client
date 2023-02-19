@@ -1,0 +1,29 @@
+.tasks-container {
+    padding: 50px 15px;
+    display: grid;
+    grid-template-columns: repeat(4, 25%);
+    gap: 1em;
+}
+
+.tasks-container .clmn {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    border: 1px solid var(--grey-clr-200);
+    padding: 1em;
+}
+
+.tasks-container .clmn h2 {
+    text-align: center;
+}
+
+.tasks-container .clmn .tasks-list {
+    display: flex;
+    flex-direction: column;
+    gap: .8em;
+}
+
+.tasks-container .clmn .tasks-list .task {
+    border: 1px solid var(--grey-clr-200);
+    padding: .8em;
+}

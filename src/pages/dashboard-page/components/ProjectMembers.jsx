@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom'
-import { projects } from '../../../trash/test-data'
 import AllMembersTab from './AllMembersTab'
 import AdminsTab from './AdminsTab'
 import TeamsTab from './TeamsTab'

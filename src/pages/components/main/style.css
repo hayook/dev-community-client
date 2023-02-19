@@ -13,7 +13,6 @@ section.main nav.main-nav,
 section.main section.working-rooms {
     position: sticky;
     top: var(--header-height);
-    height: calc(100vh - var(--header-height));
     padding: 15px;
     height: calc(100vh - var(--header-height));
 }

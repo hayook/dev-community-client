@@ -1,27 +1,25 @@
 
-// new authentication approach to avoid duplicate user queries
-    // will be applied only if the data is same between /userprofile and /user/{id}
-    // the state will solve the problem of errors in console
+	try to update the cache of 'get-user' before try this
 
-const [isAuth, setIsAuth] = useState(false)
+	const [isAuth, setIsAuth] = useState(false)
+	const { isLoading, data:response, error } = useCurrentUser()
 
-if (!isAuth) {
-    // send a request to /auth
-    const { isLoading, data:response, error } = useAuth({ enabled: token})
-    if (isAuthenticating) return <Spinner />
-    if (response.status !== 200) return <Login />
-    if ('data' in response) {
-        setIsAuth({ userId: response.data.user_id })
-        return; // to avoid different number of hooks rendered in previous render 
-    }
-}
+	if (isLoading) return <DevCommunityLoader />
+	if ('data' in response) {
+		if (!isAuth) return <Login />
+		return <MyApp />
+	}
+	if (error) return error.message
 
-const { isLoading, data:response, error} = useCurrentUser()
+	// useCurrentUser
+	onSuccess: res => {
+		if (res.ok) dispatch({ type: ACTIONS.AUTHENTICATE_USER })
+	}
 
-if (isLoading) return <Spinner />
-if (response.status !== 200) {
-    setIsAuth(false)
-    return;
-}
-if ('data' in response.data) return <MyApp />
-if (error) return <h1>Error { error.message }</h1>
+	// login 
+	onSuccess: res => {
+		if (res.ok) dispatch({ type: ACTIONS.AUTHENTICATE_USER })
+	}
+
+	//logout
+	dispatch({ type: ACTIONS.UNAUTHENTICATE_USER })

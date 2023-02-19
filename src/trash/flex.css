@@ -1,0 +1,26 @@
+#wrapper {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+}
+
+.nav {
+    background: blue;
+    height: 100vh;
+}
+
+.flex-container {
+    display: flex; 
+    flex-direction: column;
+    border: 1px solid;
+}
+
+.flex-container div {
+    background: #333; 
+    border: 1px solid;
+    height: 100px;
+}
+
+.flex-container div:nth-child(4) {
+    margin-top: auto;
+    background: red; 
+}

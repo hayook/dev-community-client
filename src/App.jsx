@@ -13,6 +13,7 @@ import NewProjectPage from './pages/new-project-page/NewProjectPage'
 import EditProjectPage from './pages/edit-project-page/EditProjectPage'
 import ProfilePage from './pages/profile-page/ProfilePage'
 import TestComp from './trash/TestComp'
+import FlexComp from './trash/FlexComp'
 import useCurrentUser from './hooks/useCurrentUser';
 import { lazy, Suspense, useEffect } from 'react';
 import DashboardPage from './pages/dashboard-page/DashboardPage'
@@ -47,6 +48,7 @@ export default function App() {
             <Route path="/user/:id" element={<ProfilePage />} />
             <Route path="/user/:id/edit" element={<ProtectedPage><EditProfilePage /></ProtectedPage>} />
             <Route path="/test" element={<TestComp />} />
+            <Route path="/flex" element={<FlexComp />} />
             <Route path="*" element={<NotFoundPage />} />
         </Routes>
 
