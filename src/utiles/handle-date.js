@@ -9,3 +9,10 @@ export function handleDate(dateStr) {
     date = Math.trunc(date / 24);
     if (date < 7) return date + 'd'
 }
+
+export function dateToHHMM(dateStr) {
+    const date = new Date(dateStr);
+    const hours = `${date.getHours()}`.padStart(2, '0');
+    const minutes = `${date.getMinutes()}`.padStart(2, '0');
+    return `${hours}:${minutes}`
+}

@@ -368,6 +368,11 @@ section.chat-container .chat-content .messages .message .message-info {
     font-size: .9em;
 }
 
+section.chat-container .chat-content .messages .message .message-info .sender-username {
+    display: flex;
+    align-items: center;
+}
+
 section.chat-container .chat-content .messages .message .message-info .sender-username small {
     margin-inline: .7em;
     color: var(--grey-clr-100)

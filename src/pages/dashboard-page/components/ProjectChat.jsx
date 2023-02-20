@@ -1,52 +1,89 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom'
+import { useQueryClient } from 'react-query';
 import useCurrentUserData from '../../../hooks/useCurrentUserData'
 import { BiSend } from 'react-icons/bi'
 import Message from '../components/Message'
+import Spinner from '../../components/spinner/Spinner'
+import useProjectChatLogs from '../../../hooks/useProjectChatLogs'
+import { updateQueryCache } from '../../../utiles/dom';
+import { dateToHHMM } from '../../../utiles/handle-date'
 
 
 
 export default function ProjectChat() {
 
     const messagesContent = useRef(null)
+
     const { id: projectId } = useParams()
     const { currentUserId, currentUserProfileImg, currentUserUsername } = useCurrentUserData()
 
-    const [payloads, setPayloads] = useState([])
     const [messageBody, setMessageBody] = useState('')
     const [webSocket, setWebSocket] = useState(null)
 
-    // Scroll down after new message
-    useEffect(() => messagesContent.current.scrollTo({ top: messagesContent.current.scrollHeight }))
+    const { isLoading, data: response, error } = useProjectChatLogs(projectId)
 
-    // Create the connection once
+    // Scroll down after new message
+    useEffect(() => {
+        if (messagesContent.current !== null) messagesContent.current.scrollTo({ top: messagesContent.current.scrollHeight });
+    })
+
+    const queryClient = useQueryClient()
+    const query = `get-project-${projectId}-chat-logs`;
+
+    // Create the connection
     useEffect(() => {
         const url = `ws://localhost:3000/ws/${projectId}`;
         const ws = new WebSocket(url);
+
+        console.log('Connection Opened')
+
         // ws.onopen = e => ws.send('Welcome user#' + memberId)
-        setWebSocket(ws)
 
-        return () => ws.close()
-    }, [])
+        ws.onmessage = e => {
+            const payload = JSON.parse(e.data);
 
-    useEffect(() => {
-        if (webSocket !== null) {
-            webSocket.onmessage = e => {
-                const payload = JSON.parse(e.data);
-                const allMessages = [...payloads, payload]
-                setPayloads(allMessages)
-            };
+            const newMessage = {
+                user_id: payload.user_id,
+                username: payload.sender_username,
+                img_url: payload.sender_profile_img,
+                message: payload.message,
+                message_date: payload.message_time,
+            }
+
+            const previousChatLogs = queryClient.getQueryData([query]); // to reset the data in case of an error
+
+            updateQueryCache(queryClient, query, newMessage);
         }
-    }, [webSocket, payloads])
+
+        setWebSocket(ws);
+
+        return () => {
+            console.log('Connection Closed')
+            ws.close()
+        }
+    }, [])
 
     const sendMessage = e => {
         e.preventDefault()
         const payload = {
-            message: messageBody, 
-            senderUsername:  currentUserUsername,
+            message: messageBody,
+            senderUsername: currentUserUsername,
             senderProfileImg: currentUserProfileImg,
-	    senderId: currentUserId,
+            senderId: currentUserId,
         }
+
+        const newMessage = {
+            user_id: currentUserId,
+            username: currentUserUsername,
+            img_url: currentUserProfileImg,
+            message: messageBody,
+            message_date: new Date().toString(),
+        }
+
+        // Update The UI before send the message (missing handle errors and reset the old cache)
+        updateQueryCache(queryClient, query, newMessage)
+
         webSocket.send(JSON.stringify(payload));
         setMessageBody('');
     }
@@ -55,15 +92,17 @@ export default function ProjectChat() {
         <section className="chat-container">
             <div className="chat-content">
                 <div className="messages" ref={messagesContent}>
-                    {payloads.map((payload, idx) => {
-                        return <Message 
-                        key={idx} 
-                        body={payload.message} 
-                        senderUsername={payload.sender_username}
-                        senderProfileImg={payload.sender_profile_img}
-                        messageTime={payload.message_time}
-                        />
-                    })}
+                    {isLoading ? <Spinner dim='30px' /> :
+                        response?.data?.map((payload, idx) => {
+                            return <Message
+                                key={idx}
+                                body={payload.message}
+                                senderUsername={payload.username}
+                                senderProfileImg={payload.img_url}
+                                messageTime={dateToHHMM(payload.message_date)}
+                            />
+                        })
+                    }
                 </div>
                 <form onSubmit={sendMessage}>
                     <input className="main-input" type="text" value={messageBody} onChange={({ target }) => setMessageBody(target.value)} />

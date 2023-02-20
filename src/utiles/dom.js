@@ -12,3 +12,13 @@ export function adjustInputHeight(element, initialHeight) {
     element.style.height = initialHeight;
     element.style.height = `${element.scrollHeight + 2}px`;
 }
+
+export async function updateQueryCache(queryClient, queryKey, newQueryData) {
+    await queryClient.cancelQueries([queryKey]);
+    queryClient.setQueryData([queryKey], oldQueryData => {
+        return {
+            ...oldQueryData,
+            data: [...oldQueryData?.data, newQueryData]
+        }
+    })
+}
