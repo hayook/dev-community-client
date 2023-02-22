@@ -73,17 +73,6 @@ export default function ProjectChat() {
             senderId: currentUserId,
         }
 
-        const newMessage = {
-            user_id: currentUserId,
-            username: currentUserUsername,
-            img_url: currentUserProfileImg,
-            message: messageBody,
-            message_date: new Date().toString(),
-        }
-
-        // Update The UI before send the message (missing handle errors and reset the old cache)
-        updateQueryCache(queryClient, query, newMessage)
-
         webSocket.send(JSON.stringify(payload));
         setMessageBody('');
     }

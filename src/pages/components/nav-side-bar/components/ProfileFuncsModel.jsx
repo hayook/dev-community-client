@@ -6,7 +6,6 @@ export default function ProfileFuncsModel({ logout, setProfileFuncsModel, button
     const profileFuncsModelRef = useRef(null)
 
     useEffect(() => {
-        console.log('model mounted')
         const listener = ({ target }) => {
             const control = target !== buttonRef.current && !buttonRef.current.contains(target) && profileFuncsModelRef.current !== target && !profileFuncsModelRef.current.contains(target)
             if (control) setProfileFuncsModel(false)
