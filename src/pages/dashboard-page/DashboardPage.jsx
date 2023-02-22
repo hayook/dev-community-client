@@ -12,9 +12,8 @@ export default function DashboardPage() {
 
     
     return (
-        <Main className="dashboard" >
-            <NavSideBar />
-            <section className='project-dashboard'>
+        <Main>
+            <section className='project-dashboard page'>
                 <Project id={id} />
             </section>
         </Main>

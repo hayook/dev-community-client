@@ -1,50 +1,27 @@
-section.main section.timeline {
-    padding-top: 15px;
+main.main-content .inner-container {
+    /* border: 1px solid; */
 }
-
-section.main section.timeline .profile {
+.home-page .profile {
     width: fit-content;
 }
 
-
-/* For Testing Meia Queries */
-/*
-@media (min-width: 768px) {
-    section.main section.timeline {
-        width: 80%;
-    }
-}
-
-@media (min-width: 1000px) {
-    section.main section.timeline {
-        width: 70%
-    }
-}
-
-@media (min-width: 1200px) {
-    section.main section.timeline {
-        width: 56%
-    }
-}
-*/
-/* For Testing Meia Queries */
-
-
-section.main section.timeline .timeline-container {
+.home-page {
     background: var(--blue-clr-400);
     padding: 15px 30px;
+    margin-inline: auto; 
+    width: min(700px, 100%);
 }
 
 /**************************************  Share Section  **************************************/
 
-section.main section.timeline section.share-post {
+.home-page section.share-post {
     display: grid; 
     grid-template-columns: auto 1fr;
     padding: 1.2em 0;
     grid-gap: 1.5em .8em;
 }
 
-section.main section.timeline section.share-post textarea.main-textarea {
+.home-page section.share-post textarea.main-textarea {
     width: 100%;
     /* min-height: 100px; */
     resize: none;
@@ -54,32 +31,32 @@ section.main section.timeline section.share-post textarea.main-textarea {
     border: 1px solid var(--grey-clr-200);
 }
 
-section.main section.timeline section.share-post textarea.main-textarea:focus {
+.home-page section.share-post textarea.main-textarea:focus {
     outline: none;
 }
 
-section.main section.timeline section.share-post .functionalities {
+.home-page section.share-post .functionalities {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     grid-column-start: 2;
 }
 
-section.main section.timeline section.other-posts-types .or {
+.home-page section.other-posts-types .or {
     display: flex; 
     align-items: center;
 }
 
-section.main section.timeline section.other-posts-types .or hr {
+.home-page section.other-posts-types .or hr {
     width: 100%; 
     border: 1px solid var(--blue-clr-100);  
 }
 
-section.main section.timeline section.other-posts-types .or span {
+.home-page section.other-posts-types .or span {
     margin: 0 1em;
 }
 
-section.main section.timeline section.other-posts-types .functionalities {
+.home-page section.other-posts-types .functionalities {
     display: flex; 
     align-items: center;
     justify-content: space-around;
@@ -90,7 +67,7 @@ section.main section.timeline section.other-posts-types .functionalities {
 
 /**************************************  Posts Section  **************************************/
 
-section.main section.timeline section.posts {
+.home-page section.posts {
     display: flex; 
     flex-direction: column;
     align-items: center;

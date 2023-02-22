@@ -1,5 +1,4 @@
 export function activateTab(ulRef, e, setTarget) {
-    return;
     if (ulRef.current === e.target) return;
 
     const lis = [...ulRef.current.children]

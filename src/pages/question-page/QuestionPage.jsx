@@ -6,7 +6,6 @@ import './style.css'
 export default function QuestionPage() {
     return (
         <Main>
-            <NavSideBar />
             <Question />
         </Main>
     )

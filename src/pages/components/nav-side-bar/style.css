@@ -1,27 +1,139 @@
-section.main nav.main-nav {
+nav.nav-bar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    background: var(--blue-clr-300);
     border-right: 1px solid var(--grey-clr-200);
+    z-index: 9999;
+    margin-right: 20px;
+    overflow-y: auto;
 }
 
-section.main nav.main-nav ul {
+nav.nav-bar .inner-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap: 1em;
+    padding-inline: 10px;
 }
 
-section.main nav.main-nav ul li a {
+nav.nav-bar a {
+    display: flex;
+    align-items: center;
+    gap: .7em;
     padding: 1em .5em;
     transition: var(--fast-transition);
     filter: brightness(1.3);
 }
 
-section.main nav.main-nav ul li a:hover,
-section.main nav.main-nav ul li a.active {
+nav.nav-bar a:hover,
+nav.nav-bar .user-profile:hover,
+nav.nav-bar ul li a.active {
     background: var(--grey-clr-300);
 }
 
-section.main nav.main-nav ul li a {
+nav.nav-bar .user-profile {
     display: flex;
     align-items: center;
-    gap: .7em;
+    justify-content: space-around;
+    position: relative;
+}
+
+nav.nav-bar .user-profile button {
+    background: none;
+    color: var(--white);
+    border: none;
+}
+
+nav.nav-bar .user-profile button svg {
+    position: relative;
+    top: 3px;
+}
+
+nav.nav-bar .user-profile .profile-funcs-model {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: var(--grey-clr-300);
+    border: 1px solid var(--grey-clr-200);
+    z-index: 500;
+    min-width: 100%;
+}
+
+nav.nav-bar .user-profile .profile-funcs-model button {
+    display: flex;
+    align-items: center;
+    background: none;
+    color: var(--white);
+    border: none;
+    width: 100%;
+    text-align: start;
+    background: none;
+    color: var(--white);
+    padding: 1.2em 1em;
+    tr ansition: var(--fast-transition);
+}
+
+nav.nav-bar .user-profile .profile-funcs-model button svg {
+    position: relative;
+    top: 3px;
     font-size: 1.2em;
+    margin-right: .5em;
+}
+
+nav.nav-bar .user-profile .profile-funcs-model button:hover {
+    background: var(--grey-clr-300);
+    filter: brightness(1.5);
+}
+
+nav.nav-bar ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+nav.nav-bar ul li a {
+    font-size: 1.2em;
+}
+
+nav.nav-bar ul li a#projects {
+    display: none;
+}
+
+
+@media (max-width: 1199px) {
+    nav.nav-bar {
+        border-right: none;
+        border-bottom: 1px solid var(--grey-clr-200);
+        margin: 0;
+    }
+
+    nav.nav-bar .inner-container {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding-inline: 0;
+    }
+
+    nav.nav-bar ul li a#projects {
+        display: block;
+    }
+
+    nav.nav-bar a span {
+        display: none;
+    }
+
+    nav.nav-bar .user-profile {
+        order: 1;
+    }
+
+    nav.nav-bar ul {
+        flex-direction: row;
+        justify-content: space-evenly;
+        flex-grow: 1;
+    }
+
+    nav.nav-bar ul {
+        font-size: 18px;
+    }
 }

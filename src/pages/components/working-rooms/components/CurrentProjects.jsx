@@ -5,6 +5,7 @@ import Spinner from '../../spinner/Spinner'
 export default function CurrentProjects() {
 
     const { isLoading, data: response, error } = useCurrentProjects();
+
     if (isLoading) return <Spinner dim='30px' />
     if (response.ok && 'data' in response) {
         if (!response.data?.length) return <p style={{ marginInline: 'auto' }} >No Projects</p>

@@ -97,7 +97,6 @@ export default function EditProfilePage() {
     if (isLoading) return <h1>Loading...</h1>
     return (
         <Main>
-            <NavSideBar />
             <section className='edit-profile-page'>
                 {!!imageUploaded &&
                     <UploadImageModel

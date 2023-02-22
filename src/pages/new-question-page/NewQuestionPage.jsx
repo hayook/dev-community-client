@@ -68,7 +68,6 @@ export default function ShareYourWorkForm() {
     if (error) return <h1>Error</h1>
     return (
         <Main>
-            <NavSideBar />
             <form onSubmit={!!id ? submitEditQuestion : submitShareWork} className="share-work-form">
                 <label>Title</label>
                 <input onChange={({ target }) => updatePostInfo('title', target.value)} type="text" className='main-input' value={postInfo.title} />
@@ -82,6 +81,7 @@ export default function ShareYourWorkForm() {
 
                 <MainButton disabled={isSharing || isEditing}>Submit</MainButton>
             </form>
-        </Main>
+
+        </Main >
     )
 }

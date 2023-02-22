@@ -1,31 +1,40 @@
-
-section.main section.working-rooms {
-    display: flex; 
-    flex-direction: column;
-    gap: 2em; 
+section.working-rooms {
+    position: sticky;
+    top: 0;
     border-left: 1px solid var(--grey-clr-200);
+    height: 100vh; 
+    margin-left: 20px; 
+    overflow-y: auto;
 }
 
-section.main section.working-rooms>.current-projects,
-section.main section.working-rooms>.user-invites {
+section.working-rooms .inner-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1em; 
+    padding-inline: 10px;
+}
+
+section.working-rooms .current-projects,
+section.working-rooms .user-invites {
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 1.4em;
 }
 
-section.main section.working-rooms h2 {
+section.working-rooms h2 {
     font-weight: 400;
 }
 
-section.main section.working-rooms .main-button {
+section.working-rooms .main-button {
     display: block;
     padding-right: 1em;
     padding-left: 1em;
     margin: 0 auto;
 }
 
-section.main section.working-rooms .projects-list {
+section.working-rooms .projects-list {
     display: flex;
     flex-direction: column;
     gap: 1.3em;
@@ -74,27 +83,33 @@ a.working-rooms-project .progress .progress-container span {
     background: var(--blue-clr-100);
 }
 
-section.main section.working-rooms .user-invites .invites-list {
-    display: flex; 
+section.working-rooms .user-invites .invites-list {
+    display: flex;
     flex-direction: column;
-    gap: 1em; 
-} 
+    gap: 1em;
+}
 
-section.main section.working-rooms .user-invites .invites-list .invite {
-    display: flex; 
+section.working-rooms .user-invites .invites-list .invite {
+    display: flex;
     align-items: center;
     justify-content: space-between;
     padding: .454em;
     border: 1px solid var(--grey-clr-200);
 }
 
-section.main section.working-rooms .user-invites .invites-list .invite .functionalities {
+section.working-rooms .user-invites .invites-list .invite .functionalities {
     display: flex;
     align-items: center;
-    gap: 1em; 
+    gap: 1em;
     font-size: .9em;
 }
 
-section.main section.working-rooms .user-invites .invites-list .invite .functionalities button.reject {
+section.working-rooms .user-invites .invites-list .invite .functionalities button.reject {
     background: var(--red-clr-300);
+}
+
+@media (max-width: 1199px) {
+    section.working-rooms {
+        display: none;
+    }
 }

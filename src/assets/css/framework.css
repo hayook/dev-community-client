@@ -1,3 +1,5 @@
+
+
 .main-button {
     padding: .6em 3em; 
     background: var(--blue-clr-200); 
@@ -40,11 +42,10 @@ textarea.main-textarea.code {
 }
 
 .main-form-wrapper { 
-    margin: 100px auto 0; 
     padding: 20px; 
-    background: var(--grey-clr-300);
     border: 1px solid var(--grey-clr-200); 
-    width: 400px; 
+    width: min(400px, 100%);
+    margin: 100px 0; 
 } 
 
 .main-form-wrapper h1 {
@@ -82,13 +83,13 @@ textarea.main-textarea.code {
     padding: 0 1.42em 0 calc(.8em + 3em);
 }
 
-.user-profile {
+/* .user-profile {
     display: flex; 
     justify-content: center;
     align-items: center;
     gap: .8em;
     cursor: pointer;
-}
+} */
 
 ul.main-ul {
     display: flex; 

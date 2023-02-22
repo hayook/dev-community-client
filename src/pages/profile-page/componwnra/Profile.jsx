@@ -19,9 +19,9 @@ export default function Profile() {
 
     const { isLoading, data: response, error } = useUser(userId)
 
-    if (isLoading) return <Spinner dim='30px' />
+    if (isLoading)return <div className="inner-container center"><Spinner dim='30px' /></div>
     if (response?.ok && 'data' in response) return (
-        <>
+        <div className='inner-container'>
             <section className="hero">
                 <div className="user-pic">
                     <ProfileImg
@@ -55,7 +55,7 @@ export default function Profile() {
                     {targetContent === 'about' && <p>{response.data.about}</p>}
                 </div>
             </section>
-        </>
+        </div>
     )
     if (!response?.ok) return <h1>{response?.status}</h1>
     if (error) return <h1>Error [ error.message ]</h1>

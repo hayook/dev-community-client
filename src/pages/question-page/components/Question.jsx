@@ -71,56 +71,56 @@ export default function Question() {
 
     if (isLoading) return <Spinner dim="30px" />
     return (
-        <section className="question-page">
-            {deleteModel &&
-                <DeleteModel type={'question'}
-                    isDeleting={isDeleting}
-                    cancelDelete={closeDeleteModel}
-                    submitDelete={handleDeleteQuestion} />
-            }
-            <div className="question-container">
-                <div className="question-info">
-                    <h2>{question.post_title}</h2>
-                    <p>{question.post_body}</p>
-                    <Code language={'javascript'} code={question.post_code} />
-                </div>
-                {question.post_owner_id === currentUserId &&
-                    <div className="question-functionalities">
-                        <Link to={`/questions/${questionId}/edit`}>Edit Question</Link>
-                        <button onClick={openDeleteModel}>Delete Question</button>
-                    </div>
+            <section className="question-page">
+                {deleteModel &&
+                    <DeleteModel type={'question'}
+                        isDeleting={isDeleting}
+                        cancelDelete={closeDeleteModel}
+                        submitDelete={handleDeleteQuestion} />
                 }
-                <div className="question-more-info">
-                    <Link to={`/user/${question.post_owner_id}`} className="user-profile">
-                        <ProfileImg url={question.img_url} />
-                        <span>{question.username}</span>
-                    </Link>
-                    <span className="date">{splitDate(question.post_creation_date)}</span>
-                    <button onClick={handleLikeQuestion} className="like-question">
-                        <SvgIcon path={icons.like} fill={question.liked && 'white'} /> {question.post_number_likes} likes
-                    </button>
+                <div className="question-container">
+                    <div className="question-info">
+                        <h2>{question.post_title}</h2>
+                        <p>{question.post_body}</p>
+                        <Code language={'javascript'} code={question.post_code} />
+                    </div>
+                    {question.post_owner_id === currentUserId &&
+                        <div className="question-functionalities">
+                            <Link to={`/questions/${questionId}/edit`}>Edit Question</Link>
+                            <button onClick={openDeleteModel}>Delete Question</button>
+                        </div>
+                    }
+                    <div className="question-more-info">
+                        <Link to={`/user/${question.post_owner_id}`} className="user-profile">
+                            <ProfileImg url={question.img_url} />
+                            <span>{question.username}</span>
+                        </Link>
+                        <span className="date">{splitDate(question.post_creation_date)}</span>
+                        <button onClick={handleLikeQuestion} className="like-question">
+                            <SvgIcon path={icons.like} fill={question.liked && 'white'} /> {question.post_number_likes} likes
+                        </button>
+                    </div>
+                    <Answers question={question} />
+                    <form onSubmit={shareAnswer} className="share-answer">
+                        <label>Description</label>
+                        <textarea
+                            onChange={({ target }) => setAnswer({ ...answer, description: target.value })}
+                            className='main-textarea'
+                            rows={7}
+                            value={answer.description}
+                        ></textarea>
+
+                        <label>Code</label>
+                        <textarea
+                            onChange={({ target }) => setAnswer({ ...answer, code: target.value })}
+                            value={answer.code}
+                            className="main-textarea code"
+                            rows={7}
+                        ></textarea>
+
+                        <MainButton disabled={isCommenting}>Answer</MainButton>
+                    </form>
                 </div>
-                <Answers question={question} />
-                <form onSubmit={shareAnswer} className="share-answer">
-                    <label>Description</label>
-                    <textarea
-                        onChange={({ target }) => setAnswer({ ...answer, description: target.value })}
-                        className='main-textarea'
-                        rows={7}
-                        value={answer.description}
-                    ></textarea>
-
-                    <label>Code</label>
-                    <textarea
-                        onChange={({ target }) => setAnswer({ ...answer, code: target.value })}
-                        value={answer.code}
-                        className="main-textarea code"
-                        rows={7}
-                    ></textarea>
-
-                    <MainButton disabled={isCommenting}>Answer</MainButton>
-                </form>
-            </div>
-        </section>
+            </section>
     )
 }

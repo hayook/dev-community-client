@@ -1,14 +1,16 @@
 import { Link } from 'react-router-dom'
 import Main from '../components/main/Main'
-import NavSideBar from '../components/nav-side-bar/NavSideBar'
 import './style.css'
 
 export default function NotFoundPage() {
     return (
         <Main>
-            <NavSideBar />
-            <NotFound />
-        </Main>
+            <div className="not-found-page page">
+                <div className="inner-container center">
+                    <NotFound />
+                </div>
+            </div>
+        </Main >
     )
 }
 

@@ -9,8 +9,7 @@ export default function ProfilePage() {
 
     return (
         <Main>
-            <NavSideBar />
-            <div className="profile-page">
+            <div className="profile-page page">
                 <Profile />
             </div>
         </Main>

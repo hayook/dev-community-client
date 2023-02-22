@@ -32,28 +32,27 @@ export default function NewProjectPage() {
     return (
         <>
             <Main>
-                <NavSideBar />
-                <form className='new-project' onSubmit={handleSubmit}>
-                    <label>Project Title</label>
-                    <input 
-                    onChange={({ target }) => setProjectInfo(prev => ({ ...prev, projectTitle: target.value }))} 
-                    type='text' 
-                    className='main-input' 
-                    value={projectInfo.projectTitle}
-                    />
+                    <form className='new-project' onSubmit={handleSubmit}>
+                        <label>Project Title</label>
+                        <input
+                            onChange={({ target }) => setProjectInfo(prev => ({ ...prev, projectTitle: target.value }))}
+                            type='text'
+                            className='main-input'
+                            value={projectInfo.projectTitle}
+                        />
 
-                    <label>Project Description</label>
-                    <textarea 
-                    onChange={({ target }) => setProjectInfo(prev => ({ ...prev, projectDescription: target.value }))} 
-                    rows={7} 
-                    type='text' 
-                    className='main-textarea' 
-                    value={projectInfo.projectDescription} 
-                    />
+                        <label>Project Description</label>
+                        <textarea
+                            onChange={({ target }) => setProjectInfo(prev => ({ ...prev, projectDescription: target.value }))}
+                            rows={7}
+                            type='text'
+                            className='main-textarea'
+                            value={projectInfo.projectDescription}
+                        />
 
-                    <MainButton disabled={isLoading}>Submit</MainButton>
+                        <MainButton disabled={isLoading}>Submit</MainButton>
 
-                </form>
+                    </form>
             </Main>
         </>
     )

@@ -51,7 +51,6 @@ export default function NewProjectPage() {
     if (isFetching) return <Spinner dim='30px' />
    if (response?.ok && 'data' in response) return (
         <Main>
-            <NavSideBar />
             <form className='new-project' onSubmit={submitEdit}>
                 {isFetching ? <Spinner dim='30px' /> :
                     <>

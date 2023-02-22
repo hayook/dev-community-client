@@ -24,18 +24,18 @@
   --red-clr-100: #fe6767;
   --red-clr-200: #ff1f1f;
   --red-clr-300: #cb0101;
-  
+
   --box-shadow: #000;
   --fixed-white: #fff;
   --fixed-black: #000;
 
-  --fast-transition: .3s; 
-  --meduim-transition: .5s; 
-  --slow-transition: .7s; 
+  --fast-transition: .3s;
+  --meduim-transition: .5s;
+  --slow-transition: .7s;
 
-  --rounded-border-1: 4px; 
-  --rounded-border-2: 10px; 
-  --rounded-border-3: 20px; 
+  --rounded-border-1: 4px;
+  --rounded-border-2: 10px;
+  --rounded-border-3: 20px;
 
   --header-height: 57.19px;
 
@@ -66,39 +66,99 @@ body {
   background: var(--blue-clr-300);
   color: var(--white);
   font-size: 1.3rem;
+  overflow-y: scroll;
 }
 
 #root {
-  height: 100%; 
-}
-
-.container {
   padding: 0 15px;
-  margin: 0 auto;
-  width: 97%;
+  margin-inline: auto;
 }
 
-/* Mobile */
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main.main-content {
+  flex-grow: 1; 
+  display: flex;
+  flex-direction: column;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.inner-container {
+  padding: 10px 0;
+}
+
+.inner-container.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+
+.page-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+
+/* sreen <= 767 */
 @media (max-width: 767px) {
-  .container {
-      width: 100%; 
+  #root {
+    width: 100%;
   }
 }
 
-/* @media (min-width: 768px) {
-  .container {
-      width: 750px;
+
+/* 768 <= screen < 992 */
+@media (min-width: 768px) {
+  #root {
+    /* width: 750px; */
+    width: 97%;
   }
 }
 
+
+/* 992 <= screen < 1200 */
 @media (min-width: 992px) {
-  .container {
-      width: 970px;
+  #root {
+    /* width: 970px; */
+    width: 95%
   }
 }
 
+
+/* 1200 <= screen */
 @media (min-width: 1200px) {
-  .container {
-      width: 1170px;
+  #root {
+    /* width: 1170px; */
   }
-} */
+
+  .app {
+    flex-direction: row;
+  }
+
+  nav.nav-bar {
+    width: 20%;
+    height: 100vh;
+  }
+
+  section.working-rooms {
+    width: 30%;
+  }
+
+  .inner-container {
+    padding: 30px 0;
+  }
+}

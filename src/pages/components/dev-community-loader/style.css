@@ -7,3 +7,7 @@
     width: fit-content;
     margin: 100px auto; 
 }
+
+.dev-community-loader h1 {
+    text-align: center;
+}

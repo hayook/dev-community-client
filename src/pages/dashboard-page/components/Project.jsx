@@ -44,9 +44,9 @@ export default function Project({ id }) {
         setCurrentTab(target.getAttribute('target'));
     }
 
-    if (isLoading) return <Spinner dim='30px' />
+    if (isLoading)return <div className="inner-container center"><Spinner dim='30px' /></div>
     if (response.ok && 'data' in response) return (
-        <>
+        <div className='inner-container'>
             {deleteProjectModel &&
                 <DeletePostModel
                     modelHeading='Delete Project'
@@ -85,7 +85,7 @@ export default function Project({ id }) {
                 {currentTab === 'members' && <ProjectMembers />}
                 {currentTab === 'chat' && <ProjectChat />}
             </div>
-        </>
+        </div>
     )
     if (!response.ok) {
         if (response.status === 403) return <NotFound />

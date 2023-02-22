@@ -6,17 +6,19 @@ import './style.css'
 export default function WorkingRooms() {
     return (
         <section className="working-rooms">
-            <div className="current-projects">
-                <h2>Your Current Projects</h2>
-                <div className="projects-list">
-                    <CurrentProjects />
+            <div className="inner-container">
+                <div className="current-projects">
+                    <h2>Your Current Projects</h2>
+                    <div className="projects-list">
+                        <CurrentProjects />
+                    </div>
+                    <Link to="/projects/new" className="main-button">Start A New Project</Link>
                 </div>
-                <Link to="/projects/new" className="main-button">Start A New Project</Link>
+                <div className="user-invites">
+                    <h2>Invites</h2>
+                    <Invites />
+                </div>
             </div>
-            <div className="user-invites">
-            <h2>Invites</h2>
-            <Invites />
-        </div>
         </section>
     )
 }
