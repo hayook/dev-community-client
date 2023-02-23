@@ -19,7 +19,7 @@ export default function Profile() {
 
     const { isLoading, data: response, error } = useUser(userId)
 
-    if (isLoading)return <div className="inner-container center"><Spinner dim='30px' /></div>
+    if (isLoading) return <div className="inner-container center"><Spinner dim='30px' /></div>
     if (response?.ok && 'data' in response) return (
         <div className='inner-container'>
             <section className="hero">

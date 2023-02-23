@@ -7,9 +7,10 @@ export function activateTab(ulRef, e, setTarget) {
     setTarget(e.target.getAttribute('target'))
 }
 
-export function adjustInputHeight(element, initialHeight) {
-    element.style.height = initialHeight;
+export function adjustInputHeight(element) {
+    element.style.height = 'unset';
     element.style.height = `${element.scrollHeight + 2}px`;
+    element.scrollTo({top: element.scrollHeight})
 }
 
 export async function updateQueryCache(queryClient, queryKey, newQueryData) {

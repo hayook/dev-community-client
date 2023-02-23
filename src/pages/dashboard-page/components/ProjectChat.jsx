@@ -6,7 +6,7 @@ import { BiSend } from 'react-icons/bi'
 import Message from '../components/Message'
 import Spinner from '../../components/spinner/Spinner'
 import useProjectChatLogs from '../../../hooks/useProjectChatLogs'
-import { updateQueryCache } from '../../../utiles/dom';
+import { adjustInputHeight, updateQueryCache } from '../../../utiles/dom';
 import { dateToHHMM } from '../../../utiles/handle-date'
 
 
@@ -14,6 +14,7 @@ import { dateToHHMM } from '../../../utiles/handle-date'
 export default function ProjectChat() {
 
     const messagesContent = useRef(null)
+    const messageAreaRef = useRef(null)
 
     const { id: projectId } = useParams()
     const { currentUserId, currentUserProfileImg, currentUserUsername } = useCurrentUserData()
@@ -36,8 +37,6 @@ export default function ProjectChat() {
         const url = `ws://localhost:3000/ws/${projectId}`;
         const ws = new WebSocket(url);
 
-        console.log('Connection Opened')
-
         // ws.onopen = e => ws.send('Welcome user#' + memberId)
 
         ws.onmessage = e => {
@@ -58,14 +57,12 @@ export default function ProjectChat() {
 
         setWebSocket(ws);
 
-        return () => {
-            console.log('Connection Closed')
-            ws.close()
-        }
+        return () => ws.close()
     }, [])
 
     const sendMessage = e => {
         e.preventDefault()
+        if (messageBody === '') return;
         const payload = {
             message: messageBody,
             senderUsername: currentUserUsername,
@@ -74,30 +71,35 @@ export default function ProjectChat() {
         }
 
         webSocket.send(JSON.stringify(payload));
-        setMessageBody('');
+        setMessageBody('')
+        messageAreaRef.current.style.height = 'unset'
+    }
+
+    const handleTyping = ({ target }) => {
+        adjustInputHeight(target)
+        setMessageBody(target.value)
     }
 
     return (
-        <section className="chat-container">
-            <div className="chat-content">
-                <div className="messages" ref={messagesContent}>
-                    {isLoading ? <Spinner dim='30px' /> :
-                        response?.data?.map((payload, idx) => {
-                            return <Message
-                                key={idx}
-                                body={payload.message}
-                                senderUsername={payload.username}
-                                senderProfileImg={payload.img_url}
-                                messageTime={dateToHHMM(payload.message_date)}
-                            />
-                        })
-                    }
-                </div>
-                <form onSubmit={sendMessage}>
-                    <input className="main-input" type="text" value={messageBody} onChange={({ target }) => setMessageBody(target.value)} />
-                    <button><BiSend /></button>
-                </form>
+        <div className="chat-content">
+            <div className="messages" ref={messagesContent}>
+                {isLoading ? <Spinner dim='30px' /> :
+                    response?.data?.map((payload, idx) => {
+                        return <Message
+                            key={idx}
+                            body={payload.message}
+                            senderUsername={payload.username}
+                            senderProfileImg={payload.img_url}
+                            messageTime={dateToHHMM(payload.message_date)}
+                        />
+                    })
+                }
             </div>
-        </section>
+            <form onSubmit={sendMessage}>
+                {/* <input className="main-input" type="text" value={messageBody} onChange={({ target }) => setMessageBody(target.value)} /> */}
+                <textarea ref={messageAreaRef} rows={1} className='main-textarea' value={messageBody} onChange={handleTyping} />
+                <button><BiSend /></button>
+            </form>
+        </div>
     )
 }

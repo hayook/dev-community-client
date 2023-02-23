@@ -30,6 +30,7 @@ textarea.main-textarea {
     background: var(--blue-clr-400); 
     color: var(--white); 
     border: 1px solid var(--grey-clr-200);
+    white-space: pre-wrap;
 }
 
 input.main-input:focus,

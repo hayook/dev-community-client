@@ -69,7 +69,7 @@ export default function Project({ id }) {
                     }
                 </div>
                 <div className="project-nav-tabs">
-                    <ul ref={ulRef} className="tabs" onClick={e => activateTab(ulRef, e)} >
+                    <ul ref={ulRef} className="tabs" onClick={e => activateTab(ulRef, e, setCurrentTab)} >
                         <li onClick={handleTarget} target='tasks'>Tasks</li>
                         <li onClick={handleTarget} target='members' className='active'>Members</li>
                         <li onClick={handleTarget} target='chat'>Chat</li>

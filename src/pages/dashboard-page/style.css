@@ -1,3 +1,15 @@
+section.project-dashboard .inner-container {
+    display: flex; 
+    flex-direction: column;
+    min-height: 100%;
+}
+
+section.project-dashboard .inner-container .dashboard-content {
+    flex: 1; 
+    position: relative;
+}
+
+
 section.project-dashboard .heading {
     display: flex;
     align-items: center;
@@ -328,21 +340,22 @@ section.members .members-list-container form.create-team-form>input {
 
 /****************************************** Chat Tab ***************************************/
 
-section.chat-container .chat-content {
+.chat-content {
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;   
     gap: 2em;
-    margin-inline: auto;
-    width: 50%;
+    position: absolute;
+    left: 50%; 
+    transform: translateX(-50%);
+    height: 100%;
+    min-height: 300px;
+    width: 100%;
+    max-width: 700px;
     border: 1px solid var(--grey-clr-200);
-    padding: 1em;
-    height: 400px;
-    display: flex; 
-    flex-direction: column;
-    justify-content: flex-end;
 }
 
-section.chat-container .chat-content .messages {
+.chat-content .messages {
     display: flex;
     overflow-y: auto;
     flex-direction: column;
@@ -350,45 +363,48 @@ section.chat-container .chat-content .messages {
     padding: .7em 1em;
 }
 
-section.chat-container .chat-content .messages .message {
+.chat-content .messages .message {
     display: grid;
     grid-template-columns: auto 1fr;
     gap: .6em;
     padding: .4em;
 }
 
-section.chat-container .chat-content .messages .message .message-info {
+.chat-content .messages .message .message-info {
     display: flex;
     flex-direction: column;
     gap: .3em;
     font-size: .9em;
 }
 
-section.chat-container .chat-content .messages .message .message-info .sender-username {
+.chat-content .messages .message .message-info .sender-username {
     display: flex;
     align-items: center;
 }
 
-section.chat-container .chat-content .messages .message .message-info .sender-username small {
+.chat-content .messages .message .message-info .sender-username small {
     margin-inline: .7em;
     color: var(--grey-clr-100)
 }
 
-section.chat-container .chat-content .messages .message .message-info p.message-body {
+.chat-content .messages .message .message-info p.message-body {
     color: #ddd;
 }
 
-section.chat-container .chat-content form {
+.chat-content form {
     display: flex;
     align-items: center;
     background: var(--blue-clr-400);
+    max-height: 20%;
 }
 
-section.chat-container .chat-content form input {
+.chat-content form textarea {
     width: 100%;
+    resize: none;
+    max-height: 100%;
 }
 
-section.chat-container .chat-content form button {
+.chat-content form button {
     all: unset;
     font-size: 1.3em;
     position: relative;
