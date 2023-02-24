@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { AiOutlineSetting, AiOutlineCheck } from 'react-icons/ai'
 import PrimaryModel from './PrimaryModel'
 
-export default function Task({ taskId, title, status }) {
+export default function Task({ taskId, title, status, description }) {
 
     const [taskInfo, setTaskInfo] = useState(false)
 
@@ -15,8 +15,8 @@ export default function Task({ taskId, title, status }) {
             {taskInfo &&
                 <PrimaryModel closeModel={closeModel}>
                     <div className="member-task-info">
-                        <h2>title</h2>
-                        <p className="description">lorem500 Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt obcaecati repudiandae neque recusandae eius reiciendis pariatur quod. Corporis delectus nemo et enim unde voluptatibus, ea hic quos rem tenetur at sint dolor porro? Ipsum assumenda voluptates hic molestiae error, deleniti adipisci repellat aliquid eos tempore id. Quasi doloremque distinctio dolores?</p>
+                        <h2>{ title }</h2>
+                        <p className="description">{ description }</p>
 
                         {status === 'in-progress' &&
                             <div className="progress">

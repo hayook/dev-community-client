@@ -141,3 +141,4 @@ export const uploadImage = async (body) => {
 export const getMemberTasks = async projectId => api.get(`/projects/${projectId}/task`);
 export const postTask = async ({ projectId, task }) => api.post(`/projects/${projectId}/task`, task)
 export const getProjectTasks = async projectId => api.get(`/projects/${projectId}/alltasks`);
+export const updateStatus = async ({ projectId, taskId, newStatus }) => api.put(`/projects/${projectId}/task/${taskId}/state?task_state=${newStatus}`)

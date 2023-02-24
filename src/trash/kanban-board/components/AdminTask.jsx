@@ -2,7 +2,7 @@ import { useState } from 'react'
 import PrimaryModel from './PrimaryModel'
 import ProjectMember from '../../../pages/dashboard-page/components/ProjectMember'
 
-export default function AdminTask({ title, status, taskId }) {
+export default function AdminTask({ title, status, taskId, description }) {
 
     const [taskInfo, setTaskInfo] = useState(false);
 
@@ -23,7 +23,7 @@ export default function AdminTask({ title, status, taskId }) {
                                     {editTitle ? (
                                         <input type="text" className="main-input" defaultValue='title' />
                                     ) : (
-                                        <h2>Title</h2>
+                                        <h2>{ title }</h2>
                                     )
                                     }
                                     <button onClick={() => setEditTitle(prev => !prev)}>edit</button>
@@ -32,7 +32,7 @@ export default function AdminTask({ title, status, taskId }) {
                                     {editDescription ? (
                                         <textarea row={3} className='main-textarea' />
                                     ) : (
-                                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo tempore doloribus beatae. Sunt reiciendis laboriosam similique animi placeat vero perspiciatis.</p>
+                                        <p>{ description }</p>
                                     )
                                     }
                                     <button onClick={() => setEditDescription(prev => !prev)}>edit</button>
@@ -43,7 +43,7 @@ export default function AdminTask({ title, status, taskId }) {
                                     <ProjectMember memberUsername="username" />
                                     <button onClick={() => setReassign(prev => !prev)}>edit</button>
                                 </div>
-                                <button>Delete</button>
+                                <button className="delete-task-btn">Delete Task</button>
                                 <div className="functionalities">
                                     <button className="main-button">Cancel</button>
                                     <button className="main-button">Save</button>

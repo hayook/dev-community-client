@@ -1,14 +1,14 @@
 import { useState } from 'react'
+import { useQueryClient } from 'react-query'
 import AdminTask from '../../../trash/kanban-board/components/AdminTask';
 import KanbanBoard from "../../../trash/kanban-board/KanbanBoard";
 import { tasks as initialState } from "../../../trash/test-data";
 import ProjectMember from './ProjectMember';
 import { BiArrowBack } from 'react-icons/bi'
 import { useMutation } from 'react-query';
-import { postTask } from '../../../app/api'
+import { postTask, updateStatus } from '../../../app/api'
 import { useParams } from 'react-router-dom';
 import useProjectTasks from '../../../hooks/useProjectTasks'
-import useCurrentUserData from '../../../hooks/useCurrentUserData'
 import useProjectMembers from '../../../hooks/useProjectMembers'
 
 const columns = ['todo', 'in-progress', 'in-validation', 'completed']
@@ -16,7 +16,8 @@ const columns = ['todo', 'in-progress', 'in-validation', 'completed']
 export default function ProjectOverview() {
 
     const { id: projectId } = useParams()
-    const currentUser = useCurrentUserData()
+    const queryClient = useQueryClient()
+    const projectData = queryClient.getQueryData([`get-project-${projectId}`])?.data[0];
 
     const { isLoading, data: response, error } = useProjectTasks(projectId)
     const { isLoading: isLoadingMembers, data: membersResponse, error: membersError } = useProjectMembers(projectId);
@@ -25,9 +26,9 @@ export default function ProjectOverview() {
     const [showMembers, setShowMembers] = useState(false);
     const [createTask, setCreateTask] = useState(false);
     const [currentMember, setCurrentMember] = useState({
-        memberId: currentUser.currentUserId,
-        memberUsername: currentUser.currentUserUsername,
-        memberProfileImg: currentUser.currentUserProfileImg,
+        memberId: projectData.member_id,
+        memberUsername: projectData.username,
+        memberProfileImg: projectData.img_url,
     })
     const [task, setTask] = useState({
         title: '',
@@ -35,9 +36,13 @@ export default function ProjectOverview() {
         type: 'test',
     })
 
+    const { mutate:mutateStatus, isLoading:isUpdatingStatus } = useMutation(updateStatus)
     const dropTask = (e, newStatus) => {
-        const newTasks = tasks.map(task => task.id === Number(e.dataTransfer.getData('taskId')) ? { ...task, status: newStatus } : task)
-        setTasks(newTasks)
+        const taskId = e.dataTransfer.getData('taskId');
+        console.log(typeof newStatus)
+        mutateStatus({ projectId, taskId, newStatus }, {
+            onSuccess: res => console.log('done')
+        })
     }
 
     const { mutate, isLoading: isPosting } = useMutation(postTask)
@@ -49,7 +54,6 @@ export default function ProjectOverview() {
             task_type: task.type,
             member_id: currentMember.memberId,
         }
-        console.log(newTask)
         mutate({ projectId, task: newTask })
 
     }
@@ -74,6 +78,7 @@ export default function ProjectOverview() {
                         {response?.data?.map((task, idx) => <AdminTask 
                         key={idx} 
                         title={task.task_title} 
+                        description={task.task_description}
                         status={task.task_state} 
                         taskId={task.task_id} 
                         />
@@ -105,7 +110,7 @@ export default function ProjectOverview() {
                                             onClick={() => {
                                                 setCurrentMember(prev => (
                                                     {
-                                                        memberId: member.user_id,
+                                                        memberId: member.member_id,
                                                         memberUsername: member.username,
                                                         memberProfileImg: member.img_url,
                                                     }
