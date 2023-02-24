@@ -1,60 +1,30 @@
 import { useState } from 'react'
 import { tasks as initialState } from './test-data'
+import Task from './kanban-board/components/Task'
+import AdminTask from './kanban-board/components/AdminTask'
+import Main from '../pages/components/main/Main'
 import './style.css'
+import KanbanBoard from './kanban-board/KanbanBoard';
 
-const tasksClasses = ['backlog', 'in-progress', 'in-validation', 'completed'];
+const memberColumns = ['backlog', 'in-progress', 'completed'];
+const adminColumns = ['backlog', 'in-progress', 'in-validation', 'completed'];
 
 export default function TestComp() {
 
   const [tasks, setTasks] = useState(initialState)
 
-  const updateTaskStatus = (taskId, newStatus) => {
-    setTasks(tasks.map(task => {
-      if (task.id === Number(taskId)) return ({ ...task, status: newStatus })
-      return task; 
-    }))
+  const dropTask = (e, newStatus) => {
+    if (newStatus === 'completed') newStatus = 'in-validation'
+    const newTasks = tasks.map(task => task.id === Number(e.dataTransfer.getData('taskId')) ? { ...task, status: newStatus } : task)
+    setTasks(newTasks)
   }
 
-  const dragTask = (e, taskId) => {
-    e.dataTransfer.setData('taskId', taskId);
-  }
-
-  const hoveringTask = e => {
-    e.preventDefault()
-  }
-
-  const dropTask = (e, tasksClass) => {
-    updateTaskStatus(e.dataTransfer.getData('taskId'), tasksClass)
-  }
-
-  return (
-    <div className="tasks-container">
-      {
-        tasksClasses.map(tasksClass => {
-          return (
-
-            <div onDragOver={hoveringTask} onDrop={e => dropTask(e, tasksClass)} className="clmn" id={tasksClass}>
-              <h2>{tasksClass}</h2>
-              <div className="tasks-list">
-                {
-                  tasks.map(task => {
-                    if (task.status === tasksClass) return (
-                      <div
-                        draggable
-                        onDragStart={e => dragTask(e, task.id)}
-                        className='task'
-                      >
-                        {task.title}
-                      </div>
-                    )
-                  })
-                }
-              </div>
-            </div>
-          )
-        })
-      }
-    </div>
-  )
-
+  return <Main>
+    <KanbanBoard
+      dropTask={dropTask}
+      columns={adminColumns}
+    >
+      {tasks.map((task, idx) => <Task key={idx} taskId={task.id} status={task.status} title={task.title} />)}
+    </KanbanBoard>
+  </Main>
 }

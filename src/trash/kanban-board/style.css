@@ -1,0 +1,186 @@
+.column {
+    min-width: 200px;
+    flex: 1;
+    padding: .8em .6em;
+}
+
+.kanban-board-container {
+    overflow-x: auto;
+}
+
+.kanban-board-container .kanban-board {
+    display: grid;
+
+}
+
+.kanban-board-container .kanban-board .headings,
+.kanban-board-container .kanban-board .content {
+    display: flex;
+    gap: .8em;
+    justify-content: space-around;
+}
+
+.kanban-board-container .kanban-board .headings h1,
+.kanban-board-container .kanban-board .content .tasks-container {
+    border: 1px solid var(--grey-clr-200);
+}
+
+.kanban-board-container .kanban-board .headings h1 {
+    text-align: center;
+    border-bottom: none;
+}
+
+.kanban-board-container .kanban-board .content .tasks-container {
+    border-top: none;
+    display: flex;
+    flex-direction: column;
+    gap: .8em;
+}
+
+.kanban-board-container .kanban-board .content .tasks-container .task {
+    padding: .8em;
+    border: 1px solid var(--grey-clr-200);
+    position: relative;
+    cursor: pointer;
+}
+
+
+.kanban-board-container .kanban-board .content .tasks-container .model {
+    max-height: 80%;
+    overflow-y: auto;
+}
+
+.kanban-board-container .kanban-board .content .tasks-container .model .member-task-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+
+}
+
+
+.kanban-board-container .kanban-board .content .tasks-container .model .member-task-info .progress {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+
+.range-input {
+    display: block;
+    flex: 1;
+}
+
+.kanban-board-container .kanban-board .content .tasks-container .model .member-task-info button {
+    align-self: flex-end;
+}
+
+.kanban-board-container .kanban-board .content .tasks-container .model .admin-task-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    width: 100%;
+}
+
+.kanban-board-container .kanban-board .content .tasks-container .model .admin-task-info .info {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.kanban-board-container .kanban-board .content .tasks-container .model .admin-task-info .info>div {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+
+.kanban-board-container .kanban-board .content .tasks-container .model .admin-task-info .info>div button {
+    all: unset;
+}
+
+.kanban-board-container .kanban-board .content .tasks-container .model .admin-task-info .info .title h2,
+.kanban-board-container .kanban-board .content .tasks-container .model .admin-task-info .info .title input,
+.kanban-board-container .kanban-board .content .tasks-container .model .admin-task-info .info .description p,
+.kanban-board-container .kanban-board .content .tasks-container .model .admin-task-info .info .description textarea,
+.kanban-board-container .kanban-board .content .tasks-container .model .admin-task-info .info .assignment .project-member {
+    flex: 1;
+}
+
+.kanban-board-container .kanban-board .content .tasks-container .model .admin-task-info .members-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.7em; 
+}
+
+.kanban-board-container .kanban-board .content .tasks-container .model .admin-task-info .members-list .list {
+    display: flex;
+    flex-direction: column;
+    gap: 1em; 
+}
+
+.kanban-board-container .kanban-board .content .tasks-container .model .admin-task-info .members-list button {
+    all: unset;
+}
+
+.kanban-board-container .kanban-board .content .tasks-container .model .admin-task-info .functionalities {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1em;
+}
+
+
+/* for version 1 */
+/* .range-input {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0; 
+    appearance: none;
+    opacity: 0;
+}
+
+span.progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: var(--blue-clr-100);
+    opacity: .3;
+    z-index: -1;
+}
+
+.set-progress-btn {
+    all: unset;
+    display: flex;
+    align-items: center;
+    gap: .2em;
+    position: absolute;
+    top: 50%;
+    right: 2%;
+    transform: translateY(-50%);
+    z-index: 2;
+    font-size: 1.18em;
+    cursor: pointer;
+}
+
+.set-progress-btn svg {
+    display: block;
+}
+
+.set-progress-btn small {
+    position: relative; 
+    top: 1px; 
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, .7); 
+    z-index: 10000000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */

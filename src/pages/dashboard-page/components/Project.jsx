@@ -13,6 +13,7 @@ import { isAdmin } from '../../../utiles/is-admin'
 import { activateTab } from '../../../utiles/dom'
 import { NotFound } from '../../not-found-page/NotFoundPage'
 import { useRef } from 'react';
+import ProjectOverview from './ProjectOverview'
 
 
 export default function Project({ id }) {
@@ -24,7 +25,7 @@ export default function Project({ id }) {
     const { isLoading, data: response, error } = useProject(id);
     const queryClient = useQueryClient()
 
-    const [currentTab, setCurrentTab] = useState('members')
+    const [currentTab, setCurrentTab] = useState('tasks')
     const [deleteProjectModel, setDeleteProjectModel] = useState(false)
 
     const openModel = () => setDeleteProjectModel(true)
@@ -70,9 +71,10 @@ export default function Project({ id }) {
                 </div>
                 <div className="project-nav-tabs">
                     <ul ref={ulRef} className="tabs" onClick={e => activateTab(ulRef, e, setCurrentTab)} >
-                        <li onClick={handleTarget} target='tasks'>Tasks</li>
-                        <li onClick={handleTarget} target='members' className='active'>Members</li>
-                        <li onClick={handleTarget} target='chat'>Chat</li>
+                        {isAdmin(queryClient, projectId) && <li target='overview'>Overview</li>}
+                        <li target='tasks'>Tasks</li>
+                        <li target='members' className='active'>Members</li>
+                        <li target='chat'>Chat</li>
                     </ul>
                 </div>
                 <div className="progress">
@@ -84,6 +86,7 @@ export default function Project({ id }) {
                 {currentTab === 'tasks' && <ProjectTasks />}
                 {currentTab === 'members' && <ProjectMembers />}
                 {currentTab === 'chat' && <ProjectChat />}
+                {currentTab === 'overview' && <ProjectOverview />}
             </div>
         </div>
     )

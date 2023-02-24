@@ -26,7 +26,7 @@ export default function DeletePostModel() {
             {
                 !isDeleting ?
                     <>
-                        <div className="model-container">
+                        <div style={{ overflow: 'auto' }} className="model-container">
                             <p>Are you sure you want to delete this post</p>
                         </div>
                         <div className="model-functionalities">

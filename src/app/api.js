@@ -136,3 +136,8 @@ export const uploadImage = async (body) => {
         return ({ ok: response.ok, status: response.status })
     }
 }
+
+// Tasks
+export const getMemberTasks = async projectId => api.get(`/projects/${projectId}/task`);
+export const postTask = async ({ projectId, task }) => api.post(`/projects/${projectId}/task`, task)
+export const getProjectTasks = async projectId => api.get(`/projects/${projectId}/alltasks`);

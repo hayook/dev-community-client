@@ -1,4 +1,4 @@
-.tasks-container {
+/* .tasks-container {
     padding: 50px 15px;
     display: grid;
     grid-template-columns: repeat(4, 25%);
@@ -26,4 +26,4 @@
 .tasks-container .clmn .tasks-list .task {
     border: 1px solid var(--grey-clr-200);
     padding: .8em;
-}
+} */
