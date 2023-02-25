@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useMutation, useQueryClient } from 'react-query'
 import PrimaryModel from './PrimaryModel'
-import { updateProgress } from '../../../app/api'
-import MainButton from '../../../pages/components/main-button/MainButton'
+import { updateProgress } from '../../../../app/api'
+import MainButton from '../../../../pages/components/main-button/MainButton'
 
 export default function Task({ taskId, title, status, description, progress }) {
 

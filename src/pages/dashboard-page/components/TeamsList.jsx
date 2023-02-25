@@ -39,7 +39,7 @@ export default function TeamsList() {
             }
         })
     }
-    
+
     const { isLoading: isAdding, mutate } = useMutation(addToTeam)
     const addToTeamHandler = (memberId) => {
         mutate({ projectId, teamId: targetTeam, memberId }, {
@@ -99,8 +99,9 @@ export default function TeamsList() {
                         </div>
                         {addMemberToTeam ?
                             <div className="search-members">
-                                {queryClient.getQueryData([`get-project-${projectId}-members`]).data.map(member => {
+                                {queryClient.getQueryData([`get-project-${projectId}-members`]).data.map((member, idx) => {
                                     return <ProjectMember
+                                        key={idx}
                                         memberUsername={member.username}
                                         memberRole={member.member_role}
                                         userId={member.user_id}

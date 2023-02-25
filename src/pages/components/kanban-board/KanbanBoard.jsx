@@ -1,11 +1,6 @@
-import { useState } from 'react'
-import Task from './components/Task'
-import { tasks as initialState } from '../test-data'
 import './style.css'
 
 export default function KanbanBoard({ columns, dropTask, children }) {
-
-    const [tasks, setTasks] = useState(initialState);
 
     const hoveringTask = e => e.preventDefault();
 

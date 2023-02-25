@@ -1,14 +1,13 @@
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useMutation, useQueryClient } from 'react-query';
-import { BsPencil } from 'react-icons/bs'
-import DeleteModel from '../../../pages/components/delete-model/DeleteModel'
-import PrimaryModel from './PrimaryModel'
-import ProjectMember from '../../../pages/dashboard-page/components/ProjectMember'
-import useProjectMembers from '../../../hooks/useProjectMembers'
-import { updateTask } from '../../../app/api'
-import { BiArrowBack } from 'react-icons/bi'
 import { AiOutlineCheck } from 'react-icons/ai'
+import { BiArrowBack } from 'react-icons/bi'
+import { BsPencil } from 'react-icons/bs'
+import PrimaryModel from './PrimaryModel'
+import ProjectMember from '../../../../pages/dashboard-page/components/ProjectMember'
+import useProjectMembers from '../../../../hooks/useProjectMembers'
+import { updateTask } from '../../../../app/api'
 
 export default function AdminTask({ title, status, taskId, description, member, progress }) {
 

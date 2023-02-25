@@ -34,25 +34,26 @@ export default function TeamMembersList({ teamId }) {
         if (response.data?.length == 0) return <p style={{ marginInline: 'auto' }}>No Members</p>
         return (
             <>
-                {!!memberToDelete && 
+                {!!memberToDelete &&
                     <DeleteModel
-                    modelHeading='Remove Team Member'
-                    type='member'
-                    cancelDelete={closeModel}
-                    submitDelete={removeTeamMemberHandler}
-                    isDeleting={isDeleting}
+                        modelHeading='Remove Team Member'
+                        type='member'
+                        cancelDelete={closeModel}
+                        submitDelete={removeTeamMemberHandler}
+                        isDeleting={isDeleting}
                     />
                 }
-                {response.data.map(member => {
-                return <ProjectMember
-                    memberUsername={member.username}
-                    memberRole={member.member_role}
-                >
-                    <div className="functionalities">
-                        <button onClick={() => openModel(member.member_id)}><BsTrash /></button>
-                    </div>
-                </ProjectMember>
-            })}
+                {response.data.map((member, idx) => {
+                    return <ProjectMember
+                        key={idx}
+                        memberUsername={member.username}
+                        memberRole={member.member_role}
+                    >
+                        <div className="functionalities">
+                            <button onClick={() => openModel(member.member_id)}><BsTrash /></button>
+                        </div>
+                    </ProjectMember>
+                })}
             </>
         )
     }

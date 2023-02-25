@@ -1,8 +1,7 @@
-import { useEffect, useRef } from 'react'
 
 export default function PrimaryModel({ closeModel, children }) {
 
-    const modelRef = useRef()
+    const modelRef = useRef(null)
     
     const handleClick = e => {
         const control = e.target !== modelRef.current && !modelRef.current.contains(e.target);

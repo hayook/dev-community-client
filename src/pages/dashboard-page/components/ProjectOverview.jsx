@@ -1,17 +1,16 @@
 import { useState } from 'react'
-import { useQueryClient } from 'react-query'
-import AdminTask from '../../../trash/kanban-board/components/AdminTask';
-import KanbanBoard from "../../../trash/kanban-board/KanbanBoard";
-import { tasks as initialState } from "../../../trash/test-data";
-import ProjectMember from './ProjectMember';
-import { BiArrowBack } from 'react-icons/bi'
-import { useMutation } from 'react-query';
-import { postTask, updateStatus } from '../../../app/api'
 import { useParams } from 'react-router-dom';
+import { useQueryClient, useMutation } from 'react-query'
+import { BiArrowBack } from 'react-icons/bi'
+import { BsChevronDown } from 'react-icons/bs'
+import AdminTask from '../../components/kanban-board/components/AdminTask';
+import KanbanBoard from "../../components/kanban-board/KanbanBoard";
+import ProjectMember from './ProjectMember';
+import { postTask, updateStatus } from '../../../app/api'
 import useProjectTasks from '../../../hooks/useProjectTasks'
 import useProjectMembers from '../../../hooks/useProjectMembers'
-import { BsChevronDown } from 'react-icons/bs'
 import MainButton from '../../components/main-button/MainButton'
+
 
 const columns = ['todo', 'in-progress', 'in-validation', 'completed']
 
