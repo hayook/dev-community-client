@@ -3,6 +3,7 @@ import { usePostContext } from './Post'
 import { useMutation, useQueryClient } from 'react-query';
 import { deletePost } from '../../../app/api'
 import Spinner from '../../components/spinner/Spinner';
+import DeleteModel from '../../components/delete-model/DeleteModel';
 
 export default function DeletePostModel() {
 
@@ -21,22 +22,11 @@ export default function DeletePostModel() {
         })
     }
 
-    return (
-        <Model closeModel={closeDeletePostModel} modelHeading='Delete Post'>
-            {
-                !isDeleting ?
-                    <>
-                        <div style={{ overflow: 'auto' }} className="model-container">
-                            <p>Are you sure you want to delete this post</p>
-                        </div>
-                        <div className="model-functionalities">
-                            <button onClick={() => closeDeletePostModel()} className='main-button cancel-button'>Cancel</button>
-                            <button onClick={handleDeletePost} className='main-button'>Delete</button>
-                        </div>
-                    </>
-                    : 
-                    <Spinner dim='30px'/>
-            }
-        </Model>
-    )
+    
+    return <DeleteModel
+        type='post'
+        cancelDelete={closeDeletePostModel}
+        submitDelete={handleDeletePost}
+        isDeleting={isDeleting}
+    />
 }

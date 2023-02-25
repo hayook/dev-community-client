@@ -73,7 +73,8 @@ export default function Question() {
     return (
             <section className="question-page">
                 {deleteModel &&
-                    <DeleteModel type={'question'}
+                    <DeleteModel 
+                        type='question'
                         isDeleting={isDeleting}
                         cancelDelete={closeDeleteModel}
                         submitDelete={handleDeleteQuestion} />

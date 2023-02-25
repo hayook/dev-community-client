@@ -226,10 +226,6 @@ section.members .members-list-container .overlay {
     width: 100%;
 }
 
-section.members .members-list-container .model {
-    width: 500px;
-}
-
 section.members .members-list-container .members-list {
     display: flex;
     flex-direction: column;

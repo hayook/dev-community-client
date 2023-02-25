@@ -1,25 +1,32 @@
-import { useEffect, useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import './style.css'
 
-export default function Model({ closeModel, modelHeading, children }) {
+export default function Model({ closeModel, children }) {
 
-    const overlayRef = useRef(null);
+    const modelRef = useRef(null);
 
     useEffect(() => {
+        const listener = e => {
+            if (e.keyCode === 27) closeModel();
+        }
 
-        const listener = () => closeModel(false);
+        document.body.addEventListener('keydown', listener);
 
-        overlayRef.current.addEventListener('click', listener);
+        return () => document.body.removeEventListener('keydown', listener)
 
-        return () => overlayRef.current?.removeEventListener('click', listener);
-    }, []);
+    }, [])
+
+    const handleCloseModel = e => {
+        const control = e.target !== modelRef.current && !modelRef.current.contains(e.target);
+        if (control) closeModel();
+    }
 
     return (
         <>
-            <div ref={overlayRef} className="overlay delete-model"></div>
-            <div className="model delete-model">
-                <h3>{ modelHeading }</h3>
-                {children}
+            <div className="overlay" onClick={handleCloseModel}>
+                <div ref={modelRef} className="model">
+                    {children}
+                </div>
             </div>
         </>
     )

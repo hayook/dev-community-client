@@ -30,10 +30,13 @@ export default function EditCommentModel({ closeEditCommentModel, commentId, com
     }
 
     return (
-        <Model closeModel={cancelChanges} modelHeading='Edit Comment' >
+        <Model closeModel={cancelChanges}>
             {
                 isLoading ? <Spinner dim='30px'/> :
                     <>
+                        <div className="model-heading">
+                            <h2>Edit comment</h2>
+                        </div>
                         <div className="model-container">
                             <textarea
                                 onFocus={handleCursor}

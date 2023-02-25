@@ -137,6 +137,7 @@ export const uploadImage = async (body) => {
     }
 }
 
+
 // Tasks
 export const getMemberTasks = async projectId => api.get(`/projects/${projectId}/task`);
 export const postTask = async ({ projectId, task }) => api.post(`/projects/${projectId}/task`, task)
@@ -144,3 +145,4 @@ export const getProjectTasks = async projectId => api.get(`/projects/${projectId
 export const updateStatus = async ({ projectId, taskId, newStatus }) => api.put(`/projects/${projectId}/task/${taskId}/state?task_state=${newStatus}`)
 export const updateProgress = async ({ projectId, taskId, newProgress }) => api.put(`/projects/${projectId}/task/${taskId}/progress?task_progress=${newProgress}`)
 export const updateTask = async ({ projectId, taskId, newTask }) => api.put(`/projects/${projectId}/task/${taskId}`, newTask)
+export const deleteTask = async ({ projectId, taskId }) => api.delete(`/projects/${projectId}/task/${taskId}`)

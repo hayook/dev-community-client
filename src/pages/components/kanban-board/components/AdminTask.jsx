@@ -1,13 +1,15 @@
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useMutation, useQueryClient } from 'react-query';
+import DeleteModel from '../../delete-model/DeleteModel'
 import { AiOutlineCheck } from 'react-icons/ai'
 import { BiArrowBack } from 'react-icons/bi'
 import { BsPencil } from 'react-icons/bs'
-import PrimaryModel from './PrimaryModel'
+import Model from '../../model/Model'
 import ProjectMember from '../../../../pages/dashboard-page/components/ProjectMember'
 import useProjectMembers from '../../../../hooks/useProjectMembers'
-import { updateTask } from '../../../../app/api'
+import { updateTask, deleteTask } from '../../../../app/api'
+import MainButton from '../../main-button/MainButton'
 
 export default function AdminTask({ title, status, taskId, description, member, progress }) {
 
@@ -23,7 +25,7 @@ export default function AdminTask({ title, status, taskId, description, member, 
     const [editTitle, setEditTitle] = useState(false);
     const [editDescription, setEditDescription] = useState(false)
     const [reassign, setReassign] = useState(false)
-    const [deleteTask, setDeleteTask] = useState(false)
+    const [deleteTaskModel, setDeleteTaskModel] = useState(false)
     const [task, setTask] = useState({
         title,
         description,
@@ -31,7 +33,8 @@ export default function AdminTask({ title, status, taskId, description, member, 
         type: 'test'
     })
 
-    const openModel = () => setDeleteTask(true)
+    const openDeleteModel = () => setDeleteTaskModel(true)
+    const closeDeleteModel = () => setDeleteTaskModel(false)
 
     const editMember = (memberId, memberImg, memberUsername) => {
         const member = { memberId, memberImg, memberUsername }
@@ -48,7 +51,6 @@ export default function AdminTask({ title, status, taskId, description, member, 
             task_type: task.type,
             member_id: task.member.memberId,
         }
-        console.log(newTask)
         mutate({ projectId, taskId, newTask }, {
             onSuccess: res => {
                 queryClient.invalidateQueries([`get-project-${projectId}-tasks`]);
@@ -57,12 +59,22 @@ export default function AdminTask({ title, status, taskId, description, member, 
         })
     }
 
+    const { mutate:mutateDelete, isLoading:isDeleting } = useMutation(deleteTask)
+    const handleDeleteTask = () => {
+        mutateDelete({ projectId, taskId }, {
+            onSuccess: () => {
+                queryClient.invalidateQueries([`get-project-${projectId}-tasks`]);
+                closeDeleteModel()  
+            }
+        })
+    }
+
 
     return (
         <>
             {taskInfo &&
-                <PrimaryModel closeModel={() => setTaskInfo(false)}>
-                    <div className="admin-task-info">
+                <Model closeModel={() => setTaskInfo(false)}>
+                    <div className="mode-container admin-task-info">
                         {!reassign ? (
                             <div className="info">
                                 <div className="title">
@@ -99,10 +111,10 @@ export default function AdminTask({ title, status, taskId, description, member, 
                                     <ProjectMember memberImg={task.member.memberImg} memberUsername={task.member.memberUsername} />
                                     <button onClick={() => setReassign(prev => !prev)}><BsPencil /></button>
                                 </div>
-                                <button className="link-button" onClick={() => openModel()}>Delete Task</button>
-                                <div className="functionalities">
+                                <button className="link-button" onClick={() => openDeleteModel()}>Delete Task</button>
+                                <div className="model-functionalities">
                                     <button className="main-button cancel-button" onClick={() => closeModel()}>Cancel</button>
-                                    <button className="main-button" onClick={submitChanges}>Save</button>
+                                    <MainButton onClick={submitChanges} disabled={isMutating}>Save</MainButton>
                                 </div>
                             </div>
                         ) : (
@@ -121,7 +133,15 @@ export default function AdminTask({ title, status, taskId, description, member, 
                         )
                         }
                     </div>
-                </PrimaryModel>
+                </Model>
+            }
+            {deleteTaskModel &&
+                <DeleteModel 
+                    type='task'
+                    cancelDelete={closeDeleteModel}
+                    submitDelete={handleDeleteTask}
+                    isDeleting={isDeleting}
+                />
             }
             <div
                 draggable={status === 'in-validation' || status === 'completed'}

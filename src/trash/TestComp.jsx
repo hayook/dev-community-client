@@ -1,5 +1,5 @@
 import { useState } from "react";
-import PrimaryModel from "../pages/components/kanban-board/components/PrimaryModel";
+import Model from "../pages/components/model/Model";
 
 export default function TestComp() {
 
@@ -7,8 +7,8 @@ export default function TestComp() {
   const closeModel = () => setModel(false)
 
   if (model) return (
-    <PrimaryModel closeModel={closeModel}>
-
-    </PrimaryModel>
+    <Model closeModel={closeModel}>
+      <button>click</button>
+    </Model>
   )
 }

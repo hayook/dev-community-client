@@ -1,14 +1,17 @@
 import Model from '../model/Model';
 import Spinner from '../spinner/Spinner';
 
-export default function DeletePostModel({ modelHeading, type, cancelDelete, submitDelete, isDeleting }) {
+export default function DeleteModel({ type, cancelDelete, submitDelete, isDeleting }) {
 
 
     return (
-        <Model closeModel={cancelDelete} modelHeading={modelHeading} >
+        <Model closeModel={cancelDelete}>
             {
                 !isDeleting ?
                     <>
+                        <div className="model-heading">
+                            <h2>Delete {type}</h2>
+                        </div>
                         <div className="model-container">
                             <p>Are you sure you want to delete this {type}</p>
                         </div>

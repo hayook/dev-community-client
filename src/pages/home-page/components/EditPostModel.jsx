@@ -33,10 +33,13 @@ export default function EditPostModel() {
     }
 
     return (
-        <Model closeModel={cancelChanges} modelHeading='Edit Post' >
+        <Model closeModel={cancelChanges}>
             {
                 isLoading ? <Spinner dim='30px'/> :
                     <>
+                        <div className="model-heading">
+                            <h2>Edit post</h2>
+                        </div>
                         <div className="model-container">
                             <textarea
                                 onFocus={handleCursor}

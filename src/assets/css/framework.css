@@ -43,6 +43,8 @@ textarea.main-textarea {
     color: var(--white);
     border: 1px solid var(--grey-clr-200);
     white-space: pre-wrap;
+    resize: none;
+    width: 100%;
 }
 
 input.main-input:focus,

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useMutation, useQueryClient } from 'react-query'
-import PrimaryModel from './PrimaryModel'
+import Model from '../../model/Model'
 import { updateProgress } from '../../../../app/api'
 import MainButton from '../../../../pages/components/main-button/MainButton'
 
@@ -31,8 +31,8 @@ export default function Task({ taskId, title, status, description, progress }) {
     return (
         <>
             {taskInfo &&
-                <PrimaryModel closeModel={closeModel}>
-                    <div className="member-task-info">
+                <Model closeModel={closeModel}>
+                    <div className="model-container member-task-info">
                         <h2>{title}</h2>
                         <p className="description">{description}</p>
                         <span className='task-status'>Status <small>{status}</small> {status === 'in-progress' && `${taskProgress}%`}</span>
@@ -41,9 +41,11 @@ export default function Task({ taskId, title, status, description, progress }) {
                                 <input type="range" className="range-input" value={taskProgress} onChange={({ target }) => setTaskProgress(prev => target.value)} />
                             </div>
                         }
+                    </div>
+                    <div className="model-functionalities">
                         <MainButton onClick={submitProgress} disabled={isLoading}>Done</MainButton>
                     </div>
-                </PrimaryModel>
+                </Model>
             }
             <div
                 onClick={() => setTaskInfo(true)}

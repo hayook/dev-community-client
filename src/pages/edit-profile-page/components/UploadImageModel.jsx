@@ -6,10 +6,13 @@ export default function DeletePostModel({ imgUrl, cancelUpload, submitUpload, is
 
 
     return (
-        <Model closeModel={cancelUpload} modelHeading='Upload Image' >
+        <Model closeModel={cancelUpload} >
             {
                 !isUploading ?
                     <>
+                    <div className="model-heading">
+                        <h2>Upload image</h2>
+                    </div>
                     <div className="model-container">
                             <ProfileImg url={imgUrl} dim='150px'/>
                         </div>
