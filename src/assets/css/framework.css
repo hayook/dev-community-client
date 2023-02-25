@@ -1,53 +1,65 @@
-
-
 .main-button {
-    padding: .6em 3em; 
-    background: var(--blue-clr-200); 
-    color: var(--fixed-white);  
+    padding: .6em 3em;
+    background: var(--blue-clr-200);
+    color: var(--fixed-white);
     font-weight: 400;
-    transition: var(--fast-transition); 
+    transition: var(--fast-transition);
+}
+
+.main-button.cancel-button {
+    background: var(--grey-clr-200);
 }
 
 .main-button.disabled {
     filter: brightness(0.8);
-    cursor:no-drop;
+    cursor: no-drop;
+}
+
+.link-button {
+    color: #bbb; 
+    transition: var(--fast-transition);
+}
+
+.link-button:hover {
+    color: var(--white);
+    text-decoration: underline;
 }
 
 .secondary-button {
     padding: .6em 3em;
-    color: var(--white); 
-    background: var(--blue-clr-400); 
+    color: var(--white);
+    background: var(--blue-clr-400);
     border: 1px solid var(--blue-clr-100);
 }
 
 .main-button:not(.main-button.disabled):hover {
-    filter: brightness(1.2); 
+    filter: brightness(1.2);
 }
 
 input.main-input,
 textarea.main-textarea {
     padding: 10px;
-    background: var(--blue-clr-400); 
-    color: var(--white); 
+    background: var(--blue-clr-400);
+    color: var(--white);
     border: 1px solid var(--grey-clr-200);
     white-space: pre-wrap;
 }
 
 input.main-input:focus,
 textarea.main-textarea:focus {
-    outline: 1px solid var(--blue-clr-100); 
+    outline: 1px solid var(--blue-clr-100);
 }
 
 textarea.main-textarea.code {
     font-family: monospace;
 }
 
-.main-form-wrapper { 
-    padding: 20px; 
-    border: 1px solid var(--grey-clr-200); 
+.main-form-wrapper {
+    padding: 20px;
+    border: 1px solid var(--grey-clr-200);
     width: min(400px, 100%);
-    margin: 100px 0; 
-} 
+    margin: 100px 0;
+}
 
 .main-form-wrapper h1 {
     text-align: center;
@@ -56,8 +68,8 @@ textarea.main-textarea.code {
 }
 
 .main-form-wrapper form.main-form {
-    display: flex; 
-    flex-direction: column; 
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     margin-top: 40px;
     width: 100%;
@@ -69,12 +81,12 @@ textarea.main-textarea.code {
 }
 
 .main-form-wrapper form.main-form input {
-    margin-bottom: 15px;  
+    margin-bottom: 15px;
 }
 
 .main-form-wrapper form.main-form button {
     margin-top: 10px;
-    display: flex; 
+    display: flex;
     align-items: center;
     justify-content: center;
 }
@@ -93,7 +105,7 @@ textarea.main-textarea.code {
 } */
 
 ul.main-ul {
-    display: flex; 
+    display: flex;
     align-items: center;
     justify-content: center;
 }
@@ -106,14 +118,14 @@ ul.main-ul li {
 
 ul.main-ul li::before {
     content: '';
-    height: 2px; 
+    height: 2px;
     background: var(--main-clr);
-    position: absolute; 
+    position: absolute;
     bottom: 0;
     left: 0;
 }
 
 ul.main-ul li:hover::before,
 ul.main-ul li.active::before {
-    width: 100%; 
+    width: 100%;
 }

@@ -10,6 +10,7 @@ import { postTask, updateStatus } from '../../../app/api'
 import { useParams } from 'react-router-dom';
 import useProjectTasks from '../../../hooks/useProjectTasks'
 import useProjectMembers from '../../../hooks/useProjectMembers'
+import { BsChevronDown } from 'react-icons/bs'
 
 const columns = ['todo', 'in-progress', 'in-validation', 'completed']
 
@@ -39,7 +40,6 @@ export default function ProjectOverview() {
     const { mutate:mutateStatus, isLoading:isUpdatingStatus } = useMutation(updateStatus)
     const dropTask = (e, newStatus) => {
         const taskId = e.dataTransfer.getData('taskId');
-        console.log(typeof newStatus)
         mutateStatus({ projectId, taskId, newStatus }, {
             onSuccess: res => console.log('done')
         })
@@ -54,7 +54,12 @@ export default function ProjectOverview() {
             task_type: task.type,
             member_id: currentMember.memberId,
         }
-        mutate({ projectId, task: newTask })
+        mutate({ projectId, task: newTask }, {
+            onSuccess: () => {
+                queryClient.invalidateQueries([`get-project-${projectId}-tasks`]);
+                setCreateTask(false);
+            }
+        })
 
     }
 
@@ -81,6 +86,7 @@ export default function ProjectOverview() {
                         description={task.task_description}
                         status={task.task_state} 
                         taskId={task.task_id} 
+                        member={{ memberId: task.member_id, memberUsername: task.username, userId: task.user_id, memberImg: task.img_url }}
                         />
                         )}
                     </KanbanBoard>
@@ -100,7 +106,7 @@ export default function ProjectOverview() {
                                     memberId={currentMember.memberId}
                                     memberUsername={currentMember.memberUsername}
                                     memberImg={currentMember.memberProfileImg}
-                                />
+                                ><BsChevronDown className="drop-icon" style={{ transform: `${showMembers ? 'rotate(180deg)' : 'rotate(0)'}` }} /></ProjectMember>
                             </button>
                             {showMembers &&
                                 <div className="members-list">
@@ -119,7 +125,7 @@ export default function ProjectOverview() {
                                             }}
                                         >
                                             <ProjectMember
-                                                memberId={member.user_id}
+                                                userId={member.user_id}
                                                 memberUsername={member.username}
                                                 memberImg={member.img_url}
                                             />

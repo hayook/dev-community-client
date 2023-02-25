@@ -25,7 +25,7 @@ export default function Project({ id }) {
     const { isLoading, data: response, error } = useProject(id);
     const queryClient = useQueryClient()
 
-    const [currentTab, setCurrentTab] = useState('tasks')
+    const [currentTab, setCurrentTab] = useState('members')
     const [deleteProjectModel, setDeleteProjectModel] = useState(false)
 
     const openModel = () => setDeleteProjectModel(true)
@@ -59,9 +59,9 @@ export default function Project({ id }) {
             }
             <div className="heading">
                 <div className="project-title">
-                    <Link className="profile-img" to={`/user/${response.data.member_id}`}><ProfileImg url={response.data.img_url} /></Link>
+                    <Link className="profile-img" to={`/user/${response.data.project_owner_id}`}><ProfileImg url={response.data.img_url} /></Link>
                     <h2>{response.data.project_name}</h2>
-                    <Link to={`/user/${response.data.member_id}`}>{response.data.username}</Link>
+                    <Link to={`/user/${response.data.project_owner_id}`}>{response.data.username}</Link>
                     {isAdmin(queryClient, projectId) &&
                         <div className="settings">
                             <Link to={`/projects/${projectId}/edit`}>Edit Project</Link>

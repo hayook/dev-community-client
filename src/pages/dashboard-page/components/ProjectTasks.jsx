@@ -39,6 +39,7 @@ export default function ProjectTasks() {
                     status={task.task_state}
                     title={task.task_title}
                     description={task.description}
+                    progress={task.task_progress}
                 />
             )}
         </KanbanBoard>

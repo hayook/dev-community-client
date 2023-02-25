@@ -15,7 +15,6 @@ export default function InviteMembers() {
     const { isLoading, data: response, error } = useUsers(projectId);
 
     const [targetUser, setTargetUser] = useState(null);
-    const [search, setSearch] = useState('')
     const [role, setRole] = useState('')
 
 
@@ -34,7 +33,7 @@ export default function InviteMembers() {
     const { isLoading: isSending, mutate } = useMutation(inviteMember)
     const handleInvite = e => {
         e.preventDefault();
-        const newMember = { username: targetUser?.username };
+        const newMember = { username: targetUser?.username, role: role };
         mutate({ projectId, newMember }, {
             onSuccess: res => {
                 queryClient.invalidateQueries([`get-project-${projectId}-recommanded-users`])
@@ -49,15 +48,13 @@ export default function InviteMembers() {
                 {isLoading && <Spinner dim='30px' />}
                 {response?.ok && response.data.length != 0 &&
                     <>
-                        {/* <input onChange={handleSearch} type="text" className='main-input' value={search} placeholder="Search" /> */}
-                        {/* {!search && <h2>Recommanded Members To Invite</h2>} */}
                         <div className="members-list recommanded-members-list">
                             {
                                 response.data.map(member => {
                                     return <ProjectMember
                                     memberUsername={member.username}
                                     memberImg={member.img_url}
-                                    memberId={member.user_id}
+                                    userId={member.user_id}
                                     >
                                         <div className="functionalities">
                                             <button onClick={() => insertToInvite(member.member_id, member.username)}>
@@ -74,7 +71,6 @@ export default function InviteMembers() {
             {!!targetUser &&
                 <form onSubmit={handleInvite} className="invite-member-form">
                     <ProjectMember memberUsername={targetUser?.username} />
-                    <input type="text" className='main-input' placeholder={`Title For ${targetUser?.username}`} />
                     <div className="roles">
                         <RadioButton value='admin' label='Admin' setValue={setRole} checked={role === 'admin'} />
                         <RadioButton value='member' label='Member' setValue={setRole} checked={role === 'member'} />

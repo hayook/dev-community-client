@@ -16,8 +16,8 @@ export default function Model({ closeModel, modelHeading, children }) {
 
     return (
         <>
-            <div ref={overlayRef} className="overlay"></div>
-            <div className="model">
+            <div ref={overlayRef} className="overlay delete-model"></div>
+            <div className="model delete-model">
                 <h3>{ modelHeading }</h3>
                 {children}
             </div>

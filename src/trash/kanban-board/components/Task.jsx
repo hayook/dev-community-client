@@ -1,30 +1,45 @@
 import { useState } from 'react'
-import { AiOutlineSetting, AiOutlineCheck } from 'react-icons/ai'
+import { useParams } from 'react-router-dom'
+import { useMutation, useQueryClient } from 'react-query'
 import PrimaryModel from './PrimaryModel'
+import { updateProgress } from '../../../app/api'
 
-export default function Task({ taskId, title, status, description }) {
+export default function Task({ taskId, title, status, description, progress }) {
 
+    const { id: projectId } = useParams()
     const [taskInfo, setTaskInfo] = useState(false)
+    const [taskProgress, setTaskProgress] = useState(progress)
 
     const closeModel = () => setTaskInfo(false)
 
     const dragTask = e => e.dataTransfer.setData('taskId', taskId);
+
+    const queryClient = useQueryClient()
+    const { mutate, isLoading, error } = useMutation(updateProgress)
+    const submitProgress = () => {
+        mutate({ projectId, taskId, newProgress: taskProgress }, {
+            onSuccess: () => {
+                queryClient.invalidateQueries([`get-member-project-${projectId}-tasks`]);
+                setTaskInfo(false);
+            }
+
+        })
+    }
 
     return (
         <>
             {taskInfo &&
                 <PrimaryModel closeModel={closeModel}>
                     <div className="member-task-info">
-                        <h2>{ title }</h2>
-                        <p className="description">{ description }</p>
-
+                        <h2>{title}</h2>
+                        <p className="description">{description}</p>
+                        <span>Status {status} {status === 'in-progress' && `${taskProgress}%`}</span>
                         {status === 'in-progress' &&
                             <div className="progress">
-                                <span>progress 100%</span>
-                                <input type="range" className="range-input"/>
+                                <input type="range" className="range-input" value={taskProgress} onChange={({ target }) => setTaskProgress(prev => target.value)} />
                             </div>
                         }
-                        <button className='main-button'>Done</button>
+                        <button className='main-button' onClick={submitProgress}>Done</button>
                     </div>
                 </PrimaryModel>
             }

@@ -62,7 +62,7 @@ export default function AdminsTab() {
                             key={member.user_id}
                             memberRole={member.member_role}
                             memberUsername={member.username}
-                            memberId={member.member_id}
+                            userId={member.user_id}
                             memberImg={member.img_url}
                         >
                             <div className="functionalities">

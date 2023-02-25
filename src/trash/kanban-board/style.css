@@ -44,7 +44,6 @@
     cursor: pointer;
 }
 
-
 .kanban-board-container .kanban-board .content .tasks-container .model {
     max-height: 80%;
     overflow-y: auto;
@@ -93,10 +92,6 @@
     gap: 1em;
 }
 
-.kanban-board-container .kanban-board .content .tasks-container .model .admin-task-info .info>div button:not(.main-button) {
-    all: unset;
-}
-
 .kanban-board-container .kanban-board .content .tasks-container .model .admin-task-info .info .title h2,
 .kanban-board-container .kanban-board .content .tasks-container .model .admin-task-info .info .title input,
 .kanban-board-container .kanban-board .content .tasks-container .model .admin-task-info .info .description p,
@@ -104,6 +99,10 @@
 .kanban-board-container .kanban-board .content .tasks-container .model .admin-task-info .info .assignment .project-member {
     flex: 1;
 }
+
+.kanban-board-container .kanban-board .content .tasks-container .model .admin-task-info button.link-button {
+    align-self: flex-start; 
+}   
 
 .kanban-board-container .kanban-board .content .tasks-container .model .admin-task-info .members-list {
     display: flex;
@@ -115,21 +114,6 @@
     display: flex;
     flex-direction: column;
     gap: 1em; 
-}
-
-.kanban-board-container .kanban-board .content .tasks-container .model .admin-task-info .members-list button {
-    all: unset;
-}
-
-.kanban-board-container .kanban-board .content .tasks-container .model .admin-task-info .delete-task-btn {
-    all: unset;
-    cursor: pointer;
-    color: #eee;
-    transition: var(--fast-transition);
-}
-
-.kanban-board-container .kanban-board .content .tasks-container .model .admin-task-info .delete-task-btn:hover {
-    text-decoration: underline;
 }
 
 .kanban-board-container .kanban-board .content .tasks-container .model .admin-task-info .functionalities {
