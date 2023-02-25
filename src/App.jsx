@@ -17,12 +17,12 @@ import TestComp from './trash/TestComp'
 import FlexComp from './trash/FlexComp'
 import useCurrentUser from './hooks/useCurrentUser';
 import { lazy, Suspense, useEffect } from 'react';
-import DashboardPage from './pages/dashboard-page/DashboardPage'
+// import DashboardPage from './pages/dashboard-page/DashboardPage'
 import EditProfilePage from './pages/edit-profile-page/EditProfilePage'
 import ProtectedPage from './pages/protected-page/ProtectedPage'
 import NavSideBar from './pages/components/nav-side-bar/NavSideBar';
 
-// const DashboardPage = lazy(() => import('./pages/dashboard-page/DashboardPage'))
+const DashboardPage = lazy(() => import('./pages/dashboard-page/DashboardPage'))
 
 export default function App() {
 
@@ -47,7 +47,7 @@ export default function App() {
                 <Route path="/questions/:id/edit" element={<NewQuestionPage />} />
                 <Route path="projects/new" element={<NewProjectPage />} />
                 <Route path="/projects/:id/edit" element={<EditProjectPage />} />
-                <Route path="/projects/:id" element={<DashboardPage />} />
+                <Route path="/projects/:id" element={<Suspense><DashboardPage /></Suspense>} />
                 <Route path="/job-offers" element={<JobOffersPage />} />
                 <Route path="/user/:id" element={<ProfilePage />} />
                 <Route path="/projects" element={<ProjectsPage />} />

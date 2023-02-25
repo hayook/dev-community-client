@@ -7,8 +7,10 @@ import PrimaryModel from './PrimaryModel'
 import ProjectMember from '../../../pages/dashboard-page/components/ProjectMember'
 import useProjectMembers from '../../../hooks/useProjectMembers'
 import { updateTask } from '../../../app/api'
+import { BiArrowBack } from 'react-icons/bi'
+import { AiOutlineCheck } from 'react-icons/ai'
 
-export default function AdminTask({ title, status, taskId, description, member }) {
+export default function AdminTask({ title, status, taskId, description, member, progress }) {
 
     const { id: projectId } = useParams()
 
@@ -33,12 +35,12 @@ export default function AdminTask({ title, status, taskId, description, member }
     const openModel = () => setDeleteTask(true)
 
     const editMember = (memberId, memberImg, memberUsername) => {
-        const member = {memberId, memberImg, memberUsername}
-        setTask(prev => ({ ...prev, member: member}))
+        const member = { memberId, memberImg, memberUsername }
+        setTask(prev => ({ ...prev, member: member }))
         setReassign(false)
     }
 
-    const { mutate, isLoading:isMutating } = useMutation(updateTask);
+    const { mutate, isLoading: isMutating } = useMutation(updateTask);
     const queryClient = useQueryClient();
     const submitChanges = () => {
         const newTask = {
@@ -50,7 +52,7 @@ export default function AdminTask({ title, status, taskId, description, member }
         console.log(newTask)
         mutate({ projectId, taskId, newTask }, {
             onSuccess: res => {
-                queryClient.invalidateQueries([`get-project-${projectId}-tasks`]);       
+                queryClient.invalidateQueries([`get-project-${projectId}-tasks`]);
                 closeModel();
             }
         })
@@ -66,23 +68,33 @@ export default function AdminTask({ title, status, taskId, description, member }
                             <div className="info">
                                 <div className="title">
                                     {editTitle ? (
-                                        <input type="text" className="main-input" value={task.title} onChange={({ target }) => setTask(prev => ({ ...prev, title: target.value }))} />
+                                        <>
+                                            <input type="text" className="main-input" value={task.title} onChange={({ target }) => setTask(prev => ({ ...prev, title: target.value }))} />
+                                            <button onClick={() => setEditTitle(prev => false)}><AiOutlineCheck /></button>
+                                        </>
                                     ) : (
-                                        <h2>{task.title}</h2>
+                                        <>
+                                            <h2>{task.title}</h2>
+                                            <button onClick={() => setEditTitle(prev => true)}><BsPencil /></button>
+                                        </>
                                     )
                                     }
-                                    <button onClick={() => setEditTitle(prev => !prev)}><BsPencil /></button>
                                 </div>
                                 <div className="description">
                                     {editDescription ? (
-                                        <textarea row={3} className='main-textarea' value={task.description} onChange={({ target }) => setTask(prev => ({ ...prev, description: target.value }))}></textarea>
+                                        <>
+                                            <textarea row={3} className='main-textarea' value={task.description} onChange={({ target }) => setTask(prev => ({ ...prev, description: target.value }))}></textarea>
+                                            <button onClick={() => setEditDescription(prev => false)}><AiOutlineCheck /></button>
+                                        </>
                                     ) : (
-                                        <p>{task.description}</p>
+                                        <>
+                                            <p>{task.description}</p>
+                                            <button onClick={() => setEditDescription(prev => true)}><BsPencil /></button>
+                                        </>
                                     )
                                     }
-                                    <button onClick={() => setEditDescription(prev => !prev)}><BsPencil /></button>
                                 </div>
-                                <span>Progress 100%</span>
+                                <span className='task-status'>Status <small>{status}</small> {status === 'in-progress' && `${progress}%`}</span>
                                 <div className="assignment">
                                     <span>Assigned To </span>
                                     <ProjectMember memberImg={task.member.memberImg} memberUsername={task.member.memberUsername} />
@@ -96,12 +108,12 @@ export default function AdminTask({ title, status, taskId, description, member }
                             </div>
                         ) : (
                             <div className="members-list">
-                                <button onClick={() => setReassign(false)}>back</button>
+                                <button className="back-button" onClick={() => setReassign(false)}><BiArrowBack /></button>
                                 <div className="list">
                                     {
                                         response?.data?.map((member, idx) => {
                                             return <button key={idx} onClick={() => editMember(member.member_id, member.img_url, member.username)}>
-                                                <ProjectMember memberImg={member.img_url} memberUsername={member.username}/>
+                                                <ProjectMember memberImg={member.img_url} memberUsername={member.username} />
                                             </button>
                                         })
                                     }

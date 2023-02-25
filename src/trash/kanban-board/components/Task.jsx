@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useMutation, useQueryClient } from 'react-query'
 import PrimaryModel from './PrimaryModel'
 import { updateProgress } from '../../../app/api'
+import MainButton from '../../../pages/components/main-button/MainButton'
 
 export default function Task({ taskId, title, status, description, progress }) {
 
@@ -15,6 +16,7 @@ export default function Task({ taskId, title, status, description, progress }) {
     const dragTask = e => e.dataTransfer.setData('taskId', taskId);
 
     const queryClient = useQueryClient()
+
     const { mutate, isLoading, error } = useMutation(updateProgress)
     const submitProgress = () => {
         mutate({ projectId, taskId, newProgress: taskProgress }, {
@@ -33,13 +35,13 @@ export default function Task({ taskId, title, status, description, progress }) {
                     <div className="member-task-info">
                         <h2>{title}</h2>
                         <p className="description">{description}</p>
-                        <span>Status {status} {status === 'in-progress' && `${taskProgress}%`}</span>
+                        <span className='task-status'>Status <small>{status}</small> {status === 'in-progress' && `${taskProgress}%`}</span>
                         {status === 'in-progress' &&
                             <div className="progress">
                                 <input type="range" className="range-input" value={taskProgress} onChange={({ target }) => setTaskProgress(prev => target.value)} />
                             </div>
                         }
-                        <button className='main-button' onClick={submitProgress}>Done</button>
+                        <MainButton onClick={submitProgress} disabled={isLoading}>Done</MainButton>
                     </div>
                 </PrimaryModel>
             }

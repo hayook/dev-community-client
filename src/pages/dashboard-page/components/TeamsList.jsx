@@ -39,10 +39,16 @@ export default function TeamsList() {
             }
         })
     }
-
+    
     const { isLoading: isAdding, mutate } = useMutation(addToTeam)
     const addToTeamHandler = (memberId) => {
-        mutate({ projectId, teamId: targetTeam, memberId })
+        mutate({ projectId, teamId: targetTeam, memberId }, {
+            onSuccess: () => {
+                queryClient.invalidateQueries([`get-project-${projectId}-team-${targetTeam}-members`]);
+                setAddMemberToTeam(false);
+
+            }
+        })
     }
 
     if (isLoading) return <Spinner dim='30px' />

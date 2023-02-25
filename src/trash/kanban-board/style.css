@@ -54,9 +54,14 @@
     flex-direction: column;
     gap: 1em;
     width: 100%;
-
+    
 }
 
+span.task-status small {
+    display: inline-block;
+    padding: .4em;
+    background: #444;
+}
 
 .kanban-board-container .kanban-board .content .tasks-container .model .member-task-info .progress {
     display: flex;
@@ -109,6 +114,12 @@
     flex-direction: column;
     gap: 1.7em; 
 }
+.kanban-board-container .kanban-board .content .tasks-container .model .admin-task-info .members-list button.back-button {
+    display: block;
+    align-self: flex-start; 
+    font-size: 1.6em;
+}
+
 
 .kanban-board-container .kanban-board .content .tasks-container .model .admin-task-info .members-list .list {
     display: flex;

@@ -11,6 +11,7 @@ import { useParams } from 'react-router-dom';
 import useProjectTasks from '../../../hooks/useProjectTasks'
 import useProjectMembers from '../../../hooks/useProjectMembers'
 import { BsChevronDown } from 'react-icons/bs'
+import MainButton from '../../components/main-button/MainButton'
 
 const columns = ['todo', 'in-progress', 'in-validation', 'completed']
 
@@ -23,7 +24,6 @@ export default function ProjectOverview() {
     const { isLoading, data: response, error } = useProjectTasks(projectId)
     const { isLoading: isLoadingMembers, data: membersResponse, error: membersError } = useProjectMembers(projectId);
 
-    const [tasks, setTasks] = useState(initialState);
     const [showMembers, setShowMembers] = useState(false);
     const [createTask, setCreateTask] = useState(false);
     const [currentMember, setCurrentMember] = useState({
@@ -87,6 +87,7 @@ export default function ProjectOverview() {
                         status={task.task_state} 
                         taskId={task.task_id} 
                         member={{ memberId: task.member_id, memberUsername: task.username, userId: task.user_id, memberImg: task.img_url }}
+                        progress={task.task_progress}
                         />
                         )}
                     </KanbanBoard>
@@ -134,7 +135,7 @@ export default function ProjectOverview() {
                                 </div>
                             }
                         </div>
-                        <button className='main-button'>Submit</button>
+                        <MainButton disabled={isPosting}>Submit</MainButton>
                     </form>
                 )
                 }
