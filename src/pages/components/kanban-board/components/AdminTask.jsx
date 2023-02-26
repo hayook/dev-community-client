@@ -9,7 +9,13 @@ export default function AdminTask({ title, status, taskId, description, member, 
     const [taskInfo, setTaskInfo] = useState(false);
     const closeModel = () => setTaskInfo(false)
 
-    const dragTask = e => e.dataTransfer.setData('taskId', taskId);
+    const dragTask = e => {
+        if (status === 'in-validation' || status === 'completed') {
+            e.dataTransfer.setData('taskId', taskId);
+            return;
+        }
+        e.preventDefault()
+    }
 
     const value = { title, status, taskId, description, member, progress };
 
@@ -19,7 +25,7 @@ export default function AdminTask({ title, status, taskId, description, member, 
                 <AdminTaskInfoModel closeModel={closeModel} />
             }
             <div
-                draggable={status === 'in-validation' || status === 'completed'}
+                draggable
                 onDragStart={dragTask}
                 className="task"
                 onClick={() => setTaskInfo(true)}>

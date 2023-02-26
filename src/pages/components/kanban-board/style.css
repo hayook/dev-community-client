@@ -4,52 +4,51 @@
     padding: .8em .6em;
 }
 
-.kanban-board-container {
-    overflow-x: auto;
-}
 
-.kanban-board-container .kanban-board {
+.kanban-board {
     display: grid;
+    border: 1px solid var(--grey-clr-200);
+    padding: .5em;
+    gap: .8em;
+    overflow-x: auto;
 
 }
 
-.kanban-board-container .kanban-board .headings,
-.kanban-board-container .kanban-board .content {
+.kanban-board .headings,
+.kanban-board .content {
     display: flex;
     gap: .8em;
     justify-content: space-around;
 }
 
-.kanban-board-container .kanban-board .headings h1,
-.kanban-board-container .kanban-board .content .tasks-container {
+.kanban-board .headings h2,
+.kanban-board .content .tasks-container {
     border: 1px solid var(--grey-clr-200);
 }
 
-.kanban-board-container .kanban-board .headings h1 {
+.kanban-board .headings h2 {
     text-align: center;
-    border-bottom: none;
 }
 
-.kanban-board-container .kanban-board .content .tasks-container {
-    border-top: none;
+.kanban-board .content .tasks-container {
     display: flex;
     flex-direction: column;
     gap: .8em;
 }
 
-.kanban-board-container .kanban-board .content .tasks-container .task {
+.kanban-board .content .tasks-container .task {
     padding: .8em;
     border: 1px solid var(--grey-clr-200);
     position: relative;
     cursor: pointer;
 }
 
-.kanban-board-container .kanban-board .content .tasks-container .member-task-info {
+.kanban-board .content .tasks-container .member-task-info {
     display: flex;
     flex-direction: column;
     gap: 1em;
     width: 100%;
-    
+
 }
 
 span.task-status small {
@@ -58,7 +57,7 @@ span.task-status small {
     background: #444;
 }
 
-.kanban-board-container .kanban-board .content .tasks-container .member-task-info .progress {
+.kanban-board .content .tasks-container .member-task-info .progress {
     display: flex;
     align-items: center;
     gap: 1em;
@@ -69,57 +68,58 @@ span.task-status small {
     flex: 1;
 }
 
-.kanban-board-container .kanban-board .content .tasks-container .member-task-info button {
+.kanban-board .content .tasks-container .member-task-info button {
     align-self: flex-end;
 }
 
-.kanban-board-container .kanban-board .content .tasks-container .admin-task-info {
+.kanban-board .content .tasks-container .admin-task-info {
     display: flex;
     flex-direction: column;
     gap: 1em;
     width: 100%;
 }
 
-.kanban-board-container .kanban-board .content .tasks-container .admin-task-info .info {
+.kanban-board .content .tasks-container .admin-task-info .info {
     display: flex;
     flex-direction: column;
     gap: 1em;
 }
 
-.kanban-board-container .kanban-board .content .tasks-container .admin-task-info .info>div {
+.kanban-board .content .tasks-container .admin-task-info .info>div {
     display: flex;
     align-items: center;
     gap: 1em;
 }
 
-.kanban-board-container .kanban-board .content .tasks-container .admin-task-info .info .title h2,
-.kanban-board-container .kanban-board .content .tasks-container .admin-task-info .info .title input,
-.kanban-board-container .kanban-board .content .tasks-container .admin-task-info .info .description p,
-.kanban-board-container .kanban-board .content .tasks-container .admin-task-info .info .description textarea,
-.kanban-board-container .kanban-board .content .tasks-container .admin-task-info .info .assignment .project-member {
+.kanban-board .content .tasks-container .admin-task-info .info .title h2,
+.kanban-board .content .tasks-container .admin-task-info .info .title input,
+.kanban-board .content .tasks-container .admin-task-info .info .description p,
+.kanban-board .content .tasks-container .admin-task-info .info .description textarea,
+.kanban-board .content .tasks-container .admin-task-info .info .assignment .project-member {
     flex: 1;
 }
 
-.kanban-board-container .kanban-board .content .tasks-container .admin-task-info button.link-button {
-    align-self: flex-start; 
-}   
+.kanban-board .content .tasks-container .admin-task-info button.link-button {
+    align-self: flex-start;
+}
 
-.kanban-board-container .kanban-board .content .tasks-container .admin-task-info .members-list {
+.kanban-board .content .tasks-container .admin-task-info .members-list {
     display: flex;
     flex-direction: column;
-    gap: 1.7em; 
+    gap: 1.7em;
 }
-.kanban-board-container .kanban-board .content .tasks-container .admin-task-info .members-list button.back-button {
+
+.kanban-board .content .tasks-container .admin-task-info .members-list button.back-button {
     display: block;
-    align-self: flex-start; 
+    align-self: flex-start;
     font-size: 1.6em;
 }
 
 
-.kanban-board-container .kanban-board .content .tasks-container .admin-task-info .members-list .list {
+.kanban-board .content .tasks-container .admin-task-info .members-list .list {
     display: flex;
     flex-direction: column;
-    gap: 1em; 
+    gap: 1em;
 }
 
 

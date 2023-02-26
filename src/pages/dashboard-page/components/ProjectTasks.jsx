@@ -5,6 +5,7 @@ import KanbanBoard from '../../components/kanban-board/KanbanBoard'
 import Task from '../../components/kanban-board/components/Task'
 import useMemberTasks from '../../../hooks/useMemberTasks'
 import { updateStatus } from '../../../app/api';
+import Spinner from '../../components/spinner/Spinner'
 
 const columns = ['todo', 'in-progress', 'in-validation'];
 
@@ -15,18 +16,21 @@ export default function ProjectTasks() {
     const { isLoading, data: response, error } = useMemberTasks(projectId)
 
     const queryClient = useQueryClient();
-    const { mutate, isLoading:isMutating, error:mutatationError } = useMutation(updateStatus);
+    const { mutate, isLoading: isMutating, error: mutatationError } = useMutation(updateStatus);
     const dropTask = (e, newStatus) => {
         const taskId = e.dataTransfer.getData('taskId');
         mutate({ projectId, taskId, newStatus }, {
             onSuccess: res => queryClient.invalidateQueries([`get-member-project-${projectId}-tasks`])
         })
     }
-    
-    if (isLoading) return <p>is loading</p>
+
+    let content = null;
+    if (isLoading) return content = <Spinner dim='30px' />
+    if (response?.data?.length === 0) content = <p>No tasks</p>
     return (
         <KanbanBoard
             dropTask={dropTask}
+            content={content}
             columns={columns}
         >
             {response?.data?.map((task, idx) =>

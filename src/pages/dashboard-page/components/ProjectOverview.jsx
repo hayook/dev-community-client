@@ -10,6 +10,7 @@ import { postTask, updateStatus } from '../../../app/api'
 import useProjectTasks from '../../../hooks/useProjectTasks'
 import useProjectMembers from '../../../hooks/useProjectMembers'
 import MainButton from '../../components/main-button/MainButton'
+import Spinner from '../../components/spinner/Spinner'
 
 
 const columns = ['todo', 'in-progress', 'in-validation', 'completed']
@@ -36,14 +37,17 @@ export default function ProjectOverview() {
         type: 'test',
     })
 
-    const { mutate:mutateStatus, isLoading:isUpdatingStatus } = useMutation(updateStatus)
+    // Updatae the task status
+    const { mutate: mutateStatus, isLoading: isUpdatingStatus } = useMutation(updateStatus)
     const dropTask = (e, newStatus) => {
+        if (!e.dataTransfer.getData('taskId')) return;
         const taskId = e.dataTransfer.getData('taskId');
         mutateStatus({ projectId, taskId, newStatus }, {
-            onSuccess: res => console.log('done')
+            onSuccess: () => queryClient.invalidateQueries([`get-project-${projectId}-tasks`]),
         })
     }
 
+    // Post a new task
     const { mutate, isLoading: isPosting } = useMutation(postTask)
     const submitTask = e => {
         e.preventDefault();
@@ -55,14 +59,16 @@ export default function ProjectOverview() {
         }
         mutate({ projectId, task: newTask }, {
             onSuccess: () => {
-                queryClient.invalidateQueries([`get-project-${projectId}-tasks`]);
+                queryClient.invalidateQueries([`get-project-${projectId}-tasks`]),
                 setCreateTask(false);
             }
         })
 
     }
 
-    if (isLoading) return <p>is Loading</p>
+    let content = null;
+    if (isLoading) return content = <Spinner dim='30px' />
+    if (response?.data?.length === 0) content = <p>No tasks</p>
     return (
         <section className="overview">
             <div className="heading">
@@ -77,16 +83,17 @@ export default function ProjectOverview() {
                 {!createTask ? (
                     <KanbanBoard
                         dropTask={dropTask}
+                        content={content}
                         columns={columns}
                     >
-                        {response?.data?.map((task, idx) => <AdminTask 
-                        key={idx} 
-                        title={task.task_title} 
-                        description={task.task_description}
-                        status={task.task_state} 
-                        taskId={task.task_id} 
-                        member={{ memberId: task.member_id, memberUsername: task.username, userId: task.user_id, memberImg: task.img_url }}
-                        progress={task.task_progress}
+                        {response?.data?.map((task, idx) => <AdminTask
+                            key={idx}
+                            title={task.task_title}
+                            description={task.task_description}
+                            status={task.task_state}
+                            taskId={task.task_id}
+                            member={{ memberId: task.member_id, memberUsername: task.username, userId: task.user_id, memberImg: task.img_url }}
+                            progress={task.task_progress}
                         />
                         )}
                     </KanbanBoard>
