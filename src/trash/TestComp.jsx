@@ -1,14 +1,13 @@
-import { useState } from "react";
-import Model from "../pages/components/model/Model";
+import { useState } from 'react';
+import Main from '../pages/components/main/Main';
+import './style.css'
 
 export default function TestComp() {
+  const [date, setDate] = useState();
 
-  const [model, setModel] = useState(true);
-  const closeModel = () => setModel(false)
-
-  if (model) return (
-    <Model closeModel={closeModel}>
-      <button>click</button>
-    </Model>
+  return (
+    <Main>
+      <input type="date" onChange={({ target }) => console.log(new Date(target.value))} />
+    </Main>
   )
 }

@@ -17,21 +17,12 @@ export default function QuestionCode() {
     return (
         <div className="question-code">
             <lable>Code</lable>
-            <textarea 
-            className="main-textarea code"
-            value={postInfo.questionCode}
-            onChange={handleCode}
-            rows={7}
-            ></textarea>
-            
-            {/* <ContentEditable
-                innerRef={contentEditable}
-                html={postInfo.questionCode}
-                disabled={false}
+            <textarea
+                className="main-textarea code"
+                value={postInfo.questionCode}
                 onChange={handleCode}
-                tagName='pre'
-                className='code'
-            /> */}
+                rows={7}
+            ></textarea>
         </div>
     )
 }

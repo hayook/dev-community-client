@@ -1,7 +1,8 @@
+/* Buttons */
 .main-button {
     padding: .6em 3em;
-    background: var(--blue-clr-200);
-    color: var(--fixed-white);
+    background: var(--primary-clr);
+    color: var(--white);
     font-weight: 400;
     transition: var(--fast-transition);
 }
@@ -16,7 +17,7 @@
 }
 
 .link-button {
-    color: #bbb; 
+    color: #bbb;
     transition: var(--fast-transition);
 }
 
@@ -36,30 +37,13 @@
     filter: brightness(1.2);
 }
 
-input.main-input,
-textarea.main-textarea {
-    padding: 10px;
-    background: var(--blue-clr-400);
-    color: var(--white);
-    border: 1px solid var(--grey-clr-200);
-    white-space: pre-wrap;
-    resize: none;
-    width: 100%;
-}
-
-input.main-input:focus,
-textarea.main-textarea:focus {
-    outline: 1px solid var(--blue-clr-100);
-}
-
-textarea.main-textarea.code {
-    font-family: monospace;
-}
+/* Forms */
 
 .main-form-wrapper {
     padding: 20px;
-    border: 1px solid var(--grey-clr-200);
-    width: min(400px, 100%);
+    border: var(--primary-border);
+    max-width: 400px;
+    width: 100%;
     margin: 100px 0;
 }
 
@@ -67,44 +51,55 @@ textarea.main-textarea.code {
     text-align: center;
     font-weight: lighter;
     font-size: 3.2rem;
+    margin-bottom: 40px;
 }
 
-.main-form-wrapper form.main-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-top: 40px;
+form {
+    max-width: 400px;
     width: 100%;
 }
 
-.main-form-wrapper form.main-form label {
+form.main-form {
+    display: flex;
+    flex-direction: column;
+}
+
+form.main-form input,
+form.main-form textarea {
+    margin-bottom: 1.1em;
+}
+
+form.main-form label {
     font-weight: 200;
     margin-bottom: 5px;
 }
 
-.main-form-wrapper form.main-form input {
-    margin-bottom: 15px;
-}
-
-.main-form-wrapper form.main-form button {
+form.main-form button {
     margin-top: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    align-self: flex-end;
 }
 
-.after-profile-content {
-    margin: .7em 0 2.15em;
-    padding: 0 1.42em 0 calc(.8em + 3em);
+input.main-input,
+textarea.main-textarea {
+    padding: 10px;
+    background: var(--primary-background-clr);
+    color: var(--primary-text-clr);
+    border: var(--primary-border);
+    white-space: pre-wrap;
+    resize: none;
+    width: 100%;
 }
 
-/* .user-profile {
-    display: flex; 
-    justify-content: center;
-    align-items: center;
-    gap: .8em;
-    cursor: pointer;
-} */
+input.main-input:focus,
+textarea.main-textarea:focus {
+    outline: 1px solid var(--secondary-clr);
+}
+
+textarea.main-textarea.code {
+    font-family: monospace;
+}
+
+/* Lists */
 
 ul.main-ul {
     display: flex;

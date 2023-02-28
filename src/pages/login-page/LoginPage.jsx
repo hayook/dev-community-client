@@ -6,7 +6,7 @@ export default function LoginPage() {
 
     return (
         <div className="page-center">
-            <div className="main-form-wrapper login-form-wrapper">
+            <div className="main-form-wrapper">
                 <h1>Login</h1>
                 <LoginForm />
                 <Link to='/register'>Create An Account</Link>

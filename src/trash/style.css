@@ -1,28 +1,19 @@
-.box {
-    display: flex;
-    justify-content: center; 
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 10000;
-    background: rgba(0, 0, 0, .7); 
+input[type="date"] {
+    background-color: black;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    padding: 10px; 
+    top: 50%;
+    left: 50%;
+    font-family: "Roboto Mono", monospace;
+    color: white;
+    border: 1px solid;
+    outline: none;
+    border-radius: 5px;
 }
 
-.inner {
-    height: 300px;
-    width: 700px; 
-    background: grey; 
-}
-
-.inner-box {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    top: 0;
-    z-index: 10000;
-    background: red; 
+input[type='date']::-webkit-calendar-picker-indicator {
+    background: black;
+    cursor: pointer;
+    border-radius: 3px;
 }

@@ -1,14 +1,15 @@
-.login-form-wrapper form.login-form {
-    margin-bottom: 15px;  
+form.main-form button {
+    align-self: unset;
 }
 
-.login-form-wrapper a {
+.main-form-wrapper a {
     display: block;
-    width: fit-content;  
-    margin: auto; 
+    width: fit-content;
+    margin: auto;
+    margin-top: 1.2em;
     transition: var(--fast-transition); 
 }
- 
-.login-form-wrapper a:hover {
+
+.main-form-wrapper a:hover {
     text-decoration: underline;
 }

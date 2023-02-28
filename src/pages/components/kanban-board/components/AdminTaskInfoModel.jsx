@@ -76,7 +76,11 @@ export default function AdminTaskInfoModel({ closeModel }) {
                             <span className='task-status'>Status <small>{status}</small> {status === 'in-progress' && `${progress}%`}</span>
                             <div className="assignment">
                                 <span>Assigned To </span>
-                                <ProjectMember memberImg={task.member.memberImg} memberUsername={task.member.memberUsername} />
+                                <ProjectMember
+                                    memberImg={task.member.memberImg}
+                                    memberUsername={task.member.memberUsername}
+                                    userId={task.member.userId}
+                                />
                             </div>
                             <button className="link-button" onClick={() => setEditting(true)}>Edit Task</button>
                             <div className="model-functionalities">

@@ -12,6 +12,8 @@
   --green-clr-200: #49a75a;
   --green-clr-300: #238636;
 
+  --main-clr: var(--blue-clr-200);
+
   --blue-clr-100: #1e70eb;
   --blue-clr-200: #445979;
   --blue-clr-300: #0d1117;
@@ -25,6 +27,17 @@
   --red-clr-200: #ff1f1f;
   --red-clr-300: #cb0101;
 
+  --primary-clr: var(--blue-clr-200);
+  --secondary-clr: var(--blue-clr-100);
+
+  --primary-text-clr: var(--white);
+  --secondary-text-clr: #bbb;
+  
+  --primary-border: 1px solid var(--grey-clr-200);
+  
+  --primary-background-clr: var(--blue-clr-400);
+  --secondary-background-clr: var(--blue-clr-300);
+
   --box-shadow: #000;
   --fixed-white: #fff;
   --fixed-black: #000;
@@ -32,25 +45,12 @@
   --fast-transition: .3s;
   --meduim-transition: .5s;
   --slow-transition: .7s;
-
-  --rounded-border-1: 4px;
-  --rounded-border-2: 10px;
-  --rounded-border-3: 20px;
-
-  --header-height: 57.19px;
-
-  --main-clr: #445979;
 }
 
 :root[theme="light"] {
-  --white: #000;
-  --black: #fff;
-  --blue-clr-100: #757575;
-  --blue-clr-300: #fff;
-  --blue-clr-400: whitesmoke;
-  --grey-clr-100: #757575;
-  --grey-clr-200: #c2c2c2;
-  --grey-clr-300: #fff;
+  --primary-text-clr: #000;
+  --primary-background-clr: whitesmoke;
+  --secondary-background-clr: #fff;
 }
 
 html {
@@ -63,8 +63,8 @@ html {
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: var(--blue-clr-300);
-  color: var(--white);
+  background: var(--secondary-background-clr);
+  color: var(--primary-text-clr);
   font-size: 1.3rem;
   overflow-y: scroll;
 }

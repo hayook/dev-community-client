@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useMutation } from 'react-query'
-import Spinner from '../../components/spinner/Spinner'
 import { authUser, requestContents } from '../../../app/api'
-import { Link, useNavigate } from 'react-router-dom'; 
+import { Link, useNavigate } from 'react-router-dom';
 import MainButton from '../../components/main-button/MainButton'
 
 const initialState = {
@@ -16,15 +15,15 @@ const initialState = {
 
 export default function RegisterForm() {
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const [userInfo, setUserInfo] = useState(initialState);
     const [registered, setRegistered] = useState({ show: false, success: false, message: 'Registration Success!' });
     const [regErr, setRegErr] = useState('');
 
+    // Send the register Request
     const { isLoading, mutate } = useMutation(authUser);
-
-    const handleRegister = (e) => {
+    const handleRegister = e => {
         e.preventDefault();
 
         const user = {
@@ -35,18 +34,22 @@ export default function RegisterForm() {
             email: userInfo.email,
             phone_number: 0,
         }
+
         mutate(({ endpoint: '/register', body: user, json: true, content: requestContents.json }), {
-            onSuccess: (res) => {
+            onSuccess: res => {
+
+                // User Successfully registered
                 if (res.status === 201) {
-                    setRegErr(''); 
+                    setRegErr('');
                     setRegistered(true);
                     setUserInfo(initialState);
-                    navigate('/')
+                    navigate('/');
                     return;
                 }
-                console.log(res)
-                setRegErr(res.data.detail); 
-                setRegistered(false)
+
+                // Invalid Inputs Errors
+                setRegErr(res.data.detail);
+                setRegistered(false);
             },
             onError: (err) => console.log('error ' + err)
         })
@@ -55,12 +58,12 @@ export default function RegisterForm() {
 
     return (
         <form onSubmit={handleRegister} className="main-form">
-            {
-                registered.show &&
-                <span className={ registered.success ? 'reg-success' : 'reg-error' }>
-                    { registered.message } { (registered.success && <Link to='/'>Login</Link>) } 
+            {registered.show &&
+                <span className={registered.success ? 'reg-success' : 'reg-error'}>
+                    {registered.message} {(registered.success && <Link to='/'>Login</Link>)}
                 </span>
             }
+
             <label>First Name</label>
             <input
                 onChange={({ target }) => setUserInfo({ ...userInfo, firstName: target.value })}
