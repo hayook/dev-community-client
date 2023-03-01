@@ -10,7 +10,7 @@ export const requestContents = {
 }
 
 export const api = {
-    url: 'http://localhost:80',
+    url: 'http://localhost:3000',
     get: async (endpoint) => {
         const { token } = localStorage;
         const response = await fetch(`${api.url}${endpoint}`, {
