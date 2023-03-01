@@ -1,0 +1,85 @@
+.react-date-picker {
+    background: var(--blue-clr-300);
+}
+
+.react-date-picker--disabled {
+    background-color: red;
+    color: red;
+}
+
+.react-date-picker__inputGroup__input {
+    color: var(--primary-text-clr)
+}
+
+.react-date-picker__inputGroup__input:focus {
+    outline: none;
+}
+
+.react-date-picker__wrapper {
+    border: var(--primary-border);
+    padding: .4em;
+}
+
+.react-date-picker__inputGroup__input:invalid {
+    background: rgba(255, 0, 0, 0.1);
+}
+
+
+.react-date-picker__button:enabled .react-date-picker__button__icon,
+.react-date-picker__button:enabled .react-date-picker__button__icon,
+.react-date-picker__button:enabled:hover .react-date-picker__button__icon,
+.react-date-picker__button:enabled:focus .react-date-picker__button__icon,
+.react-date-picker__button:disabled .react-date-picker__button__icon {
+    stroke: var(--primary-text-clr);
+}
+
+.react-calendar {
+    background: var(--blue-clr-300);
+    border: var(--primary-border);
+    font-family: inherit;
+    padding: .8em;
+}
+
+.react-calendar__month-view__days__day--weekend {
+    color: var(--red-clr-200);
+}
+
+.react-calendar__month-view__days__day--neighboringMonth {
+    color: #757575;
+}
+
+.react-calendar__tile:disabled {
+    background-color: red;
+}
+
+/* today */
+.react-calendar__tile--now {
+    background: none;
+}
+
+.react-calendar__navigation button:disabled,
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus,
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus,
+.react-calendar__tile--now:enabled:hover,
+.react-calendar__tile--now:enabled:focus,
+.react-calendar__tile--hasActive,
+.react-calendar__tile--hasActive:enabled:hover,
+.react-calendar__tile--hasActive:enabled:focus,
+.react-calendar__tile--active {
+    background: var(--primary-clr);
+}
+
+.react-calendar__tile--active {
+    color: var(--primary-text-clr);
+}
+
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus {
+    filter: brightness(1.2);
+}
+
+.react-calendar--selectRange .react-calendar__tile--hover {
+    background-color: red;
+}

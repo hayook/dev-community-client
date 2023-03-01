@@ -14,6 +14,7 @@ import { activateTab } from '../../../utiles/dom'
 import { NotFound } from '../../not-found-page/NotFoundPage'
 import { useRef } from 'react';
 import ProjectOverview from './ProjectOverview'
+import ProgressBar from '../../components/progress-bar/ProgressBar'
 
 
 export default function Project({ id }) {
@@ -77,10 +78,7 @@ export default function Project({ id }) {
                         <li target='chat'>Chat</li>
                     </ul>
                 </div>
-                <div className="progress">
-                    <span>0%</span>
-                    <div className="progress-container"><span style={{ width: `0%` }}></span></div>
-                </div>
+                <ProgressBar progress={34} />
             </div>
             <div className="dashboard-content">
                 {currentTab === 'tasks' && <ProjectTasks />}

@@ -1,11 +1,11 @@
 section.project-dashboard .inner-container {
-    display: flex; 
+    display: flex;
     flex-direction: column;
     min-height: 100%;
 }
 
 section.project-dashboard .inner-container .dashboard-content {
-    flex: 1; 
+    flex: 1;
     position: relative;
 }
 
@@ -97,48 +97,48 @@ section.project-dashboard .project-team .functionalities>button>svg {
 
 /****************************************** Dashboard Page ***************************************/
 
-section.project-dashboard .inner-container > .heading .project-title {
+section.project-dashboard .inner-container>.heading .project-title {
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
     grid-gap: .5em 1em;
 }
 
-section.project-dashboard .inner-container > .heading .project-title a.profile-img {
+section.project-dashboard .inner-container>.heading .project-title a.profile-img {
     grid-row: span 2;
 }
 
-section.project-dashboard .inner-container > .heading .project-title .settings {
+section.project-dashboard .inner-container>.heading .project-title .settings {
     display: flex;
     align-items: center;
     gap: 1em;
     grid-column-start: 2;
 }
 
-section.project-dashboard .inner-container > .heading .project-title .settings>* {
+section.project-dashboard .inner-container>.heading .project-title .settings>* {
     background: none;
     color: var(--grey-clr-100);
     transition: .2s;
 }
 
-section.project-dashboard .inner-container > .heading .project-title .settings>*:hover {
+section.project-dashboard .inner-container>.heading .project-title .settings>*:hover {
     color: var(--white);
     text-decoration: underline;
 }
 
-section.project-dashboard .inner-container > .heading .progress {
+section.project-dashboard .inner-container>.heading .progress {
     display: flex;
     align-items: center;
     gap: .4em;
 }
 
-section.project-dashboard .inner-container > .heading .progress .progress-container {
+section.project-dashboard .inner-container>.heading .progress .progress-container {
     height: 1.3em;
     min-width: 200px;
     border: 1px solid var(--blue-clr-100);
 }
 
-section.project-dashboard .inner-container > .heading .progress .progress-container span {
+section.project-dashboard .inner-container>.heading .progress .progress-container span {
     display: block;
     height: 100%;
     background: var(--blue-clr-100);
@@ -339,10 +339,10 @@ section.members .members-list-container form.create-team-form>input {
 .chat-content {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;   
+    justify-content: flex-end;
     gap: 2em;
     position: absolute;
-    left: 50%; 
+    left: 50%;
     transform: translateX(-50%);
     height: 100%;
     min-height: 300px;
@@ -415,25 +415,25 @@ section.members .members-list-container form.create-team-form>input {
 form.create-task {
     display: flex;
     flex-direction: column;
-    gap: 1.2em; 
+    gap: 1.2em;
     width: 100%;
     max-width: 500px;
     margin-inline: auto;
 }
 
-form.create-task > div.inputs {
+form.create-task>div.inputs {
     display: flex;
     flex-direction: column;
-    gap: .8em; 
+    gap: .8em;
 }
 
-form.create-task > .assignment {
+form.create-task>.assignment {
     display: flex;
     flex-direction: column;
     border: 1px solid var(--grey-clr-200);
 }
 
-form.create-task > .assignment .members-list {
+form.create-task>.assignment .members-list {
     display: flex;
     flex-direction: column;
     gap: .8em;
@@ -441,12 +441,27 @@ form.create-task > .assignment .members-list {
     overflow-y: auto;
     padding: .6em;
 }
-form.create-task > .assignment .drop-icon {
+
+form.create-task>.task-dates {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1em;
+}
+
+form.create-task>.task-dates>div {
+    display: flex;
+    align-items: center;
+    gap: .7em;
+}
+
+form.create-task>.assignment .drop-icon {
     display: block;
     font-size: 1.1em;
 }
 
-form.create-task > div.inputs textarea {
+form.create-task>div.inputs textarea {
     resize: none;
     min-width: 100%;
 }

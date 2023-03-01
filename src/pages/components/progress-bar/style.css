@@ -1,0 +1,17 @@
+.progress {
+    display: flex;
+    align-items: center;
+    gap: .4em;
+}
+
+.progress .progress-container {
+    height: 1.3em;
+    width: 100%;
+    border: 1px solid var(--blue-clr-100);
+}
+
+.progress .progress-container span {
+    display: block;
+    height: 100%;
+    background: var(--blue-clr-100);
+}
