@@ -46,6 +46,7 @@ export default function Project({ id }) {
         setCurrentTab(target.getAttribute('target'));
     }
 
+    
     if (isLoading)return <div className="inner-container center"><Spinner dim='30px' /></div>
     if (response.ok && 'data' in response) return (
         <div className='inner-container'>
@@ -78,7 +79,7 @@ export default function Project({ id }) {
                         <li target='chat'>Chat</li>
                     </ul>
                 </div>
-                <ProgressBar progress={34} />
+                <ProgressBar progress={response?.data?.project_progress} />
             </div>
             <div className="dashboard-content">
                 {currentTab === 'tasks' && <ProjectTasks />}

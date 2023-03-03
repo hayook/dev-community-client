@@ -8,10 +8,7 @@ import useProjectMembers from '../../../hooks/useProjectMembers'
 import DatePicker from 'react-date-picker'
 import MainButton from '../../components/main-button/MainButton';
 import '../date-picker.css';
-
-function dummyFunction(dateStart, dateEnd) {
-    return Math.trunc(Math.abs(dateEnd - dateStart) / 3600000);
-}
+import { endOfDay, differenceInSeconds, isSameDay } from 'date-fns';
 
 export default function CreateTaskForm({ setCreateTask }) {
 
@@ -28,29 +25,31 @@ export default function CreateTaskForm({ setCreateTask }) {
         memberProfileImg: projectData.img_url,
     })
     const [task, setTask] = useState({
-        title: '',
+        title: 'task',
         description: '',
         type: 'test',
         startDate: new Date(),
-        endDate: new Date(),
+        endDate: endOfDay(new Date()),
     })
 
     // Post a new task
     const { mutate, isLoading: isPosting } = useMutation(postTask)
     const submitTask = e => {
         e.preventDefault();
+        const taskNeededTime = differenceInSeconds(task.endDate, task.startDate);
         const newTask = {
             task_title: task.title,
             task_description: task.description,
             task_type: task.type,
             member_id: currentMember.memberId,
+            task_start_date: task.startDate.toString(),
+            task_end_date: task.endDate.toString(),
+            task_needed_time: taskNeededTime,
         }
-        console.log(task.startDate)
-        console.log(task.endDate)
-        console.log(dummyFunction(task.startDate, task.endDate))
         mutate({ projectId, task: newTask }, {
-            onSuccess: () => {
+            onSuccess: (res) => {
                 queryClient.invalidateQueries([`get-project-${projectId}-tasks`]),
+                    queryClient.invalidateQueries([`get-project-${projectId}`]),
                     setCreateTask(false);
             }
         })
@@ -58,11 +57,28 @@ export default function CreateTaskForm({ setCreateTask }) {
     }
 
     const updateStartDate = date => {
+        if (date === null) {
+            setTask(prev => ({ ...prev, startDate: new Date() }))
+            return;
+        }
+        if (isSameDay(date, new Date())) {
+            setTask(prev => ({ ...prev, startDate: new Date() }))
+        }
+        if (date < new Date()) return;
+        if (date > task.endDate) {
+            setTask(prev => ({ ...prev, endDate: endOfDay(date), startDate: date }))
+            return;
+        }
         setTask(prev => ({ ...prev, startDate: date }));
     }
 
     const updateEndDate = date => {
-        setTask(prev => ({ ...prev, endDate: date }));
+        if (date === null) {
+            setTask(prev => ({ ...prev, endDate: endOfDay(new Date()) }));
+            return;
+        }
+        if (date < task.startDate) return;
+        setTask(prev => ({ ...prev, endDate: endOfDay(date) }));
     }
 
     return (

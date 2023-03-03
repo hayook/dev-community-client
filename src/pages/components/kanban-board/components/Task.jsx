@@ -4,14 +4,18 @@ import { useMutation, useQueryClient } from 'react-query'
 import Model from '../../model/Model'
 import { updateProgress } from '../../../../app/api'
 import MainButton from '../../../../pages/components/main-button/MainButton'
+import { differenceInSeconds, isBefore } from 'date-fns'
 
-export default function Task({ taskId, title, status, description, progress }) {
+export default function Task({ taskId, title, status, description, progress, taskStartDate, taskEndDate }) {
 
     const { id: projectId } = useParams()
     const [taskInfo, setTaskInfo] = useState(false)
     const [taskProgress, setTaskProgress] = useState(progress)
 
-    const closeModel = () => setTaskInfo(false)
+    const cancelModel = () => {
+        setTaskInfo(false);
+        setTaskProgress(progress);
+    }
 
     const dragTask = e => e.dataTransfer.setData('taskId', taskId);
 
@@ -19,9 +23,11 @@ export default function Task({ taskId, title, status, description, progress }) {
 
     const { mutate, isLoading, error } = useMutation(updateProgress)
     const submitProgress = () => {
-        mutate({ projectId, taskId, newProgress: taskProgress }, {
-            onSuccess: () => {
+        const difSdSp = taskProgress === 0 ? differenceInSeconds(new Date(taskEndDate), new Date(taskStartDate)) : differenceInSeconds(new Date(), new Date(taskStartDate));
+        mutate({ projectId, taskId, newProgress: taskProgress, difSdSp }, {
+            onSuccess: (res) => {
                 queryClient.invalidateQueries([`get-member-project-${projectId}-tasks`]);
+                queryClient.invalidateQueries([`get-project-${projectId}`]);
                 setTaskInfo(false);
             }
 
@@ -31,7 +37,7 @@ export default function Task({ taskId, title, status, description, progress }) {
     return (
         <>
             {taskInfo &&
-                <Model closeModel={closeModel}>
+                <Model closeModel={cancelModel}>
                     <div className="model-container member-task-info">
                         <h2>{title}</h2>
                         <p className="description">{description}</p>
@@ -52,7 +58,10 @@ export default function Task({ taskId, title, status, description, progress }) {
                 className='task'
                 draggable
                 onDragStart={dragTask}
-            ><p>{title}</p></div>
+            >
+                <p>{title}</p>
+                <span className="progress" style={{ width: `${taskProgress}%`}}></span>
+                </div>
         </>
     )
 }

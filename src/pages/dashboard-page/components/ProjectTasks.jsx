@@ -41,6 +41,8 @@ export default function ProjectTasks() {
                     title={task.task_title}
                     description={task.description}
                     progress={task.task_progress}
+                    taskStartDate={task.task_start_date}
+                    taskEndDate={task.task_end_date}
                 />
             )}
         </KanbanBoard>

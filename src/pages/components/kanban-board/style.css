@@ -41,6 +41,18 @@
     border: 1px solid var(--grey-clr-200);
     position: relative;
     cursor: pointer;
+    position: relative;
+}
+
+.kanban-board .content .tasks-container .task span.progress {
+    display: block;
+    height: 100%;
+    background: var(--primary-clr);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    opacity: .51934;
 }
 
 .kanban-board .content .tasks-container .member-task-info {

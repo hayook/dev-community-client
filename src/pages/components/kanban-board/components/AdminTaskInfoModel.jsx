@@ -32,11 +32,13 @@ export default function AdminTaskInfoModel({ closeModel }) {
     const openDeleteModel = () => setDeleteTaskModel(true);
     const closeDeleteModel = () => setDeleteTaskModel(false);
 
+    // Delete Task
     const { mutate: mutateDelete, isLoading: isDeleting } = useMutation(deleteTask)
     const handleDeleteTask = () => {
         mutateDelete({ projectId, taskId }, {
             onSuccess: () => {
                 queryClient.invalidateQueries([`get-project-${projectId}-tasks`]);
+                queryClient.invalidateQueries([`get-project-${projectId}`]);
                 closeDeleteModel()
             }
         })
