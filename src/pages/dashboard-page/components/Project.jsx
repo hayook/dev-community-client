@@ -91,6 +91,6 @@ export default function Project({ id }) {
             </div>
         </section>
     )
-    if (!response?.ok) return <NotFound />
+    if (!response?.ok) return <div className="inner-center"><NotFound /></div>
     return <div className="inner-center"><NetworkError refetch={refetchProject} /></div>
 }

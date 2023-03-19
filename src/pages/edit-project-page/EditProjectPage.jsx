@@ -10,6 +10,8 @@ import useProject from '../../hooks/useProject'
 import { useEffect } from 'react';
 import NotFoundPage from '../not-found-page/NotFoundPage'
 import MainButton from '../components/main-button/MainButton'
+import NetworkError from '../components/network-error/NetworkError'
+import { NotFound } from '../not-found-page/NotFoundPage'
 
 export default function NewProjectPage() {
 
@@ -32,12 +34,12 @@ export default function NewProjectPage() {
         })
     }, [response]);
 
-    const { isLoading:isSubmitting, mutate } = useMutation(editProject)
+    const { isLoading: isSubmitting, mutate } = useMutation(editProject)
     const submitEdit = e => {
         e.preventDefault();
         const project = {
-            project_name: projectInfo.projectTitle, 
-            project_description: projectInfo.projectDescription 
+            project_name: projectInfo.projectTitle,
+            project_description: projectInfo.projectDescription
         }
         mutate({ projectId, project }, {
             onSuccess: res => {
@@ -45,11 +47,11 @@ export default function NewProjectPage() {
             }
         })
 
-        
+
     }
 
     if (isFetching) return <Spinner dim='30px' />
-   if (response?.ok && 'data' in response) return (
+    if (response?.ok && 'data' in response) return (
         <Main>
             <form className='new-project' onSubmit={submitEdit}>
                 {isFetching ? <Spinner dim='30px' /> :
@@ -71,16 +73,14 @@ export default function NewProjectPage() {
                             value={projectInfo.projectDescription}
                         />
                         <MainButton disabled={isSubmitting}>Submit</MainButton>
-                        </>
+                    </>
 
                 }
             </form>
 
         </Main>
     )
-    if (!response?.ok) {
-        if (response?.status === 403) return <NotFoundPage />
-        return <h1>{response?.status}</h1>
-    }
-    if (error) return <h1>Error [ error.message ]</h1>
+
+    if (!response?.ok) return <div className="inner-center"><NotFound /></div>
+    if (!!error) return <div className="inner-center"><NetworkError /></div>
 }

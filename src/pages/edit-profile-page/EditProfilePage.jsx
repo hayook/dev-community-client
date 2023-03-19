@@ -98,51 +98,53 @@ export default function EditProfilePage() {
     return (
         <Main>
             <section className='edit-profile-page'>
-                {!!imageUploaded &&
-                    <UploadImageModel
-                        imgUrl={imageUploaded}
-                        submitUpload={uploadImageHandler}
-                        cancelUpload={closeUploadModel}
-                        isUploading={isUploading}
-                    />
-                }
-                <form onSubmit={submitEdit} className="edit-profile-form">
-                    <h1>Profile Image</h1>
-                    <div className="edit-profile-image">
-                        <ProfileImg url={response.data.img_url} />
-                        <span>{ response.data.username}</span>
-                        <button onClick={handleChangeImage}>Change Profile Image</button>
-                        <input type="file" ref={imageRef} style={{ display: 'none' }} onChange={previewImage} />
-                    </div>
+                <div className="inner-container">
+                    {!!imageUploaded &&
+                        <UploadImageModel
+                            imgUrl={imageUploaded}
+                            submitUpload={uploadImageHandler}
+                            cancelUpload={closeUploadModel}
+                            isUploading={isUploading}
+                        />
+                    }
+                    <form onSubmit={submitEdit} className="edit-profile-form">
+                        <h1>Profile Image</h1>
+                        <div className="edit-profile-image">
+                            <ProfileImg url={response.data.img_url} />
+                            <span>{response.data.username}</span>
+                            <button onClick={handleChangeImage}>Change Profile Image</button>
+                            <input type="file" ref={imageRef} style={{ display: 'none' }} onChange={previewImage} />
+                        </div>
 
-                    <h1>Basic Info</h1>
-                    <div className="edit-basic-info">
-                        <label>Firstname</label>
-                        <input type="text" className="main-input" value={newUserInfo.firstname} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, firstname: target.value })} />
-                        <label>Lastname</label>
-                        <input type="text" className="main-input" value={newUserInfo.lastname} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, lastname: target.value })} />
-                        <label>Username</label>
-                        <input type="text" className="main-input" value={newUserInfo.username} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, username: target.value })} />
-                        <label>Email</label>
-                        <input type="email" className="main-input" value={newUserInfo.email} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, email: target.value })} />
-                        <label>About</label>
-                        <textarea rows={5} className="main-textarea" value={newUserInfo.about} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, about: target.value })} />
-                    </div>
-                    <h1>Password</h1>
-                    <div className="edit-password">
-                        <label>Your Password</label>
-                        <input type="password" className="main-input" value={newUserInfo.password} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, password: target.value })} />
-                        <label>New Password</label>
-                        <input type="password" className="main-input" value={newUserInfo.newPassword} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, newPassword: target.value })} />
-                        <label>Confirm Password</label>
-                        <input type="password" className="main-input" value={newUserInfo.confirmPassword} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, confirmPassword: target.value })} />
-                    </div>
+                        <h1>Basic Info</h1>
+                        <div className="edit-basic-info">
+                            <label>Firstname</label>
+                            <input type="text" className="main-input" value={newUserInfo.firstname} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, firstname: target.value })} />
+                            <label>Lastname</label>
+                            <input type="text" className="main-input" value={newUserInfo.lastname} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, lastname: target.value })} />
+                            <label>Username</label>
+                            <input type="text" className="main-input" value={newUserInfo.username} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, username: target.value })} />
+                            <label>Email</label>
+                            <input type="email" className="main-input" value={newUserInfo.email} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, email: target.value })} />
+                            <label>About</label>
+                            <textarea rows={5} className="main-textarea" value={newUserInfo.about} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, about: target.value })} />
+                        </div>
+                        <h1>Password</h1>
+                        <div className="edit-password">
+                            <label>Your Password</label>
+                            <input type="password" className="main-input" value={newUserInfo.password} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, password: target.value })} />
+                            <label>New Password</label>
+                            <input type="password" className="main-input" value={newUserInfo.newPassword} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, newPassword: target.value })} />
+                            <label>Confirm Password</label>
+                            <input type="password" className="main-input" value={newUserInfo.confirmPassword} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, confirmPassword: target.value })} />
+                        </div>
 
-                    <div className="functionalities">
-                        <Link to={`/user/${userId}`} className="main-button">Cancel</Link>
-                        <MainButton disabled={isEditting}>Submit</MainButton>
-                    </div>
-                </form>
+                        <div className="functionalities">
+                            <Link to={`/user/${userId}`} className="main-button">Cancel</Link>
+                            <MainButton disabled={isEditting}>Submit</MainButton>
+                        </div>
+                    </form>
+                </div>
             </section>
         </Main>
     )

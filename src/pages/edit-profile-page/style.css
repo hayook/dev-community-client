@@ -1,23 +1,18 @@
-section.edit-profile-page {
-    padding: 55px 0;
-    grid-column: span 2;
-}
-
 section.edit-profile-page .model .model-container {
     display: flex;
     align-items: center;
-    justify-content: center; 
+    justify-content: center;
 }
 
 .edit-profile-page form.edit-profile-form {
     display: flex;
     flex-direction: column;
     gap: 1.5em;
-    width: 60%;
+    width: min(700px, 100%);
     margin-inline: auto;
 }
 
-.edit-profile-page form.edit-profile-form > div {
+.edit-profile-page form.edit-profile-form>div {
     display: grid;
     grid-template-columns: auto 1fr;
     justify-content: flex-start;
@@ -36,7 +31,7 @@ section.edit-profile-page .model .model-container {
 }
 
 .edit-profile-page form.edit-profile-form .edit-profile-image button {
-    background: none; 
+    background: none;
     color: #bbb;
     transition: var(--fast-transition);
 }
@@ -47,20 +42,19 @@ section.edit-profile-page .model .model-container {
 }
 
 
-.edit-profile-page form.edit-profile-form > div input.main-input {
-    width: 100%; 
+.edit-profile-page form.edit-profile-form>div input.main-input {
+    width: 100%;
 }
 
-.edit-profile-page form.edit-profile-form > div textarea.main-textarea {
+.edit-profile-page form.edit-profile-form>div textarea.main-textarea {
     resize: none;
     min-width: 100%;
     max-width: 100%;
 }
 
 .edit-profile-page form.edit-profile-form .functionalities {
-    display: flex; 
+    display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 1em; 
+    gap: 1em;
 }
-
