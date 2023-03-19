@@ -8,14 +8,12 @@ import '../components/working-rooms/style.css' // Temp for the profile image sty
 export default function DashboardPage() {
 
     const { id } = useParams()
-    
 
-    
+
+
     return (
         <Main>
-            <section className='project-dashboard page'>
-                <Project id={id} />
-            </section>
+            <Project id={id} />
         </Main>
     )
 }

@@ -2,10 +2,9 @@ import { useState } from 'react'
 import { useQueryClient, useMutation } from 'react-query'
 import TeamsList from './TeamsList'
 import { BiArrowBack } from 'react-icons/bi'
-import Spinner from '../../components/spinner/Spinner';
 import { useParams } from 'react-router-dom';
 import { createTeam } from '../../../app/api'
-import { isAdmin } from '../../../utiles/is-admin'
+import { isAdmin } from '../../../lib/project'
 import MainButton from '../../components/main-button/MainButton'
 
 

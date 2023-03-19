@@ -1,11 +1,8 @@
 import { useState } from 'react'
 import { useMutation, useQueryClient } from "react-query"
 import { useNavigate, Link } from 'react-router-dom'
-import { useParams } from "react-router-dom"
-import useQuestion from '../../../hooks/useQuestion'
 import ProfileImg from '../../components/profile-img/ProfileImg'
-import Spinner from '../../components/spinner/Spinner'
-import { splitDate } from '../../../utiles/split-date'
+import { splitDate } from '../../../lib/date'
 import Code from '../../components/code/Code'
 import MainButton from '../../components/main-button/MainButton'
 import SvgIcon from '../../../assets/icons/SvgIcon'
@@ -14,32 +11,35 @@ import { likePost, commentOnPost, deletePost } from "../../../app/api"
 import Answers from './Answers'
 import DeleteModel from '../../components/delete-model/DeleteModel';
 import useCurrentUserData from '../../../hooks/useCurrentUserData'
+import { useRef } from 'react'
+import { fullSpaces } from '../../../lib/string'
+import Show from '../../components/show/Show'
 
-export default function Question() {
+const initialState = { description: '', code: '' }
+
+export default function Question({ numberLikes, numberAnswers, questionOwnerId, questionOwnerUsername, questionTitle, questionBody, questionCode, questionCreationDate, questionOwnerProfileImg, liked, questionId }) {
+
+    const answerDescRef = useRef(null);
+    const answerCodeRef = useRef(null);
 
     const navigate = useNavigate();
 
-    const { id: questionId } = useParams();
+    const { currentUserId } = useCurrentUserData()
     const queryClient = useQueryClient();
 
-    const [question, setQuestion] = useState(queryClient.getQueryData([`get-question-${questionId}`])?.data[0])
-    const [answer, setAnswer] = useState({
-        description: '',
-        code: '',
-    });
+    const [nbrLikes, setNbrLikes] = useState(numberLikes);
+    const [isLiked, setIsLiked] = useState(liked)
+    const [answer, setAnswer] = useState(initialState);
     const [deleteModel, setDeleteModel] = useState(false);
 
     const closeDeleteModel = () => setDeleteModel(false)
     const openDeleteModel = () => setDeleteModel(true)
 
-    const { currentUserId } = useCurrentUserData()
-    const { isLoading, data: response, error } = useQuestion(questionId, setQuestion)
-
     const { mutate: mutateLike } = useMutation(likePost);
-
     const handleLikeQuestion = () => {
-        setQuestion({ ...question, liked: !question.liked, post_number_likes: question.liked ? question.post_number_likes - 1 : question.post_number_likes + 1 })
-        mutateLike(question.post_id, {
+        setNbrLikes(isLiked ? nbrLikes - 1 : nbrLikes + 1);
+        setIsLiked(!isLiked)
+        mutateLike(questionId, {
             onSuccess: () => queryClient.invalidateQueries([`get-question-${questionId}`])
         })
     }
@@ -47,14 +47,23 @@ export default function Question() {
     const { mutate: mutateComment, isLoading: isCommenting } = useMutation(commentOnPost);
     const shareAnswer = (e) => {
         e.preventDefault();
+
+        answerDescRef.current.classList.remove('error-field');
+        answerCodeRef.current.classList.remove('error-field');
+
+        if (fullSpaces(answer.description)) {
+            answerDescRef.current.focus();
+            answerDescRef.current.classList.add('error-field');
+            return;
+        }
+
         const body = { comment_body: answer.description, comment_code: answer.code };
         mutateComment({ body, postId: questionId }, {
             onSuccess: () => {
-                setQuestion({ ...question, post_number_comments: question.post_number_comments });
                 queryClient.invalidateQueries([`get-post-${questionId}-comments`]);
-                setAnswer({ dexcription: '', code: '' });
+                queryClient.invalidateQueries([`get-question-${questionId}`]);
+                setAnswer(initialState);
             },
-            onError: (err) => console.log('Error ' + err),
         });
     }
 
@@ -63,48 +72,48 @@ export default function Question() {
         mutateDelete(questionId, {
             onSuccess: () => {
                 closeDeleteModel();
-                navigate(-1)
-            },
-            onError: (err) => console.log('error ' + err)
+                navigate('/questions')
+            }
         })
     }
-
-    if (isLoading) return <Spinner dim="30px" />
     return (
+        <>
+            {deleteModel &&
+                <DeleteModel
+                    type='question'
+                    isDeleting={isDeleting}
+                    cancelDelete={closeDeleteModel}
+                    submitDelete={handleDeleteQuestion} />
+            }
             <section className="question-page">
-                {deleteModel &&
-                    <DeleteModel 
-                        type='question'
-                        isDeleting={isDeleting}
-                        cancelDelete={closeDeleteModel}
-                        submitDelete={handleDeleteQuestion} />
-                }
-                <div className="question-container">
+                <div className="inner-container">
                     <div className="question-info">
-                        <h2>{question.post_title}</h2>
-                        <p>{question.post_body}</p>
-                        <Code language={'javascript'} code={question.post_code} />
+                        <h2>{questionTitle}</h2>
+                        <p>{questionBody}</p>
+                        <Code language={'javascript'} code={questionCode} />
                     </div>
-                    {question.post_owner_id === currentUserId &&
+                    <Show when={questionOwnerId === currentUserId}>
                         <div className="question-functionalities">
                             <Link to={`/questions/${questionId}/edit`}>Edit Question</Link>
                             <button onClick={openDeleteModel}>Delete Question</button>
                         </div>
-                    }
+                    </Show>
+
                     <div className="question-more-info">
-                        <Link to={`/user/${question.post_owner_id}`} className="user-profile">
-                            <ProfileImg url={question.img_url} />
-                            <span>{question.username}</span>
+                        <Link to={`/user/${questionOwnerId}`} className="user-profile">
+                            <ProfileImg url={questionOwnerProfileImg} />
+                            <span>{questionOwnerUsername}</span>
                         </Link>
-                        <span className="date">{splitDate(question.post_creation_date)}</span>
+                        <span className="date">{splitDate(questionCreationDate)}</span>
                         <button onClick={handleLikeQuestion} className="like-question">
-                            <SvgIcon path={icons.like} fill={question.liked && 'white'} /> {question.post_number_likes} likes
+                            <SvgIcon path={icons.like} fill={isLiked && 'white'} /> {nbrLikes} likes
                         </button>
                     </div>
-                    <Answers question={question} />
+                    <Answers questionId={questionId} numberAnswers={numberAnswers} />
                     <form onSubmit={shareAnswer} className="share-answer">
                         <label>Description</label>
                         <textarea
+                            ref={answerDescRef}
                             onChange={({ target }) => setAnswer({ ...answer, description: target.value })}
                             className='main-textarea'
                             rows={7}
@@ -113,6 +122,7 @@ export default function Question() {
 
                         <label>Code</label>
                         <textarea
+                            ref={answerCodeRef}
                             onChange={({ target }) => setAnswer({ ...answer, code: target.value })}
                             value={answer.code}
                             className="main-textarea code"
@@ -123,5 +133,7 @@ export default function Question() {
                     </form>
                 </div>
             </section>
+        </>
     )
+
 }

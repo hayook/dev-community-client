@@ -9,10 +9,14 @@ export const requestContents = {
     }
 }
 
-export const api = {
-    url: 'http://localhost:3000',
-    get: async (endpoint) => {
-        const { token } = localStorage;
+class API {
+    constructor(url, key) {
+        this.url = url;
+        this.key = key;
+    }
+
+    async get(endpoint) {
+        const token = this.key;
         const response = await fetch(`${api.url}${endpoint}`, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -21,9 +25,10 @@ export const api = {
         } catch {
             return { ok: response.ok, status: response.status }
         }
-    },
-    post: async (endpoint, body, content = requestContents.json) => {
-        const { token } = localStorage;
+    }
+
+    async post(endpoint, body, content = requestContents.json) {
+        const token = this.key;
         const config = {
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -43,9 +48,10 @@ export const api = {
         } catch {
             return { ok: response.ok, status: response.status }
         }
-    },
-    put: async (endpoint, body, content = requestContents.json) => {
-        const { token } = localStorage;
+    }
+
+    async put(endpoint, body, content = requestContents.json) {
+        const token = this.key;
         const response = await fetch(`${api.url}${endpoint}`, {
             method: 'PUT',
             headers: {
@@ -59,9 +65,10 @@ export const api = {
         } catch {
             return { ok: response.ok, status: response.status }
         }
-    },
-    delete: async (endpoint) => {
-        const { token } = localStorage;
+    }
+
+    async delete(endpoint) {
+        const token = this.key;
         const response = await fetch(`${api.url}${endpoint}`, {
             method: 'DELETE',
             headers: { 'Authorization': `Bearer ${token}` }
@@ -71,9 +78,11 @@ export const api = {
         } catch {
             return { ok: response.ok, status: response.status }
         }
-    },
+    }
+
 }
 
+export const api = new API('http://localhost:3000', localStorage.getItem('token'));
 
 // Users
 export const authUser = async ({ endpoint, body, content }) => {

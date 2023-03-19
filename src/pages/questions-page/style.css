@@ -1,20 +1,23 @@
 section.questions-page {
-    padding-top: 15px;
+    margin-inline: auto;
+    width: min(700px, 100%);
 }
 
-section.questions-page .questions-page-container {
-    display: flex; 
+section.questions-page .inner-container {
+    display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 2em;
     background: var(--blue-clr-400);
-    padding: 15px 30px;
+    padding-inline: 30px;
 }
 
 section.questions-page .header {
-    display: flex; 
+    display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 1em;
+    flex-wrap: wrap;
 }
 
 section.questions-page .filter-questions {
@@ -23,7 +26,7 @@ section.questions-page .filter-questions {
 }
 
 section.questions-page section.questions-list {
-    display: flex; 
+    display: flex;
     flex-direction: column;
     align-items: center;
     gap: 2em;
@@ -40,14 +43,14 @@ section.questions-page section.questions-list {
 }
 
 .question p {
-    --nbr-lines: 3; 
+    --nbr-lines: 3;
     margin: .2em 0 1em;
     font-size: .95em;
     color: #ccc;
     transition: var(--fast-transition);
     display: -webkit-box;
-    -webkit-line-clamp: var(--nbr-lines); 
-    -webkit-box-orient: vertical; 
+    -webkit-line-clamp: var(--nbr-lines);
+    -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
@@ -56,7 +59,7 @@ section.questions-page section.questions-list {
 }
 
 .question .question-stats {
-    display: flex; 
+    display: flex;
     align-items: center;
     justify-content: space-around;
     color: #ccc;

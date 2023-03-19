@@ -1,13 +1,16 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import Model from '../../components/model/Model'
 import { editPost } from '../../../app/api';
 import { usePostContext } from './Post';
 import { useMutation, useQueryClient } from 'react-query'
 import Spinner from '../../components/spinner/Spinner'
+import { fullSpaces } from '../../../lib/string';
 
 export default function EditPostModel() {
 
-    const { closeEditPostModel, body, postId, postOwnerId:userId } = usePostContext();
+    const editPostFieldRef = useRef(null);
+
+    const { closeEditPostModel, body, postId, postOwnerId: userId } = usePostContext();
     const [newBody, setNewBody] = useState(body)
 
     const handleCursor = ({ target }) => target.selectionStart = target.value.length
@@ -16,7 +19,15 @@ export default function EditPostModel() {
     const { isLoading, mutate } = useMutation(editPost);
 
     const saveChanges = () => {
-        
+
+        editPostFieldRef.current.classList.remove('error-field');
+
+        if (fullSpaces(newBody)) {
+            editPostFieldRef.current.focus();
+            editPostFieldRef.current.classList.add('error-field');
+            return;
+        }
+
         const newPost = { post_body: newBody, post_type: 'post' }
         mutate({ newPost, postId }, {
             onSuccess: () => {
@@ -24,7 +35,6 @@ export default function EditPostModel() {
                 queryClient.invalidateQueries([`get-user-${userId}-posts`])
                 closeEditPostModel();
             },
-            onError: (err) => console.log('error ' + err),
         })
     }
 
@@ -35,13 +45,14 @@ export default function EditPostModel() {
     return (
         <Model closeModel={cancelChanges}>
             {
-                isLoading ? <Spinner dim='30px'/> :
+                isLoading ? <Spinner dim='30px' /> :
                     <>
                         <div className="model-heading">
                             <h2>Edit post</h2>
                         </div>
                         <div className="model-container">
                             <textarea
+                                ref={editPostFieldRef}
                                 onFocus={handleCursor}
                                 autoFocus
                                 rows={4}

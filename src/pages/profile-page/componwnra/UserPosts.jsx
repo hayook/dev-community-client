@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom"
 import useUserPosts from "../../../hooks/useUserPosts"
 import Spinner from "../../components/spinner/Spinner"
 import Post from '../../home-page/components/Post'
-import { handleDate } from "../../../utiles/handle-date"
+import { handleDate } from "../../../lib/date"
 
 export default function UserPosts() {
 

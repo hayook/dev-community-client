@@ -1,27 +1,22 @@
-import { useState, createContext, useContext } from "react"
-import { useParams, useNavigate } from 'react-router-dom';
+import { useState, useRef } from "react"
+import { useNavigate } from 'react-router-dom';
 import { useMutation, useQuery } from 'react-query';
-import ProjectTechnologies from './components/ProjectTechnologies';
+import ChipsInput from '../components/chips-input/ChipInput'
 import { editPost, sharePost } from '../../app/api'
-import Spinner from '../components/spinner/Spinner'
-import { getQuestionById } from "../../hooks/useQuestion";
 import Main from '../components/main/Main';
-import NavSideBar from '../components/nav-side-bar/NavSideBar';
-import QuestionCode from './components/QuestionCode';
-import './style.css'
-import useCurrentUserData from "../../hooks/useCurrentUserData";
-import NotFoundPage from '../not-found-page/NotFoundPage'
 import MainButton from '../components/main-button/MainButton'
+import { fullSpaces } from '../../lib/string';
+import './style.css';
 
-const NewQuestionContext = createContext();
-export const useNewQuestionContext = () => useContext(NewQuestionContext);
+const techs = [{ id: 1, name: 'HTML' }, { id: 2, name: 'CSS' }, { id: 3, name: 'JAVASCRIPT' }, { id: 4, name: 'C++' }, { id: 5, name: 'GO' }, { id: 6, name: 'RUST' }, { id: 7, name: 'SQL' }, { id: 8, name: 'RUBY' }, { id: 9, name: 'DART' }, { id: 10, name: 'C#' }];
 
-export default function ShareYourWorkForm() {
+export default function NewQuestionPage() {
 
-    const { currentUserId } = useCurrentUserData()
-    const navigate = useNavigate()
+    const titleFieldRef = useRef(null);
+    const descriptionFieldRef = useRef(null);
+    const navigate = useNavigate();
 
-    const { id } = useParams();
+    const [chips, setChips] = useState([]);
     const [postInfo, setPostInfo] = useState({
         title: '',
         description: '',
@@ -31,17 +26,24 @@ export default function ShareYourWorkForm() {
     });
     const updatePostInfo = (key, value) => setPostInfo({ ...postInfo, [key]: value });
 
-    const { isLoading, error, data: response } = useQuery([`get-question-${id}`, 'toEdit'], () => getQuestionById(id), {
-        enabled: !!id,
-        onSuccess: (res) => {
-            setPostInfo({ ...postInfo, title: res.data[0].post_title, description: res.data[0].post_body, questionCode: res.data[0].post_code, questionOwnerId: res.data[0].post_owner_id })
-        }
-    });
-
-
     const { mutate: mutateShare, isLoading: isSharing } = useMutation(sharePost);
-    const submitShareWork = (e) => {
+    const submitShareQuestion = (e) => {
         e.preventDefault();
+
+        titleFieldRef.current.classList.remove('error-field');
+        descriptionFieldRef.current.classList.remove('error-field');
+        if (fullSpaces(postInfo.title)) {
+            titleFieldRef.current.focus();
+            titleFieldRef.current.classList.add('error-field');
+            return;
+        }
+
+        if (fullSpaces(postInfo.description)) {
+            descriptionFieldRef.current.focus();
+            descriptionFieldRef.current.classList.add('error-field');
+            return;
+        }
+
         const question = {
             post_title: postInfo.title,
             post_body: postInfo.description,
@@ -63,25 +65,52 @@ export default function ShareYourWorkForm() {
 
     }
 
-    if (id && postInfo.questionOwnerId !== currentUserId) return <NotFoundPage />
-    if (isLoading) return <Spinner dim="30px" />
-    if (error) return <h1>Error</h1>
     return (
         <Main>
-            <form onSubmit={!!id ? submitEditQuestion : submitShareWork} className="share-work-form">
+            <form onSubmit={submitShareQuestion} className="share-work-form secondary-form">
                 <label>Title</label>
-                <input onChange={({ target }) => updatePostInfo('title', target.value)} type="text" className='main-input' value={postInfo.title} />
+                <input
+                    ref={titleFieldRef}
+                    onChange={({ target }) => updatePostInfo('title', target.value)}
+                    type="text"
+                    className='main-input'
+                    value={postInfo.title}
+                />
+
                 <label>Description</label>
-                <textarea onChange={({ target }) => updatePostInfo('description', target.value)} className='main-textarea' rows={7} value={postInfo.description} ></textarea>
+                <textarea
+                    ref={descriptionFieldRef}
+                    onChange={({ target }) => updatePostInfo('description', target.value)}
+                    className='main-textarea'
+                    rows={7}
+                    value={postInfo.description}
+                ></textarea>
 
-                <NewQuestionContext.Provider value={{ postInfo, updatePostInfo }}>
-                    <QuestionCode />
-                    <ProjectTechnologies />
-                </NewQuestionContext.Provider>
+                <div className="question-code">
+                    <lable>Code</lable>
+                    <textarea
+                        className="main-textarea code"
+                        value={postInfo.questionCode}
+                        onChange={({ target }) => updatePostInfo('questionCode', target.value)}
+                        rows={7}
+                    ></textarea>
+                </div >
 
-                <MainButton disabled={isSharing || isEditing}>Submit</MainButton>
+                <div className="project-technologies">
+                    <h3>Technologies</h3>
+                    <ChipsInput
+                        placeholder={"eg. C++, Go"}
+                        options={techs}
+                        chips={chips}
+                        setChips={setChips}
+                    />
+                </div>
+
+                <div className="functionalities">
+                    <button className="main-button cancel-button" onClick={() => navigate(`/questions/`)}>Cancel</button>
+                    <MainButton disabled={isSharing}>Submit</MainButton>
+                </div>
             </form>
-
         </Main >
     )
 }

@@ -1,9 +1,9 @@
 section.working-rooms {
     position: sticky;
     top: 0;
-    border-left: 1px solid var(--grey-clr-200);
-    height: 100vh; 
-    margin-left: 20px; 
+    border-left: var(--primary-border);
+    height: 100vh;
+    margin-left: 20px;
     overflow-y: auto;
 }
 
@@ -11,7 +11,7 @@ section.working-rooms .inner-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 1em; 
+    gap: 1em;
     padding-inline: 10px;
 }
 
@@ -46,7 +46,7 @@ a.working-rooms-project {
     grid-gap: .6em .7em;
     align-items: center;
     padding: .8em;
-    border: 1px solid var(--grey-clr-200);
+    border: var(--primary-border);
     transition: var(--fast-transition);
     background: var(--grey-clr-300)
 }
@@ -76,7 +76,7 @@ section.working-rooms .user-invites .invites-list .invite {
     align-items: center;
     justify-content: space-between;
     padding: .454em;
-    border: 1px solid var(--grey-clr-200);
+    border: var(--primary-border);
 }
 
 section.working-rooms .user-invites .invites-list .invite .functionalities {

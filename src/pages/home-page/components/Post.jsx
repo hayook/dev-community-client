@@ -1,6 +1,6 @@
 import { useState, useRef, useContext, createContext } from 'react'
 import { Link } from 'react-router-dom'
-import { useQueryClient, useMutation } from 'react-query'; 
+import { useQueryClient, useMutation } from 'react-query';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import SvgIcon from '../../../assets/icons/SvgIcon'
 import { icons } from '../../../assets/icons/icons'
@@ -9,8 +9,8 @@ import PostComments from './PostComments';
 import DeletePostModel from './DeletePostModel'
 import EditPostModel from './EditPostModel';
 import FuncsModel from './FuncsModel'
-import { likePost } from '../../../app/api'; 
-import { subStr } from '../../../utiles/string-utiles'
+import { likePost } from '../../../app/api';
+import { subStr } from '../../../lib/string'
 import ProfileImg from '../../components/profile-img/ProfileImg'
 import useCurrentUserData from '../../../hooks/useCurrentUserData';
 
@@ -42,12 +42,12 @@ export default function Post({ postOwnerId, profileImg, postOwnerUsername, postD
     const queryClient = useQueryClient()
     const { isLoading, mutate } = useMutation(likePost)
     const handleLikePost = () => {
-        setLikedPost(!likedPost); 
+        setLikedPost(!likedPost);
         setPostNbrLikes(prev => likedPost ? prev - 1 : prev + 1);
         mutate(postId, {
             onSuccess: (res) => {
                 queryClient.invalidateQueries(['get-posts']);
-            }, 
+            },
             onError: (err) => console.log('error ' + err)
         })
     }
@@ -80,11 +80,11 @@ export default function Post({ postOwnerId, profileImg, postOwnerUsername, postD
                 <div className="post-info">
                     <Link to={`/user/${postOwnerId}`}><ProfileImg url={profileImg} /></Link>
                     <div className="post-main">
-                    <Link to={`/user/${postOwnerId}`}><span>{ postOwnerUsername }</span></Link>
-                        <span className="date">{ postDate }</span>
+                        <Link to={`/user/${postOwnerId}`}><span>{postOwnerUsername}</span></Link>
+                        <span className="date">{postDate}</span>
                         <p className="post-content">
-                        { fullPostContent ? body : subStr(body, 300) }
-                        { !fullPostContent && <span onClick={() => setFullPostContent(true)} className='read-more'>...Read More</span>}
+                            {fullPostContent ? body : subStr(body, 300)}
+                            {!fullPostContent && <span onClick={() => setFullPostContent(true)} className='read-more'>...Read More</span>}
                         </p>
                         {currentUserId === postOwnerId &&
                             <button ref={funcsButtonRef} onClick={openFuncs} className="post-funcs" style={{ display: funcs && 'block' }}>
@@ -92,12 +92,12 @@ export default function Post({ postOwnerId, profileImg, postOwnerUsername, postD
                             </button>
                         }
                         {funcs &&
-                            <FuncsModel 
-                            type={'Post'} 
-                            setFuncs={setFuncs}
-                            openEditModel={openEditPostModel}
-                            openDeleteModel={openDeletePostModel}
-                            funcsButtonRef={funcsButtonRef}
+                            <FuncsModel
+                                type={'Post'}
+                                setFuncs={setFuncs}
+                                openEditModel={openEditPostModel}
+                                openDeleteModel={openDeletePostModel}
+                                funcsButtonRef={funcsButtonRef}
                             />
                         }
                     </div>
@@ -106,11 +106,11 @@ export default function Post({ postOwnerId, profileImg, postOwnerUsername, postD
                 <div className="functionalities">
                     <button className="like-post" onClick={handleLikePost}>
                         <SvgIcon path={icons.like} fill={likedPost && 'white'} />
-                        <span>{ postNbrLikes }</span>
+                        <span>{postNbrLikes}</span>
                     </button>
                     <button className="comment-on-post" onClick={handlePostComments}>
                         <SvgIcon path={icons.comment} />
-                        <span>{ postNbrComments }</span>
+                        <span>{postNbrComments}</span>
                     </button>
                 </div>
 

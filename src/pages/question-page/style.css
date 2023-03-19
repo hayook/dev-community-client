@@ -1,20 +1,14 @@
-
-.question-page {
-    grid-column: span 2; 
-    width: 70%;  
-}
-
-.question-page .question-container {
-    padding: 50px 0;
-    display: flex; 
+.question-page .inner-container {
+    display: flex;
     flex-direction: column;
     gap: 2em;
-    justify-content: center;
+    width: min(700px, 100%);
+    margin-inline: auto;
 }
 
 .question-page .question-info {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     gap: 2em;
 }
 
@@ -28,8 +22,14 @@
     padding: 1em 0;
 }
 
+.question-page .question-more-info a.user-profile {
+    display: flex;
+    align-items: center;
+    gap: .8em;
+}
+
 .question-page .question-more-info button.like-question {
-    display: flex; 
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -39,13 +39,13 @@
 }
 
 .question-page .question-functionalities {
-    display: flex; 
+    display: flex;
     align-items: center;
     justify-content: flex-end;
     gap: 1em;
 }
 
-.question-page .question-functionalities > * {
+.question-page .question-functionalities>* {
     padding: .5em;
     background: none;
     color: var(--grey-clr-100);
@@ -53,33 +53,33 @@
     transition: var(--fast-transition);
 }
 
-.question-page .question-functionalities > *:hover {
+.question-page .question-functionalities>*:hover {
     color: var(--white);
 }
 
 .question-page .question-answers {
-    display: flex; 
+    display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 1em;
 }
 
 .question-page .question-answers .question-answer {
-    display: grid; 
+    display: grid;
     grid-gap: 1em;
     padding: 1.5em;
     background: var(--grey-clr-300);
 }
 
 .question-page .question-answers .question-answer .profile {
-    display: flex; 
+    display: flex;
     align-items: center;
     gap: .6em;
     width: fit-content;
 }
 
 .question-page form.share-answer {
-    display: flex; 
+    display: flex;
     flex-direction: column;
 }
 
@@ -88,7 +88,8 @@
     margin-top: .5em;
     resize: none;
 }
-.question-page form.share-answer > button {
-    width: fit-content; 
+
+.question-page form.share-answer>button {
+    width: fit-content;
     align-self: flex-end;
 }

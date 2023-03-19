@@ -1,5 +1,3 @@
-
-
 .profile-page section.hero {
     display: flex;
     align-items: center;
@@ -43,6 +41,21 @@
 
 }
 
+@media (max-width: 767px) {
+    .profile-page section.hero {
+        flex-direction: column;
+    }
+
+    .profile-page section.hero .user-pic .profile-img {
+        width: 100px !important;
+        height: 100px !important;
+    }
+
+    .profile-page section.hero .main {
+        align-items: center;
+    }
+}
+
 .profile-page section.hero .main .basic-info .username {
     color: var(--grey-clr-100)
 }
@@ -56,12 +69,17 @@
     color: var(--white);
     text-decoration: underline;
 }
+
 .profile-page section.hero .main nav {
     width: fit-content;
 }
 
+.profile-page section.hero .main nav ul {
+    flex-wrap: wrap;
+}
+
 .profile-page section.profile-content {
-    display: flex; 
+    display: flex;
     justify-content: center;
     margin: 3em 0;
 }
@@ -71,4 +89,5 @@
     flex-direction: column;
     gap: 2em;
     width: 60%;
+    width: min(500px, 100%);
 }

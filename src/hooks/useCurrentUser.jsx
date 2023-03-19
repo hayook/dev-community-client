@@ -8,6 +8,5 @@ export default function useCurrentUser() {
 
     return useQuery([`get-user`], getCurrentUser, {
         enabled: !!token,
-        onError: (err) => console.log('Error ' + err),
     });
 }

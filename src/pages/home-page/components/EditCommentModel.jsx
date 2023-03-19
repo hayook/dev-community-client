@@ -4,8 +4,12 @@ import { editComment } from '../../../app/api';
 import { usePostContext } from './Post';
 import { useMutation, useQueryClient } from 'react-query'
 import Spinner from '../../components/spinner/Spinner'
+import { fullSpaces } from '../../../lib/string';
+import { useRef } from 'react';
 
 export default function EditCommentModel({ closeEditCommentModel, commentId, commentBody }) {
+
+    const editCommentRef = useRef(null);
 
     const { postId } = usePostContext();
     const [newBody, setNewBody] = useState(commentBody)
@@ -16,6 +20,15 @@ export default function EditCommentModel({ closeEditCommentModel, commentId, com
     const { isLoading, mutate } = useMutation(editComment);
 
     const saveChanges = () => {
+
+        editCommentRef.current.classList.remove('error-field');
+
+        if (fullSpaces(newBody)) {
+            editCommentRef.current.focus();
+            editCommentRef.current.classList.add('error-field');
+            return;
+        }
+
         mutate({ newBody, postId, commentId }, {
             onSuccess: () => {
                 queryClient.invalidateQueries([`get-post-${postId}-comments`])
@@ -32,13 +45,14 @@ export default function EditCommentModel({ closeEditCommentModel, commentId, com
     return (
         <Model closeModel={cancelChanges}>
             {
-                isLoading ? <Spinner dim='30px'/> :
+                isLoading ? <Spinner dim='30px' /> :
                     <>
                         <div className="model-heading">
                             <h2>Edit comment</h2>
                         </div>
                         <div className="model-container">
                             <textarea
+                                ref={editCommentRef}
                                 onFocus={handleCursor}
                                 autoFocus
                                 rows={4}

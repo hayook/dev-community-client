@@ -16,3 +16,5 @@ export function dateToHHMM(dateStr) {
     const minutes = `${date.getMinutes()}`.padStart(2, '0');
     return `${hours}:${minutes}`
 }
+
+export const splitDate = (dateStr) => dateStr.split('T')[0];

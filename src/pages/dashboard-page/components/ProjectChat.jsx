@@ -6,8 +6,8 @@ import { BiSend } from 'react-icons/bi'
 import Message from '../components/Message'
 import Spinner from '../../components/spinner/Spinner'
 import useProjectChatLogs from '../../../hooks/useProjectChatLogs'
-import { adjustInputHeight, updateQueryCache } from '../../../utiles/dom';
-import { dateToHHMM } from '../../../utiles/handle-date'
+import { adjustInputHeight, updateQueryCache } from '../../../lib/dom';
+import { dateToHHMM } from '../../../lib/date'
 
 
 

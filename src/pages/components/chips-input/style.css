@@ -1,0 +1,63 @@
+.chips-input {
+    display: flex;
+    border: var(--primary-border);
+    flex-direction: column;
+    background: var(--primary-background-clr);
+}
+
+.chips-input .inputs {
+    padding: .55em;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .5em;
+}
+
+
+.chips-input .inputs .chip {
+    padding: .7em;
+    border: var(--primary-border);
+    display: flex;
+    align-items: center;
+    background: var(--secondary-background-clr);
+    gap: .5em;
+}
+
+.chips-input .inputs .chip span {
+    position: relative;
+    top: 1px;
+}
+
+.chips-input .inputs .chip button {
+    border: var(--primary-border);
+    font-size: 1.2em;
+    line-height: 1ch;
+    padding: .4em;
+    border-radius: 50%;
+    background: #1f1f1f;
+}
+
+.chips-input .inputs input {
+    outline: none;
+    border: none;
+    min-width: 100px;
+    flex: 1;
+}
+
+.chips-input ul.suggested-list {
+    padding: .9em;
+    display: flex;
+    flex-direction: column;
+    gap: .7em;
+}
+
+.chips-input ul.suggested-list li {
+    padding: .6em;
+    transition: var(--fast-transition);
+    cursor: pointer;
+}
+
+.chips-input ul.suggested-list li:hover {
+    background: var(--grey-clr-200);
+    filter: brightness(1.2);
+}

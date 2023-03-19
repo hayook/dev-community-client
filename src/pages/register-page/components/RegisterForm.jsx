@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useMutation } from 'react-query'
 import { authUser, requestContents } from '../../../app/api'
-import { Link, useNavigate } from 'react-router-dom';
-import MainButton from '../../components/main-button/MainButton'
+import { useNavigate } from 'react-router-dom';
+import MainButton from '../../components/main-button/MainButton';
+import Show from '../../components/show/Show'
 
 const initialState = {
     firstName: '',
@@ -17,14 +18,43 @@ export default function RegisterForm() {
 
     const navigate = useNavigate();
 
-    const [userInfo, setUserInfo] = useState(initialState);
-    const [registered, setRegistered] = useState({ show: false, success: false, message: 'Registration Success!' });
     const [regErr, setRegErr] = useState('');
+    const [userInfo, setUserInfo] = useState(initialState);
 
     // Send the register Request
     const { isLoading, mutate } = useMutation(authUser);
     const handleRegister = e => {
         e.preventDefault();
+
+        if (userInfo.firstName === '') {
+            setRegErr(`First Name can't be empty`);
+            return;
+        }
+
+        if (userInfo.lastName === '') {
+            setRegErr(`Last Name can't be empty`);
+            return;
+        }
+
+        if (userInfo.username === '') {
+            setRegErr(`Username Name can't be empty`);
+            return;
+        }
+
+        if (userInfo.email === '') {
+            setRegErr(`Email Name can't be empty`);
+            return;
+        }
+
+        if (userInfo.password.length < 8) {
+            setRegErr(`Password should be at least 8 characters long`);
+            return;
+        }
+
+        if (userInfo.password !== userInfo.confirmPassword) {
+            setRegErr(`Passwords don't match`);
+            return;
+        }
 
         const user = {
             first_name: userInfo.firstName,
@@ -41,7 +71,6 @@ export default function RegisterForm() {
                 // User Successfully registered
                 if (res.status === 201) {
                     setRegErr('');
-                    setRegistered(true);
                     setUserInfo(initialState);
                     navigate('/');
                     return;
@@ -49,20 +78,17 @@ export default function RegisterForm() {
 
                 // Invalid Inputs Errors
                 setRegErr(res.data.detail);
-                setRegistered(false);
             },
-            onError: (err) => console.log('error ' + err)
+            onError: (err) => setRegErr('Something went wrong. Please try again')
         })
 
     }
 
     return (
         <form onSubmit={handleRegister} className="main-form">
-            {registered.show &&
-                <span className={registered.success ? 'reg-success' : 'reg-error'}>
-                    {registered.message} {(registered.success && <Link to='/'>Login</Link>)}
-                </span>
-            }
+            <Show when={!!regErr}>
+                <span className='form-message error'>{regErr}</span>
+            </Show>
 
             <label>First Name</label>
             <input

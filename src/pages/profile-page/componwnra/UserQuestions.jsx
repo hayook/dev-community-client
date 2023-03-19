@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom"
 import useUserQuestions from "../../../hooks/useUserQuestions"
 import Question from '../../questions-page/components/Question'
-import { handleDate } from '../../../utiles/handle-date'
+import { handleDate } from '../../../lib/date'
 import Spinner from "../../components/spinner/Spinner"
 
 export default function UserQuestions() {

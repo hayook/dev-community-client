@@ -9,9 +9,7 @@ export default function ProfilePage() {
 
     return (
         <Main>
-            <div className="profile-page page">
-                <Profile />
-            </div>
+            <Profile />
         </Main>
     )
 }

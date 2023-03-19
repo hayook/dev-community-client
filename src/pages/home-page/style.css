@@ -1,6 +1,3 @@
-main.main-content .inner-container {
-    /* border: 1px solid; */
-}
 .home-page .profile {
     width: fit-content;
 }
@@ -8,14 +5,14 @@ main.main-content .inner-container {
 .home-page {
     background: var(--blue-clr-400);
     padding: 15px 30px;
-    margin-inline: auto; 
+    margin-inline: auto;
     width: min(700px, 100%);
 }
 
 /**************************************  Share Section  **************************************/
 
 .home-page section.share-post {
-    display: grid; 
+    display: grid;
     grid-template-columns: auto 1fr;
     padding: 1.2em 0;
     grid-gap: 1.5em .8em;
@@ -31,10 +28,6 @@ main.main-content .inner-container {
     border: 1px solid var(--grey-clr-200);
 }
 
-.home-page section.share-post textarea.main-textarea:focus {
-    outline: none;
-}
-
 .home-page section.share-post .functionalities {
     display: flex;
     align-items: center;
@@ -43,13 +36,13 @@ main.main-content .inner-container {
 }
 
 .home-page section.other-posts-types .or {
-    display: flex; 
+    display: flex;
     align-items: center;
 }
 
 .home-page section.other-posts-types .or hr {
-    width: 100%; 
-    border: 1px solid var(--blue-clr-100);  
+    width: 100%;
+    border: 1px solid var(--blue-clr-100);
 }
 
 .home-page section.other-posts-types .or span {
@@ -57,18 +50,18 @@ main.main-content .inner-container {
 }
 
 .home-page section.other-posts-types .functionalities {
-    display: flex; 
+    display: flex;
     align-items: center;
     justify-content: space-around;
-    padding: 1.2em 0; 
+    padding: 1.2em 0;
     background: var(--grey-clr-300);
-    margin: 1em 0; 
+    margin: 1em 0;
 }
 
 /**************************************  Posts Section  **************************************/
 
 .home-page section.posts {
-    display: flex; 
+    display: flex;
     flex-direction: column;
     align-items: center;
     gap: 2em;
@@ -88,7 +81,7 @@ main.main-content .inner-container {
 }
 
 .post .post-info .post-main {
-    display: flex; 
+    display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 5px;
@@ -96,15 +89,15 @@ main.main-content .inner-container {
 }
 
 .post .post-info .post-main button.post-funcs {
-    position: absolute; 
-    top: -10px; 
-    right: -10px;  
+    position: absolute;
+    top: -10px;
+    right: -10px;
     height: 30px;
     width: 30px;
     border-radius: 50%;
     /* background: none; */
-    transition: var(--fast-transition); 
-    color: var(--grey-clr-100); 
+    transition: var(--fast-transition);
+    color: var(--grey-clr-100);
     background: none;
     display: none;
 }
@@ -115,42 +108,42 @@ main.main-content .inner-container {
 
 .post .post-info .post-main button.post-funcs:hover {
     background: var(--grey-clr-300);
-    filter: brightness(1.3); 
+    filter: brightness(1.3);
 }
 
-.post .post-info .post-main button.post-funcs > svg {
-    position: absolute; 
-    top: 50%; 
-    left: 50%; 
+.post .post-info .post-main button.post-funcs>svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
     font-size: 1.1em;
 }
 
-.post .post-info .post-main button.post-funcs + .funcs-model {
+.post .post-info .post-main button.post-funcs+.funcs-model {
     position: absolute;
     top: 10px;
-    right: 10px; 
+    right: 10px;
     width: fit-content;
     background: var(--grey-clr-300);
-    border: 1px solid var(--grey-clr-200); 
+    border: 1px solid var(--grey-clr-200);
     z-index: 500;
 }
 
-.post .post-info .post-main button.post-funcs + .funcs-model li button {
-    width: 100%; 
+.post .post-info .post-main button.post-funcs+.funcs-model li button {
+    width: 100%;
     text-align: start;
     background: none;
     color: var(--white);
-    padding: 1.2em 1em; 
+    padding: 1.2em 1em;
     transition: var(--fast-transition);
 }
 
-.post .post-info .post-main button.post-funcs + .funcs-model li button:hover {
-    background: var(--grey-clr-300); 
-    filter: brightness(1.5); 
+.post .post-info .post-main button.post-funcs+.funcs-model li button:hover {
+    background: var(--grey-clr-300);
+    filter: brightness(1.5);
 }
 
-.post .post-info .post-main button.post-funcs + .funcs-model li button svg {
+.post .post-info .post-main button.post-funcs+.funcs-model li button svg {
     position: relative;
     top: 3px;
     font-size: 1.2em;
@@ -166,19 +159,20 @@ main.main-content .inner-container {
     margin: .5em 0 1.5em;
     white-space: pre-wrap;
     word-break: break-all;
-    width: 100%; 
-    
+    width: 100%;
+
 }
 
 .post .post-info .post-main p.post-content span.read-more {
     cursor: pointer;
-    color: var(--grey-clr-100); 
+    color: var(--grey-clr-100);
     transition: .2s;
-    font-size: .9em; 
+    font-size: .9em;
 }
+
 .post .post-info .post-main p.post-content span.read-more:hover {
     text-decoration: underline;
-    color: var(--white); 
+    color: var(--white);
 }
 
 .post .functionalities {
@@ -190,7 +184,7 @@ main.main-content .inner-container {
 }
 
 .post .functionalities button {
-    display: flex; 
+    display: flex;
     align-items: center;
     justify-content: center;
     gap: .5em;
@@ -199,17 +193,12 @@ main.main-content .inner-container {
 }
 
 .post .functionalities button.like-post svg {
-    position: relative; 
+    position: relative;
     top: -2px;
 }
 
-.post .functionalities button.comment-on-post svg {
-    position: relative; 
-    top: 3px;
-}
-
 .post .post-comments {
-    display: flex; 
+    display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 1.5em 0;
@@ -249,7 +238,7 @@ main.main-content .inner-container {
 }
 
 .post .post-comments div.comment button.like-comment {
-    display: flex; 
+    display: flex;
     align-items: center;
     justify-content: center;
     gap: .5em;
@@ -259,12 +248,12 @@ main.main-content .inner-container {
 }
 
 .post .post-comments div.comment button.like-comment svg {
-    position: relative; 
+    position: relative;
     top: -2px;
 }
 
 .post .post-comments form.comment {
-    display: flex; 
+    display: flex;
     align-items: center;
     background: var(--blue-clr-400);
     width: 100%;
@@ -277,12 +266,8 @@ main.main-content .inner-container {
     border: none;
 }
 
-.post .post-comments form.comment textarea:focus {
-    outline: none;
-}
-
 .post .post-comments form.comment button.submit-comment {
-    display: flex; 
+    display: flex;
     align-items: center;
     justify-content: center;
     padding: 0 15px;
@@ -290,4 +275,3 @@ main.main-content .inner-container {
     background: none;
     font-size: 2rem;
 }
-

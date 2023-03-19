@@ -1,13 +1,17 @@
-.projects-page {
+.projects-page .inner-container {
     display: grid;
     grid-template-columns: repeat(2, 50%);
-    gap: 2em; 
+    gap: 2em;
+}
+
+.projects-page .inner-container a.main-button {
+    width: fit-content;
+    align-self: center;
 }
 
 @media (max-width: 767px) {
-    .projects-page {
-        
-    grid-template-columns: 1fr;
+    .projects-page .inner-container {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -27,5 +31,5 @@
 .invites {
     display: flex;
     flex-direction: column;
-    gap: 1em; 
+    gap: 1em;
 }

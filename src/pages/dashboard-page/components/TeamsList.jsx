@@ -13,7 +13,7 @@ import { addToTeam } from '../../../app/api'
 import ProjectTeam from './ProjectTeam';
 import DeleteModel from '../../components/delete-model/DeleteModel'
 import { removeProjectTeam } from '../../../app/api'
-import { isAdmin } from '../../../utiles/is-admin';
+import { isAdmin } from '../../../lib/project';
 
 export default function TeamsList() {
 

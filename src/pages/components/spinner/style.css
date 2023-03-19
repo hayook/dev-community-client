@@ -1,30 +1,31 @@
 .outer {
-    width: 15px;
-    height: 15px;
-    border: 3px solid var(--grey-clr-300);
-    filter: brightness(1.5);
-    border-radius: 50%;
-    position: relative;
-    margin-inline: auto; 
+  width: 15px;
+  height: 15px;
+  border: 3px solid var(--grey-clr-300);
+  filter: brightness(1.5);
+  border-radius: 50%;
+  position: relative;
+  margin-inline: auto;
+}
+
+.outer::before {
+  content: '';
+  height: 100%;
+  width: 60%;
+  border: 3px solid transparent;
+  border-top: 3px solid transparent;
+  border-top: 3px solid var(--secondary-clr);
+  border-radius: 500px;
+  position: absolute;
+  animation: roll .7s ease-in-out infinite;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+
+@keyframes roll {
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
   }
-  .outer::before {
-    content: '';
-    height:  100%;
-    width: 60%;
-    border: 3px solid transparent;
-    border-top: 3px solid transparent;
-    border-top: 3px solid var(--blue-clr-100);
-    border-radius: 500px;
-    position: absolute;
-    animation: roll .7s ease-in-out infinite;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  
-  
-  @keyframes roll {
-    100% {
-      transform: translate(-50%, -50%) rotate(360deg);
-    }
-  }
+}

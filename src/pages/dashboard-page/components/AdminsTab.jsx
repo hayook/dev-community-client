@@ -4,11 +4,11 @@ import { useState } from 'react'
 import InviteMembers from './InviteMembers';
 import { BiArrowBack } from 'react-icons/bi'
 import ProjectMember from "./ProjectMember";
-import { filterByRole } from '../../../utiles/filter-by-role';
+import { filterByRole } from '../../../lib/project';
 import DeleteModel from '../../components/delete-model/DeleteModel'
 import { removeProjectMember } from "../../../app/api";
 import { BsTrash } from "react-icons/bs";
-import { isAdmin } from '../../../utiles/is-admin'
+import { isAdmin } from '../../../lib/project'
 
 export default function AdminsTab() {
 

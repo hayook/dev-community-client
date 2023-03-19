@@ -9,12 +9,13 @@ import ProfileImg from '../../components/profile-img/ProfileImg'
 import DeletePostModel from '../../components/delete-model/DeleteModel';
 import { useMutation, useQueryClient } from 'react-query';
 import { removeProject } from '../../../app/api';
-import { isAdmin } from '../../../utiles/is-admin'
-import { activateTab } from '../../../utiles/dom'
+import { isAdmin } from '../../../lib/project'
+import { activateTab } from '../../../lib/dom'
 import { NotFound } from '../../not-found-page/NotFoundPage'
 import { useRef } from 'react';
 import ProjectOverview from './ProjectOverview'
 import ProgressBar from '../../components/progress-bar/ProgressBar'
+import NetworkError from '../../components/network-error/NetworkError'
 
 
 export default function Project({ id }) {
@@ -23,7 +24,7 @@ export default function Project({ id }) {
     const ulRef = useRef()
 
     const { id: projectId } = useParams()
-    const { isLoading, data: response, error } = useProject(id);
+    const { isLoading, data: response, error, refetch: refetchProject } = useProject(id);
     const queryClient = useQueryClient()
 
     const [currentTab, setCurrentTab] = useState('members')
@@ -46,52 +47,50 @@ export default function Project({ id }) {
         setCurrentTab(target.getAttribute('target'));
     }
 
-    
-    if (isLoading)return <div className="inner-container center"><Spinner dim='30px' /></div>
-    if (response.ok && 'data' in response) return (
-        <div className='inner-container'>
-            {deleteProjectModel &&
-                <DeletePostModel
-                    modelHeading='Delete Project'
-                    type='project'
-                    cancelDelete={closeModel}
-                    submitDelete={removeProjectHandler}
-                    isDeleting={isDeleting}
-                />
-            }
-            <div className="heading">
-                <div className="project-title">
-                    <Link className="profile-img" to={`/user/${response.data.project_owner_id}`}><ProfileImg url={response.data.img_url} /></Link>
-                    <h2>{response.data.project_name}</h2>
-                    <Link to={`/user/${response.data.project_owner_id}`}>{response.data.username}</Link>
-                    {isAdmin(queryClient, projectId) &&
-                        <div className="settings">
-                            <Link to={`/projects/${projectId}/edit`}>Edit Project</Link>
-                            <button onClick={openModel}>Delete Project</button>
-                        </div>
-                    }
+    if (isLoading) return <div className="inner-center"><Spinner dim='30px' /></div>
+    if (response?.ok && 'data' in response) return (
+        <section className='project-dashboard'>
+            <div className='inner-container'>
+                {deleteProjectModel &&
+                    <DeletePostModel
+                        modelHeading='Delete Project'
+                        type='project'
+                        cancelDelete={closeModel}
+                        submitDelete={removeProjectHandler}
+                        isDeleting={isDeleting}
+                    />
+                }
+                <div className="heading">
+                    <div className="project-title">
+                        <Link className="profile-img" to={`/user/${response.data.project_owner_id}`}><ProfileImg url={response.data.img_url} /></Link>
+                        <h2>{response.data.project_name}</h2>
+                        <Link to={`/user/${response.data.project_owner_id}`}>{response.data.username}</Link>
+                        {isAdmin(queryClient, projectId) &&
+                            <div className="settings">
+                                <Link to={`/projects/${projectId}/edit`}>Edit Project</Link>
+                                <button onClick={openModel}>Delete Project</button>
+                            </div>
+                        }
+                    </div>
+                    <div className="project-nav-tabs">
+                        <ul ref={ulRef} className="tabs" onClick={e => activateTab(ulRef, e, setCurrentTab)} >
+                            {isAdmin(queryClient, projectId) && <li target='overview'>Overview</li>}
+                            <li target='tasks'>Tasks</li>
+                            <li target='members' className='active'>Members</li>
+                            <li target='chat'>Chat</li>
+                        </ul>
+                    </div>
+                    <ProgressBar progress={response?.data?.project_progress} />
                 </div>
-                <div className="project-nav-tabs">
-                    <ul ref={ulRef} className="tabs" onClick={e => activateTab(ulRef, e, setCurrentTab)} >
-                        {isAdmin(queryClient, projectId) && <li target='overview'>Overview</li>}
-                        <li target='tasks'>Tasks</li>
-                        <li target='members' className='active'>Members</li>
-                        <li target='chat'>Chat</li>
-                    </ul>
+                <div className="dashboard-content">
+                    {currentTab === 'tasks' && <ProjectTasks />}
+                    {currentTab === 'members' && <ProjectMembers />}
+                    {currentTab === 'chat' && <ProjectChat />}
+                    {currentTab === 'overview' && <ProjectOverview />}
                 </div>
-                <ProgressBar progress={response?.data?.project_progress} />
             </div>
-            <div className="dashboard-content">
-                {currentTab === 'tasks' && <ProjectTasks />}
-                {currentTab === 'members' && <ProjectMembers />}
-                {currentTab === 'chat' && <ProjectChat />}
-                {currentTab === 'overview' && <ProjectOverview />}
-            </div>
-        </div>
+        </section>
     )
-    if (!response.ok) {
-        if (response.status === 403) return <NotFound />
-        return <h1>{response.status}</h1>
-    }
-    return <h1>Error {error?.message}</h1>
+    if (!response?.ok) return <NotFound />
+    return <div className="inner-center"><NetworkError refetch={refetchProject} /></div>
 }

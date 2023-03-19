@@ -54,14 +54,21 @@
     margin-bottom: 40px;
 }
 
-form {
-    /* max-width: 400px; */
-    /* width: 100%; */
+form.secondary-form {
+    max-width: 700px;
+    width: 100%;
+    margin-inline: auto;
 }
 
 form.main-form {
     display: flex;
     flex-direction: column;
+}
+
+form.main-form .form-message.error {
+    background: var(--red-clr-300);
+    padding: .7em;
+    margin-bottom: .8em;
 }
 
 form.main-form input,
@@ -86,6 +93,7 @@ textarea.main-textarea {
     color: var(--primary-text-clr);
     border: var(--primary-border);
     white-space: pre-wrap;
+    display: block;
     resize: none;
     width: 100%;
 }
@@ -93,6 +101,11 @@ textarea.main-textarea {
 input.main-input:focus,
 textarea.main-textarea:focus {
     outline: 1px solid var(--secondary-clr);
+}
+
+input.main-input.error-field:focus,
+textarea.main-textarea.error-field:focus {
+    outline: 1px solid var(--red-clr-300);
 }
 
 textarea.main-textarea.code {

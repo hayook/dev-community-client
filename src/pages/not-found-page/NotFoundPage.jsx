@@ -5,7 +5,7 @@ import './style.css'
 export default function NotFoundPage() {
     return (
         <Main>
-            <div className="not-found-page page">
+            <div className="inner-center">
                 <div className="inner-container center">
                     <NotFound />
                 </div>
