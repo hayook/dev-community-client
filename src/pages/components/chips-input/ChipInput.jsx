@@ -13,7 +13,7 @@ export default function ChipInput({ options, placeholder, chips, onSelect, onRem
 
     const search = ({ target }) => {
         setInput(() => target.value);
-        const s = options.filter(option => stringMatch(option.name, target.value));
+        const s = options.filter(option => stringMatch(option.name, target.value) && !chips.some(tech => tech.name === option.name));
         setSuggested(s);
     }
 
