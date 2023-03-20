@@ -100,10 +100,7 @@ export default function CreateTaskForm({ setCreateTask }) {
     }
 
     const selectChip = chip => setSelectedTech(chip);
-    const removeChip = id => {
-        const s = taskTechnologies.filter(chip => chip.id !== id);
-        setTaskTechnologies(s);
-    }
+    const removeChip = id => setTaskTechnologies(prev => prev.filter(chip => chip.id !== id));
 
     const submitLevel = e => {
         if (e.target === ulRef.current) return;
@@ -119,7 +116,10 @@ export default function CreateTaskForm({ setCreateTask }) {
         })
         const body = { task_skills: techObj };
         mutateAutoAssign({ body, projectId }, {
-            onSuccess: res => console.log(res)
+            onSuccess: res => {
+                console.log(res);
+                setCurrentMember(prev => ({ memberId: res?.data?.user_id, memberUsername: res?.data?.username, memberProfileImg: res?.data?.img_url }))
+            }
         })
     }
 
