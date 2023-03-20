@@ -20,7 +20,7 @@ function match(str1, str2) {
     return false;
 }
 
-export default function ChipInput({ options, placeholder, chips, setChips }) {
+export default function ChipInput({ options, placeholder, chips, onSelect, onRemove }) {
 
     const chipsInputRef = useRef(null);
 
@@ -34,15 +34,10 @@ export default function ChipInput({ options, placeholder, chips, setChips }) {
     }
 
     const insertChip = chip => {
-        setChips([...chips, chip])
+        onSelect(chip);
         setInput('');
         setSuggested([]);
         chipsInputRef.current.focus();
-    }
-
-    const removeChip = id => {
-        const s = chips.filter(chip => chip.id !== id);
-        setChips(s);
     }
 
     return (
@@ -52,7 +47,7 @@ export default function ChipInput({ options, placeholder, chips, setChips }) {
                 <Show when={chips.length !== 0}>
                     {chips.map((chip, idx) => <div key={idx} className='chip'>
                         <span>{chip.name}</span>
-                        <button onClick={() => removeChip(chip.id)}>x</button>
+                        <button onClick={() => onRemove(chip.id)}>x</button>
                     </div>)}
                 </Show>
 

@@ -427,6 +427,33 @@ form.create-task>div.inputs {
     gap: .8em;
 }
 
+form.create-task .model {
+    width: min(300px, 100%);
+}
+
+form.create-task .model ul.importance-levels {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.2em;
+    gap: 1em;
+}
+
+form.create-task .model ul.importance-levels li.level {
+    cursor: pointer;
+    filter: brightness(.5);
+    transition: var(--fast-transition);
+}
+
+form.create-task .model ul.importance-levels li.level.active,
+form.create-task .model ul.importance-levels li.level:hover {
+    filter: unset;
+}
+
+form.create-task>.link-button {
+    align-self: flex-end;
+}
+
 form.create-task>.assignment {
     display: flex;
     flex-direction: column;

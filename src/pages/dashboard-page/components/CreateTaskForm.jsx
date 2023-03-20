@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useMemo } from 'react'
 import { useQueryClient, useMutation } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { BsChevronDown } from 'react-icons/bs'
@@ -9,16 +9,32 @@ import DatePicker from 'react-date-picker'
 import MainButton from '../../components/main-button/MainButton';
 import '../date-picker.css';
 import { endOfDay, differenceInSeconds, isSameDay } from 'date-fns';
+import ChipsInput from '../../components/chips-input/ChipInput'
+import Model from '../../components/model/Model'
+import Show from '../../components/show/Show'
+import useTechnologies from '../../../hooks/useTechnologies'
+import { getSuggestedMember } from '../../../app/api'
 
 export default function CreateTaskForm({ setCreateTask }) {
+
+    const ulRef = useRef(null)
 
     const { id: projectId } = useParams()
     const queryClient = useQueryClient()
     const projectData = queryClient.getQueryData([`get-project-${projectId}`])?.data[0];
 
     const { isLoading: isLoadingMembers, data: membersResponse, error: membersError } = useProjectMembers(projectId);
+    const { isLoading: isLoadingTechs, data: response, error: techsError } = useTechnologies();
+
+    const techs = useMemo(() => {
+        if (!!response) {
+            return response?.data.map(tech => ({ id: tech.technology_id, name: tech.technology_name.toUpperCase() }));
+        }
+    }, [response]);
 
     const [showMembers, setShowMembers] = useState(false);
+    const [taskTechnologies, setTaskTechnologies] = useState([]);
+    const [selectedTech, setSelectedTech] = useState(null);
     const [currentMember, setCurrentMember] = useState({
         memberId: projectData.member_id,
         memberUsername: projectData.username,
@@ -31,6 +47,7 @@ export default function CreateTaskForm({ setCreateTask }) {
         startDate: new Date(),
         endDate: endOfDay(new Date()),
     })
+    const closeModel = () => setSelectedTech(null);
 
     // Post a new task
     const { mutate, isLoading: isPosting } = useMutation(postTask)
@@ -81,8 +98,50 @@ export default function CreateTaskForm({ setCreateTask }) {
         setTask(prev => ({ ...prev, endDate: endOfDay(date) }));
     }
 
+    const selectChip = chip => setSelectedTech(chip);
+    const removeChip = id => {
+        const s = taskTechnologies.filter(chip => chip.id !== id);
+        setTaskTechnologies(s);
+    }
+
+    const submitLevel = e => {
+        if (e.target === ulRef.current) return;
+        setTaskTechnologies(prev => [...prev, { ...selectedTech, level: Number(e.target.getAttribute('target')) }])
+        closeModel();
+    }
+
+    const { mutate: mutateAutoAssign, isLoading } = useMutation(getSuggestedMember);
+    const autoAssign = () => {
+        const techObj = {};
+        taskTechnologies.forEach(tech => {
+            techObj[tech.id] = tech.level;
+        })
+        const body = { user_skills: techObj };
+        mutateAutoAssign({ body, projectId }, {
+            onSuccess: res => console.log(res)
+        })
+    }
+
+    if (isLoadingMembers || isLoadingTechs) return <p>loading</p>
     return (
         <form onSubmit={submitTask} className="create-task">
+            <Show when={selectedTech !== null}>
+                <Model closeModel={closeModel}>
+                    <div className="model-heading">
+                        <h2>{selectedTech?.name}</h2>
+                    </div>
+                    <div className="model-container">
+                        <ul ref={ulRef} className="importance-levels" onClick={submitLevel}>
+                            <li className="level active" target="1">Low</li>
+                            <li className="level" target="2">Intermediate</li>
+                            <li className="level" target="3">Experienced</li>
+                            <li className="level" target="4">High</li>
+                            <li className="level" target="5">Expert</li>
+                        </ul>
+                    </div>
+                </Model>
+            </Show>
+
             <div className='inputs'>
                 <label>Title</label>
                 <input type="text" className="main-input" value={task.title} onChange={({ target }) => setTask(prev => ({ ...prev, title: target.value }))} />
@@ -91,6 +150,17 @@ export default function CreateTaskForm({ setCreateTask }) {
                 <label>Description</label>
                 <textarea row={4} className='main-textarea' value={task.description} onChange={({ target }) => setTask(prev => ({ ...prev, description: target.value }))} />
             </div>
+            <div className="inputs">
+                <label>Task Technologies</label>
+                <ChipsInput
+                    options={techs}
+                    placeholder="eg. C++, Go"
+                    chips={taskTechnologies}
+                    onSelect={selectChip}
+                    onRemove={removeChip}
+                />
+            </div>
+            <button onClick={autoAssign} className='link-button' type='button'>Auto Assign</button>
             <div className="assignment">
                 <button type='button' onClick={() => setShowMembers(prev => !prev)}>
                     <ProjectMember

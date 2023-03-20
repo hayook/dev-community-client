@@ -155,3 +155,5 @@ export const updateStatus = async ({ projectId, taskId, newStatus }) => api.put(
 export const updateProgress = async ({ projectId, taskId, newProgress, difSdSp }) => api.put(`/projects/${projectId}/task/${taskId}/progress?task_progress=${newProgress}&dif_sd_sp=${difSdSp}`)
 export const updateTask = async ({ projectId, taskId, newTask }) => api.put(`/projects/${projectId}/task/${taskId}`, newTask)
 export const deleteTask = async ({ projectId, taskId }) => api.delete(`/projects/${projectId}/task/${taskId}`)
+
+export const getSuggestedMember = async ({ body, projectId }) => api.post(`/projects/${projectId}/recommand_user`, body);

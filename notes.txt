@@ -9,15 +9,26 @@ Pages
     - Dashboard
 
 for each page 
-    - Form validatioon
-    - Handle Form on success (auto navigation...)
-    - Handle Form on error (network errors...)
-    - clean fields
-    - back buttons 
-    - Adjust input height
+    Forms
+        - Form validatioon
+        - Handle Form on success (auto navigation...)
+        - Handle Form on error (network errors...)
+        - clean fields
+        - back buttons 
+        - Adjust input height
     - Resposiveness
     - Refactoring
-    - Split conditional rendering to mini components
-    - change the css variables  
+        - Split conditional rendering to mini components
+        - change the css variables  
+
+    
+TODO 
+    auto assignment
+        - input fields for user to choose skills and the level
+        - input fields for the task to choose the technology and it's level
+        - add the auto assign button 
+    - the techs input api integration 
+    - the question technologies 
+    
 
 
