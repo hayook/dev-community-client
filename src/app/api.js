@@ -80,6 +80,10 @@ class API {
         }
     }
 
+    setApiKey(key) {
+        this.key = key;
+    }
+
 }
 
 export const api = new API('http://localhost:3000', localStorage.getItem('token'));

@@ -4,6 +4,7 @@ import { authUser, requestContents } from '../../../app/api';
 import useCurrentUser from '../../../hooks/useCurrentUser';
 import Show from '../../components/show/Show';
 import MainButton from '../../components/main-button/MainButton'
+import { api } from '../../../app/api'
 
 const initialState = { username: '', password: '' };
 
@@ -53,6 +54,7 @@ export default function LoginForm() {
                 // User is authenticated
                 if (res.status === 200) {
                     localStorage.setItem('token', res.data.access_token);
+                    api.setApiKey(localStorage.getItem('token'));
                     refetchUser();
                     return;
                 }
