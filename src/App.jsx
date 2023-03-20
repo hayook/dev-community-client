@@ -17,6 +17,7 @@ import TestComp from './trash/TestComp'
 import useCurrentUser from './hooks/useCurrentUser';
 import DashboardPage from './pages/dashboard-page/DashboardPage'
 import EditProfilePage from './pages/edit-profile-page/EditProfilePage'
+import UserTech from './trash/UserTech'
 import ProtectedPage from './pages/protected-page/ProtectedPage'
 import NavSideBar from './pages/components/nav-side-bar/NavSideBar';
 import NetworkError from './pages/components/network-error/NetworkError';
@@ -51,6 +52,7 @@ export default function App() {
                 <Route path="/projects" element={<ProjectsPage />} />
                 <Route path="/user/:id/edit" element={<ProtectedPage><EditProfilePage /></ProtectedPage>} />
                 <Route path="/test" element={<TestComp />} />
+                <Route path="/user-tech" element={<UserTech />} />
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
         </div>

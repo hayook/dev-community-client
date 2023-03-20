@@ -1,24 +1,8 @@
 import { useState, useRef } from 'react'
 import Show from '../show/Show'
+import { stringMatch } from '../../../lib/string'
 import './style.css'
 
-function match(str1, str2) {
-    str1 = str1.toLowerCase().trim();
-    str2 = str2.toLowerCase().trim();
-
-    if (str1 === str2) {
-        return true;
-    }
-
-    for (let i = 0; i < str2.length; i++) {
-        const letter = str2[i];
-        if (str1.includes(letter)) {
-            return true;
-        }
-    }
-
-    return false;
-}
 
 export default function ChipInput({ options, placeholder, chips, onSelect, onRemove }) {
 
@@ -29,7 +13,7 @@ export default function ChipInput({ options, placeholder, chips, onSelect, onRem
 
     const search = ({ target }) => {
         setInput(() => target.value);
-        const s = options.filter(option => match(option.name, target.value));
+        const s = options.filter(option => stringMatch(option.name, target.value));
         setSuggested(s);
     }
 
@@ -47,7 +31,7 @@ export default function ChipInput({ options, placeholder, chips, onSelect, onRem
                 <Show when={chips.length !== 0}>
                     {chips.map((chip, idx) => <div key={idx} className='chip'>
                         <span>{chip.name}</span>
-                        <button onClick={() => onRemove(chip.id)}>x</button>
+                        <button onClick={() => onRemove(chip.id)} type="button">x</button>
                     </div>)}
                 </Show>
 
