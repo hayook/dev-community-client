@@ -23,8 +23,8 @@ export default function CreateTaskForm({ setCreateTask }) {
     const queryClient = useQueryClient()
     const projectData = queryClient.getQueryData([`get-project-${projectId}`])?.data[0];
 
-    const { isLoading: isLoadingMembers, data: membersResponse, error: membersError } = useProjectMembers(projectId);
-    const { isLoading: isLoadingTechs, data: response, error: techsError } = useTechnologies();
+    const { isLoading: isLoadingMembers, data: membersResponse } = useProjectMembers(projectId);
+    const { isLoading: isLoadingTechs, data: response } = useTechnologies();
 
     const techs = useMemo(() => {
         if (!!response) {
@@ -116,7 +116,7 @@ export default function CreateTaskForm({ setCreateTask }) {
         taskTechnologies.forEach(tech => {
             techObj[tech.id] = tech.level;
         })
-        const body = { user_skills: techObj };
+        const body = { task_skills: techObj };
         mutateAutoAssign({ body, projectId }, {
             onSuccess: res => console.log(res)
         })
