@@ -14,6 +14,7 @@ import Model from '../../components/model/Model'
 import Show from '../../components/show/Show'
 import useTechnologies from '../../../hooks/useTechnologies'
 import { getSuggestedMember } from '../../../app/api'
+import Spinner from '../../components/spinner/Spinner';
 
 export default function CreateTaskForm({ setCreateTask }) {
 
@@ -122,7 +123,7 @@ export default function CreateTaskForm({ setCreateTask }) {
         })
     }
 
-    if (isLoadingMembers || isLoadingTechs) return <p>loading</p>
+    if (isLoadingMembers || isLoadingTechs) return <Spinner dim='30px' />
     return (
         <form onSubmit={submitTask} className="create-task">
             <Show when={selectedTech !== null}>
