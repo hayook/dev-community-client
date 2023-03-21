@@ -28,6 +28,7 @@ export default function QuestionPage() {
             questionOwnerId={response.data[0].post_owner_id}
             questionOwnerUsername={response.data[0].username}
             questionOwnerProfileImg={response.data[0].img_url}
+            questionTechnologies={response?.data[0].post_skills}
         />
     </Main>
     return <Main><div className="inner-center"><NetworkError /></div></Main>

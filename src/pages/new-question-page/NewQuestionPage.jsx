@@ -10,8 +10,6 @@ import Spinner from '../components/spinner/Spinner'
 import useTechnologies from '../../hooks/useTechnologies'
 import './style.css';
 
-const techs = []
-
 export default function NewQuestionPage() {
 
     const titleFieldRef = useRef(null);
@@ -24,7 +22,6 @@ export default function NewQuestionPage() {
         description: '',
         questionCode: '',
         postType: 'question',
-        technologies: []
     });
     const updatePostInfo = (key, value) => setPostInfo({ ...postInfo, [key]: value });
 
@@ -58,6 +55,7 @@ export default function NewQuestionPage() {
             post_body: postInfo.description,
             post_code: postInfo.questionCode,
             post_type: postInfo.postType,
+            post_skills: technologies.map(tech => tech.id),
         };
         mutateShare(question, {
             onSuccess: res => navigate(`/questions/${res.data}`)

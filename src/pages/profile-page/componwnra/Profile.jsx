@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import useUser from '../../../hooks/useUser'
-import { Link, useParams } from 'react-router-dom'
+import { json, Link, useParams } from 'react-router-dom'
 import Spinner from '../../components/spinner/Spinner'
 import { useRef } from 'react'
 import { activateTab } from '../../../lib/dom'
@@ -11,6 +11,7 @@ import ProfileImg from '../../components/profile-img/ProfileImg'
 import useCurrentUserData from '../../../hooks/useCurrentUserData'
 import { NotFound } from '../../not-found-page/NotFoundPage'
 import NetworkError from '../../components/network-error/NetworkError'
+import UserAbout from './UserAbout'
 
 export default function Profile() {
 
@@ -55,7 +56,7 @@ export default function Profile() {
                         {targetContent === 'posts' && <UserPosts />}
                         {targetContent === 'questions' && <UserQuestions />}
                         {targetContent === 'projects' && <UserProjects />}
-                        {targetContent === 'about' && <p>{response.data.about}</p>}
+                        {targetContent === 'about' && <UserAbout about={response?.data?.about} skills={response?.data.user_skills} />}
                     </div>
                 </section>
             </div>

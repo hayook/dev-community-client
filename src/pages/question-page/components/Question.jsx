@@ -17,7 +17,7 @@ import Show from '../../components/show/Show'
 
 const initialState = { description: '', code: '' }
 
-export default function Question({ numberLikes, numberAnswers, questionOwnerId, questionOwnerUsername, questionTitle, questionBody, questionCode, questionCreationDate, questionOwnerProfileImg, liked, questionId }) {
+export default function Question({ numberLikes, numberAnswers, questionOwnerId, questionOwnerUsername, questionTitle, questionBody, questionCode, questionCreationDate, questionOwnerProfileImg, liked, questionId, questionTechnologies }) {
 
     const answerDescRef = useRef(null);
     const answerCodeRef = useRef(null);
@@ -91,6 +91,11 @@ export default function Question({ numberLikes, numberAnswers, questionOwnerId, 
                         <h2>{questionTitle}</h2>
                         <p>{questionBody}</p>
                         <Code language={'javascript'} code={questionCode} />
+                        <ul className="question-techs">
+                            {
+                                questionTechnologies.map((tech, idx) => <li key={idx} className="question-tech">{tech.technology_name.toUpperCase()}</li>)
+                            }
+                        </ul>
                     </div>
                     <Show when={questionOwnerId === currentUserId}>
                         <div className="question-functionalities">

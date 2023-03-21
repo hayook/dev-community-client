@@ -12,6 +12,20 @@
     gap: 2em;
 }
 
+.question-page .question-info ul.question-techs {
+    display: flex;
+    align-items: center;
+    gap: .9em;
+    flex-wrap: wrap;
+}
+
+.question-page .question-info ul.question-techs li.question-tech {
+    border: var(--primary-border);
+    padding: .3em;
+    background: #2f2f2f;
+}
+
+
 .question-page .question-more-info {
     display: flex;
     align-items: center;
