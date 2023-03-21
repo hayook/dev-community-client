@@ -7,13 +7,13 @@ import { BsPencil } from 'react-icons/bs'
 import Model from '../../model/Model'
 import ProjectMember from '../../../../pages/dashboard-page/components/ProjectMember'
 import useProjectMembers from '../../../../hooks/useProjectMembers'
-import { updateTask, deleteTask } from '../../../../app/api'
+import { updateTask, deleteTask, getSuggestedMember } from '../../../../app/api'
 import MainButton from '../../main-button/MainButton'
 import { useAdminTaskContext } from './AdminTask'
 
 export default function AdminTaskInfoModel({ closeModel }) {
 
-    const { title, status, taskId, description, member, progress } = useAdminTaskContext()
+    const { title, status, taskId, description, member, progress, taskSkills } = useAdminTaskContext()
 
     const { id: projectId } = useParams();
 
@@ -53,17 +53,34 @@ export default function AdminTaskInfoModel({ closeModel }) {
     const { mutate, isLoading: isMutating } = useMutation(updateTask);
     const queryClient = useQueryClient();
     const submitChanges = () => {
+        const skillsObj = {};
+        taskSkills.forEach(skill => {
+            skillsObj[skill.technology_id] = skill.technology_level;
+        })
         const newTask = {
             task_title: task.title,
             task_description: task.description,
             task_type: task.type,
             member_id: task.member.memberId,
+            task_skills: skillsObj,
         }
         mutate({ projectId, taskId, newTask }, {
             onSuccess: res => {
                 queryClient.invalidateQueries([`get-project-${projectId}-tasks`]);
                 closeModel();
             }
+        })
+    }
+
+    const { mutate: mutateAutoAssign } = useMutation(getSuggestedMember);
+    const autoAssign = () => {
+        const skillsObj = {};
+        taskSkills.forEach(skill => {
+            skillsObj[skill.technology_id] = skill.technology_level;
+        })
+        const body = { task_skills: skillsObj };
+        mutateAutoAssign({ body, projectId }, {
+            onSuccess: res => editMember(res?.data.member_id, res?.data.img_url, res?.data.username),
         })
     }
 
@@ -111,6 +128,7 @@ export default function AdminTaskInfoModel({ closeModel }) {
                             <div className="members-list">
                                 <button className="back-button" onClick={() => setReassign(false)}><BiArrowBack /></button>
                                 <div className="list">
+                                    <button className="link-button" onClick={autoAssign}>Auto Assgin</button>
                                     {
                                         response?.data?.map((member, idx) => {
                                             return <button key={idx} onClick={() => editMember(member.member_id, member.img_url, member.username)}>

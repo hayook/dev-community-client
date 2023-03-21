@@ -54,6 +54,11 @@ export default function CreateTaskForm({ setCreateTask }) {
     const { mutate, isLoading: isPosting } = useMutation(postTask)
     const submitTask = e => {
         e.preventDefault();
+        const skillsObj = {};
+        taskTechnologies.forEach(tech => {
+            skillsObj[tech.id] = tech.level;
+        })
+
         const taskNeededTime = differenceInSeconds(task.endDate, task.startDate);
         const newTask = {
             task_title: task.title,
@@ -63,6 +68,7 @@ export default function CreateTaskForm({ setCreateTask }) {
             task_start_date: task.startDate.toString(),
             task_end_date: task.endDate.toString(),
             task_needed_time: taskNeededTime,
+            task_skills: skillsObj,
         }
         mutate({ projectId, task: newTask }, {
             onSuccess: (res) => {
@@ -133,10 +139,10 @@ export default function CreateTaskForm({ setCreateTask }) {
                     </div>
                     <div className="model-container">
                         <ul ref={ulRef} className="importance-levels" onClick={submitLevel}>
-                            <li className="level active" target="1">Low</li>
-                            <li className="level" target="2">Intermediate</li>
-                            <li className="level" target="3">Experienced</li>
-                            <li className="level" target="4">High</li>
+                            <li className="level active" target="1">Novice</li>
+                            <li className="level" target="2">Beginner</li>
+                            <li className="level" target="3">Intermediate</li>
+                            <li className="level" target="4">Advanced</li>
                             <li className="level" target="5">Expert</li>
                         </ul>
                     </div>

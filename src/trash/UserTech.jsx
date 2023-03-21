@@ -67,10 +67,10 @@ export default function UserTech() {
                         </div>
                         <div className="model-container">
                             <ul ref={ulRef} className="importance-levels" onClick={submitLevel}>
-                                <li className="level active" target="1">Low</li>
-                                <li className="level" target="2">Intermediate</li>
-                                <li className="level" target="3">Experienced</li>
-                                <li className="level" target="4">High</li>
+                                <li className="level active" target="1">Novice</li>
+                                <li className="level" target="2">Beginner</li>
+                                <li className="level" target="3">Intermediate</li>
+                                <li className="level" target="4">Advanced</li>
                                 <li className="level" target="5">Expert</li>
                             </ul>
                         </div>

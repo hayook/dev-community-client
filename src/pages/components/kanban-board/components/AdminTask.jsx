@@ -4,7 +4,7 @@ import AdminTaskInfoModel from './AdminTaskInfoModel'
 const adminTaskContext = createContext();
 export const useAdminTaskContext = () => useContext(adminTaskContext);
 
-export default function AdminTask({ title, status, taskId, description, member, progress }) {
+export default function AdminTask({ title, status, taskId, description, member, progress, taskSkills }) {
 
     const [taskInfo, setTaskInfo] = useState(false);
     const closeModel = () => setTaskInfo(false)
@@ -17,7 +17,7 @@ export default function AdminTask({ title, status, taskId, description, member, 
         e.preventDefault()
     }
 
-    const value = { title, status, taskId, description, member, progress };
+    const value = { title, status, taskId, description, member, progress, taskSkills };
 
     return (
         <adminTaskContext.Provider value={value}>

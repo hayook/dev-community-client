@@ -57,6 +57,7 @@ export default function ProjectOverview() {
                             taskId={task.task_id}
                             member={{ memberId: task.member_id, memberUsername: task.username, userId: task.user_id, memberImg: task.img_url }}
                             progress={task.task_progress}
+                            taskSkills={task.task_skills}
                         />
                         )}
                     </KanbanBoard>
