@@ -20,11 +20,6 @@ section.questions-page .header {
     flex-wrap: wrap;
 }
 
-section.questions-page .filter-questions {
-    height: 100px;
-    border: 1px solid;
-}
-
 section.questions-page section.questions-list {
     display: flex;
     flex-direction: column;

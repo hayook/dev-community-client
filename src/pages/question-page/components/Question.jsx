@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { useMutation, useQueryClient } from "react-query"
 import { useNavigate, Link } from 'react-router-dom'
 import ProfileImg from '../../components/profile-img/ProfileImg'
-import { splitDate } from '../../../lib/date'
 import Code from '../../components/code/Code'
 import MainButton from '../../components/main-button/MainButton'
 import SvgIcon from '../../../assets/icons/SvgIcon'
@@ -109,7 +108,7 @@ export default function Question({ numberLikes, numberAnswers, questionOwnerId, 
                             <ProfileImg url={questionOwnerProfileImg} />
                             <span>{questionOwnerUsername}</span>
                         </Link>
-                        <span className="date">{splitDate(questionCreationDate)}</span>
+                        <span className="date">{new Date(questionCreationDate).toLocaleDateString()}</span>
                         <button onClick={handleLikeQuestion} className="like-question">
                             <SvgIcon path={icons.like} fill={isLiked && 'white'} /> {nbrLikes} likes
                         </button>

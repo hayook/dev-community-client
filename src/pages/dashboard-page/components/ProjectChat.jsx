@@ -7,7 +7,7 @@ import Message from '../components/Message'
 import Spinner from '../../components/spinner/Spinner'
 import useProjectChatLogs from '../../../hooks/useProjectChatLogs'
 import { adjustInputHeight, updateQueryCache } from '../../../lib/dom';
-import { dateToHHMM } from '../../../lib/date'
+import { chatDate } from '../../../lib/date'
 
 
 
@@ -90,7 +90,7 @@ export default function ProjectChat() {
                             body={payload.message}
                             senderUsername={payload.username}
                             senderProfileImg={payload.img_url}
-                            messageTime={dateToHHMM(payload.message_date)}
+                            messageTime={chatDate(payload.message_date)}
                         />
                     })
                 }
