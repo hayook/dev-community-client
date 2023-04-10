@@ -1,3 +1,5 @@
+import { URLS } from './urls';
+
 export const requestContents = {
     json: {
         type: 'application/json',
@@ -86,7 +88,7 @@ class API {
 
 }
 
-export const api = new API('http://localhost:3000', localStorage.getItem('token'));
+export const api = new API(URLS.API, localStorage.getItem('token'));
 
 // Users
 export const authUser = async ({ endpoint, body, content }) => {
@@ -136,7 +138,7 @@ export const cancelInvite = ({ inviteId, projectId }) => api.delete(`/projects/$
 
 
 export const uploadImage = async (body) => {
-    const response = await fetch(`http://localhost:3000/user_profile_img`, {
+    const response = await fetch(`${URLS.STATIC}/user_profile_img`, {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,

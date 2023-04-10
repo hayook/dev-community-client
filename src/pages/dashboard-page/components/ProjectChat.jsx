@@ -8,6 +8,7 @@ import Spinner from '../../components/spinner/Spinner'
 import useProjectChatLogs from '../../../hooks/useProjectChatLogs'
 import { adjustInputHeight, updateQueryCache } from '../../../lib/dom';
 import { chatDate } from '../../../lib/date'
+import { URLS } from '../../../app/urls';
 
 
 
@@ -34,7 +35,7 @@ export default function ProjectChat() {
 
     // Create the connection
     useEffect(() => {
-        const url = `ws://localhost:3000/ws/${projectId}`;
+        const url = `${URLS.CHAT}/${projectId}`;
         const ws = new WebSocket(url);
 
         // ws.onopen = e => ws.send('Welcome user#' + memberId)
