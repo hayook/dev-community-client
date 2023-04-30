@@ -4,6 +4,18 @@ section.project-dashboard .inner-container {
     min-height: 100%;
 }
 
+section.project-dashboard {
+    height: 100%;
+    /* quick fix */
+}
+
+@media (max-width: 1200px) {
+    section.project-dashboard {
+        position: absolute;
+        /* quick fix */
+    }
+}
+
 section.project-dashboard .inner-container .dashboard-content {
     flex: 1;
     position: relative;
