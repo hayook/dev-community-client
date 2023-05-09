@@ -123,7 +123,6 @@ export default function CreateTaskForm({ setCreateTask }) {
         const body = { task_skills: techObj };
         mutateAutoAssign({ body, projectId }, {
             onSuccess: res => {
-                console.log(res);
                 setCurrentMember(prev => ({ memberId: res?.data?.user_id, memberUsername: res?.data?.username, memberProfileImg: res?.data?.img_url }))
             }
         })

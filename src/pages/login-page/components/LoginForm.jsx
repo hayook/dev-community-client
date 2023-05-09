@@ -77,6 +77,7 @@ export default function LoginForm() {
                 className="main-input"
                 type="text"
                 placeholder="Enter Username"
+                autoFocus
             />
 
             <label>Password</label>

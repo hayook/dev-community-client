@@ -97,6 +97,7 @@ export default function RegisterForm() {
                 value={userInfo.firstName}
                 type="text"
                 placeholder="Enter Your First Name"
+                autoFocus
             />
 
             <label>Last Name</label>

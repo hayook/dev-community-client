@@ -42,6 +42,7 @@ export default function SharePostSection() {
             onSuccess: async () => {
                 await queryClient.invalidateQueries('get-posts');
                 setPostBody('');
+                postFieldRef.current.style.height = 'unset';
             }
         });
     }

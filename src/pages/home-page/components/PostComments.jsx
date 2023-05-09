@@ -70,6 +70,7 @@ export default function PostComments() {
                 setPostNbrComments(prev => prev + 1);
                 queryClient.invalidateQueries([`get-post-${postId}-comments`]);
                 setComment('');
+                commentFieldRef.current.style.height = 'unset';
             },
         });
     }

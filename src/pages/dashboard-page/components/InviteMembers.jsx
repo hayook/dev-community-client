@@ -50,8 +50,9 @@ export default function InviteMembers() {
                     <>
                         <div className="members-list recommanded-members-list">
                             {
-                                response.data.map(member => {
+                                response.data.map((member, idx) => {
                                     return <ProjectMember
+                                        key={idx}
                                         memberUsername={member.username}
                                         memberImg={member.img_url}
                                         userId={member.user_id}
