@@ -42,7 +42,7 @@ export default function CreateTaskForm({ setCreateTask }) {
         memberProfileImg: projectData.img_url,
     })
     const [task, setTask] = useState({
-        title: 'task',
+        title: '',
         description: '',
         type: 'test',
         startDate: new Date(),

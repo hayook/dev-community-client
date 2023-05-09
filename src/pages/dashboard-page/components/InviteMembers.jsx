@@ -15,7 +15,7 @@ export default function InviteMembers() {
     const { isLoading, data: response, error } = useUsers(projectId);
 
     const [targetUser, setTargetUser] = useState(null);
-    const [role, setRole] = useState('')
+    const [role, setRole] = useState('member')
 
 
     const handleSearch = ({ target }) => {
@@ -28,7 +28,7 @@ export default function InviteMembers() {
         setTargetUser({ username, memberId });
         window.scrollTo({ top: 0, behavior: 'smooth' })
     }
-    
+
     const queryClient = useQueryClient()
     const { isLoading: isSending, mutate } = useMutation(inviteMember)
     const handleInvite = e => {
@@ -52,9 +52,9 @@ export default function InviteMembers() {
                             {
                                 response.data.map(member => {
                                     return <ProjectMember
-                                    memberUsername={member.username}
-                                    memberImg={member.img_url}
-                                    userId={member.user_id}
+                                        memberUsername={member.username}
+                                        memberImg={member.img_url}
+                                        userId={member.user_id}
                                     >
                                         <div className="functionalities">
                                             <button onClick={() => insertToInvite(member.member_id, member.username)}>

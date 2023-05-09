@@ -16,7 +16,7 @@ export default function CurrentProjects() {
                     projectId={project.project_id}
                     projectTitle={project.project_name}
                     projectOwnerImg={project.img_url}
-                    projectProgress={34}
+                    projectProgress={project.project_progress}
                 />
             })
         )
