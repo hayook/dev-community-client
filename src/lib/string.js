@@ -20,3 +20,14 @@ export function stringMatch(str1, str2) {
     if (!emptyString(str2) && str1.indexOf(str2) !== -1) return true;
     return false;
 }
+
+export function validUsername(username) {
+    let regex = /(^[a-zA-Z_])([\w.]{3,15}$)/;
+    return regex.test(username);
+}
+
+export function validName(name) {
+    let regex = /^[a-zA-Z]+$/
+    return regex.test(name);
+}
+

@@ -4,6 +4,7 @@ import { authUser, requestContents } from '../../../app/api'
 import { useNavigate } from 'react-router-dom';
 import MainButton from '../../components/main-button/MainButton';
 import Show from '../../components/show/Show'
+import { validUsername, validName } from '../../../lib/string'
 
 const initialState = {
     firstName: '',
@@ -31,18 +32,33 @@ export default function RegisterForm() {
             return;
         }
 
+        if (!validName(userInfo.firstName)) {
+            setRegErr(`Invalid first name`);
+            return;
+        }
+
         if (userInfo.lastName === '') {
             setRegErr(`Last Name can't be empty`);
             return;
         }
 
+        if (!validName(userInfo.lastName)) {
+            setRegErr(`Invalid last name`);
+            return;
+        }
+
         if (userInfo.username === '') {
-            setRegErr(`Username Name can't be empty`);
+            setRegErr(`Username can't be empty`);
+            return;
+        }
+
+        if (!validUsername(userInfo.username)) {
+            setRegErr(`Invalid username`);
             return;
         }
 
         if (userInfo.email === '') {
-            setRegErr(`Email Name can't be empty`);
+            setRegErr(`Email can't be empty`);
             return;
         }
 

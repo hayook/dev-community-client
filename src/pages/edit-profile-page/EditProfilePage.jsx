@@ -8,7 +8,7 @@ import UploadImageModel from './components/UploadImageModel'
 import { uploadImage, updateUserInfo } from '../../app/api'
 import MainButton from '../components/main-button/MainButton'
 import useUser from '../../hooks/useUser';
-import { emptyString } from '../../lib/string'
+import { emptyString, validUsername, validName } from '../../lib/string'
 import './style.css'
 
 export default function EditProfilePage() {
@@ -89,19 +89,19 @@ export default function EditProfilePage() {
     const submitEdit = e => {
         e.preventDefault();
 
-        if (emptyString(newUserInfo.firstname)) {
+        if (!validName(newUserInfo.firstname)) {
             firstnameFieldRef.current.focus();
             firstnameFieldRef.current.classList.add('error-field')
             return;
         }
 
-        if (emptyString(newUserInfo.lastname)) {
+        if (!validName(newUserInfo.lastname)) {
             lasttnameFieldRef.current.focus();
             lasttnameFieldRef.current.classList.add('error-field')
             return;
         }
 
-        if (emptyString(newUserInfo.username)) {
+        if (!validUsername(newUserInfo.username)) {
             usernameFieldRef.current.focus();
             usernameFieldRef.current.classList.add('error-field')
             return;
@@ -115,13 +115,13 @@ export default function EditProfilePage() {
 
         // check the old password
 
-        if (newUserInfo.newPassword.length < 8) {
+        if (newUserInfo.password !== '' && newUserInfo.newPassword.length < 8) {
             newPasswordFieldRef.current.focus();
-            newPasswordFieldRef.current.classList.add('error-field')
+            newPasswordFieldRef.current.classList.add('error-field');
             return; n
         }
 
-        if (newUserInfo.newPassword !== newUserInfo.confirmPassword) {
+        if (newUserInfo.password !== '' && newUserInfo.newPassword !== newUserInfo.confirmPassword) {
             confirmPasswordFieldRef.current.focus();
             confirmPasswordFieldRef.current.classList.add('error-field')
             return;
