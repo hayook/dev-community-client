@@ -8,6 +8,7 @@ import UploadImageModel from './components/UploadImageModel'
 import { uploadImage, updateUserInfo } from '../../app/api'
 import MainButton from '../components/main-button/MainButton'
 import useUser from '../../hooks/useUser';
+import { emptyString } from '../../lib/string'
 import './style.css'
 
 export default function EditProfilePage() {
@@ -15,7 +16,14 @@ export default function EditProfilePage() {
     const { id: userId } = useParams()
     const navigate = useNavigate()
 
-    const imageRef = useRef(null)
+    const imageRef = useRef(null);
+    const firstnameFieldRef = useRef(null);
+    const lasttnameFieldRef = useRef(null);
+    const usernameFieldRef = useRef(null);
+    const emailFieldRef = useRef(null);
+    const oldPasswordFieldRef = useRef(null);
+    const newPasswordFieldRef = useRef(null);
+    const confirmPasswordFieldRef = useRef(null);
 
     const [newUserInfo, setNewUserInfo] = useState({
         firstname: '',
@@ -79,7 +87,46 @@ export default function EditProfilePage() {
 
     const { mutate: mutateEditInfo, isLoading: isEditting } = useMutation(updateUserInfo)
     const submitEdit = e => {
-        e.preventDefault()
+        e.preventDefault();
+
+        if (emptyString(newUserInfo.firstname)) {
+            firstnameFieldRef.current.focus();
+            firstnameFieldRef.current.classList.add('error-field')
+            return;
+        }
+
+        if (emptyString(newUserInfo.lastname)) {
+            lasttnameFieldRef.current.focus();
+            lasttnameFieldRef.current.classList.add('error-field')
+            return;
+        }
+
+        if (emptyString(newUserInfo.username)) {
+            usernameFieldRef.current.focus();
+            usernameFieldRef.current.classList.add('error-field')
+            return;
+        }
+
+        if (emptyString(newUserInfo.email)) {
+            emailFieldRef.current.focus();
+            emailFieldRef.current.classList.add('error-field')
+            return;
+        }
+
+        // check the old password
+
+        if (newUserInfo.newPassword.length < 8) {
+            newPasswordFieldRef.current.focus();
+            newPasswordFieldRef.current.classList.add('error-field')
+            return; n
+        }
+
+        if (newUserInfo.newPassword !== newUserInfo.confirmPassword) {
+            confirmPasswordFieldRef.current.focus();
+            confirmPasswordFieldRef.current.classList.add('error-field')
+            return;
+        }
+
         const user = {
             first_name: newUserInfo.firstname,
             last_name: newUserInfo.lastname,
@@ -119,24 +166,72 @@ export default function EditProfilePage() {
                         <h1>Basic Info</h1>
                         <div className="edit-basic-info">
                             <label>Firstname</label>
-                            <input type="text" className="main-input" value={newUserInfo.firstname} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, firstname: target.value })} />
+                            <input
+                                ref={firstnameFieldRef}
+                                type="text"
+                                className="main-input"
+                                value={newUserInfo.firstname}
+                                onChange={({ target }) => setNewUserInfo({ ...newUserInfo, firstname: target.value })}
+                            />
+
                             <label>Lastname</label>
-                            <input type="text" className="main-input" value={newUserInfo.lastname} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, lastname: target.value })} />
+                            <input
+                                ref={lasttnameFieldRef}
+                                type="text"
+                                className="main-input"
+                                value={newUserInfo.lastname}
+                                onChange={({ target }) => setNewUserInfo({ ...newUserInfo, lastname: target.value })}
+                            />
+
                             <label>Username</label>
-                            <input type="text" className="main-input" value={newUserInfo.username} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, username: target.value })} />
+                            <input
+                                ref={usernameFieldRef}
+                                type="text"
+                                className="main-input"
+                                value={newUserInfo.username}
+                                onChange={({ target }) => setNewUserInfo({ ...newUserInfo, username: target.value })}
+                            />
+
                             <label>Email</label>
-                            <input type="email" className="main-input" value={newUserInfo.email} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, email: target.value })} />
+                            <input
+                                ref={emailFieldRef}
+                                type="email"
+                                className="main-input"
+                                value={newUserInfo.email}
+                                onChange={({ target }) => setNewUserInfo({ ...newUserInfo, email: target.value })}
+                            />
+
                             <label>About</label>
                             <textarea rows={5} className="main-textarea" value={newUserInfo.about} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, about: target.value })} />
                         </div>
+
                         <h1>Password</h1>
                         <div className="edit-password">
                             <label>Your Password</label>
-                            <input type="password" className="main-input" value={newUserInfo.password} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, password: target.value })} />
+                            <input
+                                ref={oldPasswordFieldRef}
+                                type="password"
+                                className="main-input"
+                                value={newUserInfo.password}
+                                onChange={({ target }) => setNewUserInfo({ ...newUserInfo, password: target.value })}
+                            />
+
                             <label>New Password</label>
-                            <input type="password" className="main-input" value={newUserInfo.newPassword} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, newPassword: target.value })} />
+                            <input
+                                ref={newPasswordFieldRef}
+                                type="password"
+                                className="main-input"
+                                value={newUserInfo.newPassword}
+                                onChange={({ target }) => setNewUserInfo({ ...newUserInfo, newPassword: target.value })}
+                            />
+
                             <label>Confirm Password</label>
-                            <input type="password" className="main-input" value={newUserInfo.confirmPassword} onChange={({ target }) => setNewUserInfo({ ...newUserInfo, confirmPassword: target.value })} />
+                            <input
+                                ref={confirmPasswordFieldRef}
+                                type="password"
+                                className="main-input" value={newUserInfo.confirmPassword}
+                                onChange={({ target }) => setNewUserInfo({ ...newUserInfo, confirmPassword: target.value })}
+                            />
                         </div>
 
                         <div className="functionalities">
