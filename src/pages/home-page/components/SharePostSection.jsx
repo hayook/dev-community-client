@@ -7,7 +7,7 @@ import useCurrentUserData from '../../../hooks/useCurrentUserData'
 import { adjustInputHeight } from '../../../lib/dom';
 import MainButton from '../../components/main-button/MainButton'
 import Show from '../../components/show/Show'
-import { fullSpaces } from '../../../lib/string'
+import { emptyString } from '../../../lib/string'
 
 export default function SharePostSection() {
 
@@ -31,7 +31,7 @@ export default function SharePostSection() {
 
         postFieldRef.current.classList.remove('error-field');
 
-        if (fullSpaces(postBody)) {
+        if (emptyString(postBody)) {
             postFieldRef.current.focus();
             postFieldRef.current.classList.add('error-field');
             return;

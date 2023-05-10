@@ -48,6 +48,8 @@ export default function TeamMembersList({ teamId }) {
                         key={idx}
                         memberUsername={member.username}
                         memberRole={member.member_role}
+                        memberImg={member.img_url}
+                        userId={member.user_id}
                     >
                         <div className="functionalities">
                             <button onClick={() => openModel(member.member_id)}><BsTrash /></button>

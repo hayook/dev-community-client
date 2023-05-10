@@ -4,7 +4,7 @@ import { editPost } from '../../../app/api';
 import { usePostContext } from './Post';
 import { useMutation, useQueryClient } from 'react-query'
 import Spinner from '../../components/spinner/Spinner'
-import { fullSpaces } from '../../../lib/string';
+import { emptyString } from '../../../lib/string';
 
 export default function EditPostModel() {
 
@@ -22,7 +22,7 @@ export default function EditPostModel() {
 
         editPostFieldRef.current.classList.remove('error-field');
 
-        if (fullSpaces(newBody)) {
+        if (emptyString(newBody)) {
             editPostFieldRef.current.focus();
             editPostFieldRef.current.classList.add('error-field');
             return;

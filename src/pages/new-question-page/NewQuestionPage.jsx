@@ -5,7 +5,7 @@ import ChipsInput from '../components/chips-input/ChipInput'
 import { editPost, sharePost } from '../../app/api'
 import Main from '../components/main/Main';
 import MainButton from '../components/main-button/MainButton'
-import { fullSpaces } from '../../lib/string';
+import { emptyString } from '../../lib/string';
 import Spinner from '../components/spinner/Spinner'
 import useTechnologies from '../../hooks/useTechnologies'
 import './style.css';
@@ -38,13 +38,13 @@ export default function NewQuestionPage() {
 
         titleFieldRef.current.classList.remove('error-field');
         descriptionFieldRef.current.classList.remove('error-field');
-        if (fullSpaces(postInfo.title)) {
+        if (emptyString(postInfo.title)) {
             titleFieldRef.current.focus();
             titleFieldRef.current.classList.add('error-field');
             return;
         }
 
-        if (fullSpaces(postInfo.description)) {
+        if (emptyString(postInfo.description)) {
             descriptionFieldRef.current.focus();
             descriptionFieldRef.current.classList.add('error-field');
             return;
@@ -109,7 +109,7 @@ export default function NewQuestionPage() {
                 </div>
 
                 <div className="functionalities">
-                    <button className="main-button cancel-button" onClick={() => navigate(`/questions/`)}>Cancel</button>
+                    <button type="button" className="main-button cancel-button" onClick={() => navigate(`/questions/`)}>Cancel</button>
                     <MainButton disabled={isSharing}>Submit</MainButton>
                 </div>
             </form>

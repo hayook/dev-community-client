@@ -112,7 +112,7 @@ export default function EditProfilePage() {
                         <div className="edit-profile-image">
                             <ProfileImg url={response.data.img_url} />
                             <span>{response.data.username}</span>
-                            <button onClick={handleChangeImage}>Change Profile Image</button>
+                            <button type="button" onClick={handleChangeImage}>Change Profile Image</button>
                             <input type="file" ref={imageRef} style={{ display: 'none' }} onChange={previewImage} />
                         </div>
 

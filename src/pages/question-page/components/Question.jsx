@@ -11,7 +11,7 @@ import Answers from './Answers'
 import DeleteModel from '../../components/delete-model/DeleteModel';
 import useCurrentUserData from '../../../hooks/useCurrentUserData'
 import { useRef } from 'react'
-import { fullSpaces } from '../../../lib/string'
+import { emptyString } from '../../../lib/string'
 import Show from '../../components/show/Show'
 
 const initialState = { description: '', code: '' }
@@ -50,7 +50,7 @@ export default function Question({ numberLikes, numberAnswers, questionOwnerId, 
         answerDescRef.current.classList.remove('error-field');
         answerCodeRef.current.classList.remove('error-field');
 
-        if (fullSpaces(answer.description)) {
+        if (emptyString(answer.description)) {
             answerDescRef.current.focus();
             answerDescRef.current.classList.add('error-field');
             return;

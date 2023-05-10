@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Main from '../components/main/Main'
 import { useMutation, useQueryClient } from 'react-query'
@@ -12,9 +12,11 @@ import NotFoundPage from '../not-found-page/NotFoundPage'
 import MainButton from '../components/main-button/MainButton'
 import NetworkError from '../components/network-error/NetworkError'
 import { NotFound } from '../not-found-page/NotFoundPage'
+import { emptyString } from '../../lib/string';
 
 export default function NewProjectPage() {
 
+    const projectTitleRef = useRef(null);
     const navigate = useNavigate();
     const { id: projectId } = useParams();
 
@@ -37,6 +39,13 @@ export default function NewProjectPage() {
     const { isLoading: isSubmitting, mutate } = useMutation(editProject)
     const submitEdit = e => {
         e.preventDefault();
+
+        if (emptyString(projectInfo.projectTitle)) {
+            projectTitleRef.current.focus();
+            projectTitleRef.current.classList.add('error-field');
+            return;
+        }
+
         const project = {
             project_name: projectInfo.projectTitle,
             project_description: projectInfo.projectDescription
@@ -53,11 +62,12 @@ export default function NewProjectPage() {
     if (isFetching) return <Spinner dim='30px' />
     if (response?.ok && 'data' in response) return (
         <Main>
-            <form className='new-project' onSubmit={submitEdit}>
+            <form className='new-project secondary-form' onSubmit={submitEdit}>
                 {isFetching ? <Spinner dim='30px' /> :
                     <>
                         <label>Project Title</label>
                         <input
+                            ref={projectTitleRef}
                             onChange={({ target }) => setProjectInfo(prev => ({ ...prev, projectTitle: target.value }))}
                             type='text'
                             className='main-input'

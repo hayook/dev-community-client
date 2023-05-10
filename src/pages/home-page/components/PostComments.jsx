@@ -8,7 +8,7 @@ import { commentOnPost } from '../../../app/api';
 import { handleDate } from '../../../lib/date';
 import usePostComments from '../../../hooks/usePostComments';
 import { adjustInputHeight } from '../../../lib/dom.js'
-import { fullSpaces } from '../../../lib/string'
+import { emptyString } from '../../../lib/string'
 
 function CommentsSet() {
 
@@ -58,7 +58,7 @@ export default function PostComments() {
 
         commentFieldRef.current.classList.remove('error-field');
 
-        if (fullSpaces(comment)) {
+        if (emptyString(comment)) {
             commentFieldRef.current.focus();
             commentFieldRef.current.classList.add('error-field');
             return;

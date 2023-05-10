@@ -5,7 +5,7 @@ import ChipsInput from '../../components/chips-input/ChipInput'
 import { editPost } from '../../../app/api'
 import Main from '../../components/main/Main';
 import MainButton from '../../components/main-button/MainButton'
-import { fullSpaces } from '../../../lib/string';
+import { emptyString } from '../../../lib/string';
 
 const techs = [{ id: 1, name: 'HTML' }, { id: 2, name: 'CSS' }, { id: 3, name: 'JAVASCRIPT' }, { id: 4, name: 'C++' }, { id: 5, name: 'GO' }, { id: 6, name: 'RUST' }, { id: 7, name: 'SQL' }, { id: 8, name: 'RUBY' }, { id: 9, name: 'DART' }, { id: 10, name: 'C#' }];
 
@@ -32,13 +32,13 @@ export default function EditQuestionForm({ question }) {
 
         titleFieldRef.current.classList.remove('error-field');
         descriptionFieldRef.current.classList.remove('error-field');
-        if (fullSpaces(postInfo.title)) {
+        if (emptyString(postInfo.title)) {
             titleFieldRef.current.focus();
             titleFieldRef.current.classList.add('error-field');
             return;
         }
 
-        if (fullSpaces(postInfo.description)) {
+        if (emptyString(postInfo.description)) {
             descriptionFieldRef.current.focus();
             descriptionFieldRef.current.classList.add('error-field');
             return;

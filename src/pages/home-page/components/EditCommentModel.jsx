@@ -4,7 +4,7 @@ import { editComment } from '../../../app/api';
 import { usePostContext } from './Post';
 import { useMutation, useQueryClient } from 'react-query'
 import Spinner from '../../components/spinner/Spinner'
-import { fullSpaces } from '../../../lib/string';
+import { emptyString } from '../../../lib/string';
 import { useRef } from 'react';
 
 export default function EditCommentModel({ closeEditCommentModel, commentId, commentBody }) {
@@ -23,7 +23,7 @@ export default function EditCommentModel({ closeEditCommentModel, commentId, com
 
         editCommentRef.current.classList.remove('error-field');
 
-        if (fullSpaces(newBody)) {
+        if (emptyString(newBody)) {
             editCommentRef.current.focus();
             editCommentRef.current.classList.add('error-field');
             return;

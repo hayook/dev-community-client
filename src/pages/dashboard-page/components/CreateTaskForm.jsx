@@ -15,10 +15,12 @@ import Show from '../../components/show/Show'
 import useTechnologies from '../../../hooks/useTechnologies'
 import { getSuggestedMember } from '../../../app/api'
 import Spinner from '../../components/spinner/Spinner';
+import { emptyString } from '../../../lib/string'
 
 export default function CreateTaskForm({ setCreateTask }) {
 
-    const ulRef = useRef(null)
+    const ulRef = useRef(null);
+    const taskTitleRef = useRef(null);
 
     const { id: projectId } = useParams()
     const queryClient = useQueryClient()
@@ -54,6 +56,13 @@ export default function CreateTaskForm({ setCreateTask }) {
     const { mutate, isLoading: isPosting } = useMutation(postTask)
     const submitTask = e => {
         e.preventDefault();
+
+        if (emptyString(task.title)) {
+            taskTitleRef.current.focus();
+            taskTitleRef.current.classList.add('error-field');
+            return;
+        }
+
         const skillsObj = {};
         taskTechnologies.forEach(tech => {
             skillsObj[tech.id] = tech.level;
@@ -150,7 +159,13 @@ export default function CreateTaskForm({ setCreateTask }) {
 
             <div className='inputs'>
                 <label>Title</label>
-                <input type="text" className="main-input" value={task.title} onChange={({ target }) => setTask(prev => ({ ...prev, title: target.value }))} />
+                <input
+                    ref={taskTitleRef}
+                    type="text"
+                    className="main-input"
+                    value={task.title}
+                    onChange={({ target }) => setTask(prev => ({ ...prev, title: target.value }))}
+                />
             </div>
             <div className='inputs'>
                 <label>Description</label>

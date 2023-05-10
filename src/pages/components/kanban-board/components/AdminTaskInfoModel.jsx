@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useMutation, useQueryClient } from 'react-query';
 import DeleteModel from '../../delete-model/DeleteModel'
@@ -10,8 +10,11 @@ import useProjectMembers from '../../../../hooks/useProjectMembers'
 import { updateTask, deleteTask, getSuggestedMember } from '../../../../app/api'
 import MainButton from '../../main-button/MainButton'
 import { useAdminTaskContext } from './AdminTask'
+import { emptyString } from '../../../../lib/string';
 
 export default function AdminTaskInfoModel({ closeModel }) {
+
+    const taskTitleRef = useRef(null)
 
     const { title, status, taskId, description, member, progress, taskSkills } = useAdminTaskContext()
 
@@ -53,6 +56,13 @@ export default function AdminTaskInfoModel({ closeModel }) {
     const { mutate, isLoading: isMutating } = useMutation(updateTask);
     const queryClient = useQueryClient();
     const submitChanges = () => {
+
+        if (emptyString(task.title)) {
+            taskTitleRef.current.focus();
+            taskTitleRef.current.classList.add('error-field');
+            return;
+        }
+
         const skillsObj = {};
         taskSkills.forEach(skill => {
             skillsObj[skill.technology_id] = skill.technology_level;
@@ -110,7 +120,13 @@ export default function AdminTaskInfoModel({ closeModel }) {
                     ) : (
                         !reassign ? (
                             <div className='info'>
-                                <input type="text" className="main-input" value={task.title} onChange={({ target }) => setTask(prev => ({ ...prev, title: target.value }))} />
+                                <input
+                                    ref={taskTitleRef}
+                                    type="text"
+                                    className="main-input"
+                                    value={task.title}
+                                    onChange={({ target }) => setTask(prev => ({ ...prev, title: target.value }))}
+                                />
                                 <textarea row={3} className='main-textarea' value={task.description} onChange={({ target }) => setTask(prev => ({ ...prev, description: target.value }))}></textarea>
                                 <div className="assignment">
                                     <span>Assigned To </span>

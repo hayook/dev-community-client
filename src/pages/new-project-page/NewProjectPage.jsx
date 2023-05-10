@@ -4,7 +4,7 @@ import Main from '../components/main/Main'
 import { useMutation } from 'react-query'
 import { createProject } from '../../app/api'
 import MainButton from '../components/main-button/MainButton'
-import { fullSpaces } from '../../lib/string';
+import { emptyString } from '../../lib/string';
 
 import './style.css'
 
@@ -24,7 +24,7 @@ export default function NewProjectPage() {
         e.preventDefault();
 
         titleFieldRef.current.classList.remove('error-field');
-        if (fullSpaces(projectInfo.projectTitle)) {
+        if (emptyString(projectInfo.projectTitle)) {
             titleFieldRef.current.focus();
             titleFieldRef.current.classList.add('error-field');
             return;
