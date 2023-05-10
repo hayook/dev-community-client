@@ -22,7 +22,7 @@ export default function AdminTask({ title, status, taskId, description, member, 
     return (
         <adminTaskContext.Provider value={value}>
             {taskInfo &&
-                <AdminTaskInfoModel closeModel={closeModel} />
+                <AdminTaskITnfoModel closeModel={closeModel} />
             }
             <div
                 draggable
@@ -30,6 +30,7 @@ export default function AdminTask({ title, status, taskId, description, member, 
                 className="task"
                 onClick={() => setTaskInfo(true)}>
                 <span>{title}</span>
+                <span className="progress" style={{ width: `${progress}%` }}></span>
             </div>
         </adminTaskContext.Provider>
     )
