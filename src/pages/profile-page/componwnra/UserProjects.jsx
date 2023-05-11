@@ -12,12 +12,13 @@ export default function UserProjects() {
     if (response?.ok && 'data' in response) {
         if (!response?.data?.length) return <p style={{ marginInline: 'auto' }} >No Projects</p>
         return (
-            response.data.map(project => {
+            response.data.map((project, idx) => {
                 return <ProjectShowcase
-                    key={project.poject_id}
+                    key={idx}
                     projectId={project.project_id}
                     projectTitle={project.project_name}
                     projectOwnerImg={project.img_url}
+                    projectProgress={project.project_progress}
                 />
             })
         )
