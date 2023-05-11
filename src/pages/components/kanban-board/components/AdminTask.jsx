@@ -22,7 +22,7 @@ export default function AdminTask({ title, status, taskId, description, member, 
     return (
         <adminTaskContext.Provider value={value}>
             {taskInfo &&
-                <AdminTaskITnfoModel closeModel={closeModel} />
+                <AdminTaskInfoModel closeModel={closeModel} />
             }
             <div
                 draggable

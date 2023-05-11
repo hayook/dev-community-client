@@ -14,7 +14,7 @@ export default function QuestionPage() {
     const { isLoading, data: response, error } = useQuestion(questionId);
 
     if (isLoading) return <Main><div className="inner-center"><Spinner dim='30px' /></div></Main>
-    if (!response?.ok) return <Main><NotFound /></Main>
+    if (!response?.ok) return <Main><div className="inner-cente"><NotFound /></div></Main>
     if (response?.ok && 'data' in response) return <Main>
         <Question
             questionId={questionId}
