@@ -137,7 +137,14 @@ export default function EditProfilePage() {
             new_password: newUserInfo.newPassword,
         }
         mutateEditInfo(user, {
-            onSuccess: res => navigate(`/user/${userId}`)
+            onSuccess: res => {
+                if (res.status === 403) {
+                    oldPasswordFieldRef.current.focus();
+                    oldPasswordFieldRef.current.classList.add('error-field');
+                    return;
+                }
+                navigate(`/user/${userId}`);
+            }
         })
     }
 
