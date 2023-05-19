@@ -114,6 +114,7 @@ section.project-dashboard .inner-container>.heading .project-title {
     grid-template-columns: auto 1fr;
     align-items: center;
     grid-gap: .5em 1em;
+    word-break: break-all;
 }
 
 section.project-dashboard .inner-container>.heading .project-title a.profile-img {

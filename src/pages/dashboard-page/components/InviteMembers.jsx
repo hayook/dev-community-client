@@ -24,8 +24,9 @@ export default function InviteMembers() {
         setRecommandedMembers(temp);
     }
 
-    const insertToInvite = (memberId, username) => {
-        setTargetUser({ username, memberId });
+    const insertToInvite = (member) => {
+        setTargetUser(() => member);
+        console.log(member)
         window.scrollTo({ top: 0, behavior: 'smooth' })
     }
 
@@ -58,7 +59,7 @@ export default function InviteMembers() {
                                         userId={member.user_id}
                                     >
                                         <div className="functionalities">
-                                            <button onClick={() => insertToInvite(member.member_id, member.username)}>
+                                            <button onClick={() => insertToInvite(member)}>
                                                 <BsChevronRight />
                                             </button>
                                         </div>
@@ -71,7 +72,11 @@ export default function InviteMembers() {
             </div>
             {!!targetUser &&
                 <form onSubmit={handleInvite} className="invite-member-form">
-                    <ProjectMember memberUsername={targetUser?.username} />
+                    <ProjectMember
+                        memberUsername={targetUser?.username}
+                        userId={targetUser.user_id}
+                        memberImg={targetUser.img_url}
+                    />
                     <div className="roles">
                         <RadioButton value='admin' label='Admin' setValue={setRole} checked={role === 'admin'} />
                         <RadioButton value='member' label='Member' setValue={setRole} checked={role === 'member'} />
