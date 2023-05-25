@@ -30,7 +30,7 @@ main.main-content {
     width: 100%;
 }
 
-.inner-container {
+.inner-container:not(nav .inner-container) {
     padding: 10px 0;
 }
 

@@ -6,6 +6,7 @@ section.project-dashboard .inner-container {
 
 section.project-dashboard {
     height: 100%;
+    width: 100%;
     /* quick fix */
 }
 
@@ -109,16 +110,54 @@ section.project-dashboard .project-team .functionalities>button>svg {
 
 /****************************************** Dashboard Page ***************************************/
 
+
+section.project-dashboard .inner-container>.heading {
+    flex-direction: column;
+    align-items: unset;
+    justify-content: unset;
+}
+
+
+
+
+section.project-dashboard .inner-container>.heading .main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .8em;
+}
+
+@media (max-width: 767px) {
+    section.project-dashboard .inner-container>.heading .main {
+        flex-direction: column;
+        align-items: unset;
+    }
+}
+
 section.project-dashboard .inner-container>.heading .project-title {
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
-    grid-gap: .5em 1em;
-    word-break: break-all;
+    grid-gap: .2em 1em;
+    overflow: auto;
+    word-break: keep-all;
+    white-space: nowrap;
+    flex: 1;
+}
+
+section.project-dashboard .inner-container>.heading .project-title::-webkit-scrollbar {
+    height: 8px;
+    border: var(--primary-border);
+}
+
+section.project-dashboard .inner-container>.heading .project-title::-webkit-scrollbar-thumb {
+    background: var(--main-clr);
 }
 
 section.project-dashboard .inner-container>.heading .project-title a.profile-img {
     grid-row: span 2;
+    width: max-content;
+    height: max-content;
 }
 
 section.project-dashboard .inner-container>.heading .project-title .settings {
@@ -139,15 +178,45 @@ section.project-dashboard .inner-container>.heading .project-title .settings>*:h
     text-decoration: underline;
 }
 
+
+
+/* progress */
+section.project-dashboard .inner-container>.heading .progress {
+    width: 400px;
+    align-self: center;
+}
+
+section.project-dashboard .project-nav-tabs {
+    overflow: auto;
+    flex-grow: 1;
+    padding: 5px 0;
+}
+
+section.project-dashboard .project-nav-tabs::-webkit-scrollbar {
+    height: 8px;
+    border: var(--primary-border);
+}
+
+section.project-dashboard .project-nav-tabs::-webkit-scrollbar-thumb {
+    background: var(--main-clr);
+}
+
+section.project-dashboard .project-nav-tabs ul.tabs {
+    width: fit-content;
+    margin: auto;
+}
+
+
 section.project-dashboard .inner-container>.heading .progress {
     display: flex;
     align-items: center;
     gap: .4em;
+    width: 100%;
+    max-width: 400px;
 }
 
 section.project-dashboard .inner-container>.heading .progress .progress-container {
     height: 1.3em;
-    min-width: 200px;
     border: 1px solid var(--blue-clr-100);
 }
 
@@ -184,6 +253,7 @@ section.project-dashboard .project-nav-tabs ul.tabs li.active::before {
     width: 100%;
 }
 
+
 /****************************************** Project Tasks Tab ***************************************/
 
 section.tasks .heading {
@@ -200,8 +270,19 @@ section.tasks .heading {
 
 
 section.members>.heading {
-    padding: 0;
+    display: flex;
+    padding: 5px 0;
+    overflow: auto;
 }
+
+section.members>.heading::-webkit-scrollbar {
+    height: 8px;
+}
+
+section.members>.heading::-webkit-scrollbar-thumb {
+    background: var(--main-clr);
+}
+
 
 section.members>.heading ul.members-roles {
     display: flex;
@@ -214,6 +295,7 @@ section.members>.heading ul.members-roles li {
     margin: 0 1em;
     cursor: pointer;
     position: relative;
+    width: max-content;
 }
 
 section.members>.heading ul.members-roles li::before {
@@ -233,6 +315,13 @@ section.members>.heading ul.members-roles li:hover::before {
 section.members .members-list-container>* {
     width: 70%;
     margin-inline: auto;
+}
+
+@media (max-width: 767px) {
+    section.members .members-list-container>* {
+        width: 100%;
+        margin-inline: auto;
+    }
 }
 
 section.members .members-list-container .overlay {
@@ -261,7 +350,7 @@ section.members .members-list-container .teams-list-container .team-members-list
     display: flex;
     flex-direction: column;
     gap: 1.7em;
-    width: 70%;
+    width: 100%;
 }
 
 section.members .members-list-container .invite-members .recommanded-members .recommanded-members-list button {
@@ -287,7 +376,6 @@ section.members .members-list-container .invite-members.active .recommanded-memb
 }
 
 section.members .members-list-container .invite-members form.invite-member-form {
-    width: 49%;
     display: flex;
     flex-direction: column;
     gap: 1em;

@@ -8,6 +8,7 @@ import { QueryClient, useMutation, useQueryClient } from 'react-query';
 import { inviteMember } from '../../../app/api'
 import { BsChevronRight } from 'react-icons/bs'
 import MainButton from '../../components/main-button/MainButton'
+import Model from '../../components/model/Model'
 
 export default function InviteMembers() {
 
@@ -26,7 +27,6 @@ export default function InviteMembers() {
 
     const insertToInvite = (member) => {
         setTargetUser(() => member);
-        console.log(member)
         window.scrollTo({ top: 0, behavior: 'smooth' })
     }
 
@@ -44,7 +44,7 @@ export default function InviteMembers() {
     }
 
     return (
-        <div className={`invite-members ${!!targetUser ? 'active' : ''}`}>
+        <div className={`invite-members`}>
             <div className="recommanded-members">
                 {isLoading && <Spinner dim='30px' />}
                 {response?.ok && response.data.length != 0 &&
@@ -71,18 +71,25 @@ export default function InviteMembers() {
                 }
             </div>
             {!!targetUser &&
-                <form onSubmit={handleInvite} className="invite-member-form">
-                    <ProjectMember
-                        memberUsername={targetUser?.username}
-                        userId={targetUser.user_id}
-                        memberImg={targetUser.img_url}
-                    />
-                    <div className="roles">
-                        <RadioButton value='admin' label='Admin' setValue={setRole} checked={role === 'admin'} />
-                        <RadioButton value='member' label='Member' setValue={setRole} checked={role === 'member'} />
+                <Model closeModel={() => setTargetUser(() => false)}>
+                    <div className="model-conatiner">
+                        <form onSubmit={handleInvite} className="invite-member-form">
+                            <ProjectMember
+                                memberUsername={targetUser?.username}
+                                userId={targetUser.user_id}
+                                memberImg={targetUser.img_url}
+                            />
+                            <div className="roles">
+                                <RadioButton value='admin' label='Admin' setValue={setRole} checked={role === 'admin'} />
+                                <RadioButton value='member' label='Member' setValue={setRole} checked={role === 'member'} />
+                            </div>
+                            <div className="model-functionalities">
+                                <button type="button" onClick={() => setTargetUser(() => false)} className="main-button cancel-button">Cancel</button>
+                                <MainButton disabled={isSending}>Invite</MainButton>
+                            </div>
+                        </form>
                     </div>
-                    <MainButton disabled={isSending}>Invite</MainButton>
-                </form>
+                </Model>
             }
         </div>
     )

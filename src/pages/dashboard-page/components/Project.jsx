@@ -61,16 +61,19 @@ export default function Project({ id }) {
                     />
                 }
                 <div className="heading">
-                    <div className="project-title">
-                        <Link className="profile-img" to={`/user/${response.data.project_owner_id}`}><ProfileImg url={response.data.img_url} /></Link>
-                        <h2>{response.data.project_name}</h2>
-                        <Link to={`/user/${response.data.project_owner_id}`}>{response.data.username}</Link>
-                        {isAdmin(queryClient, projectId) &&
-                            <div className="settings">
-                                <Link to={`/projects/${projectId}/edit`}>Edit Project</Link>
-                                <button onClick={openModel}>Delete Project</button>
-                            </div>
-                        }
+                    <div className='main'>
+                        <div className="project-title">
+                            <Link className="profile-img" to={`/user/${response.data.project_owner_id}`}><ProfileImg url={response.data.img_url} /></Link>
+                            <h3>{response.data.project_name}</h3>
+                            <Link to={`/user/${response.data.project_owner_id}`}>{response.data.username}</Link>
+                            {isAdmin(queryClient, projectId) &&
+                                <div className="settings">
+                                    <Link to={`/projects/${projectId}/edit`}>Edit Project</Link>
+                                    <button onClick={openModel}>Delete Project</button>
+                                </div>
+                            }
+                        </div>
+                        <ProgressBar progress={response?.data?.project_progress} />
                     </div>
                     <div className="project-nav-tabs">
                         <ul ref={ulRef} className="tabs" onClick={e => activateTab(ulRef, e, setCurrentTab)} >
@@ -80,7 +83,6 @@ export default function Project({ id }) {
                             <li target='chat'>Chat</li>
                         </ul>
                     </div>
-                    <ProgressBar progress={response?.data?.project_progress} />
                 </div>
                 <div className="dashboard-content">
                     {currentTab === 'tasks' && <ProjectTasks />}

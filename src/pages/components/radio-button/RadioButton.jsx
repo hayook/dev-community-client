@@ -8,8 +8,8 @@ export default function RadioButton({ label, value, setValue, checked }) {
     return (
         <div onClick={() => radioRef.current.click()} className="radio">
             <input ref={radioRef} type="radio" value={value} onChange={({ target }) => setValue(target.value)} checked={checked} />
-            <div class="check"></div>
-            <label for="f-option">{ label }</label>
+            <div className="check"></div>
+            <label htmlFor="f-option">{label}</label>
         </div>
     )
 }

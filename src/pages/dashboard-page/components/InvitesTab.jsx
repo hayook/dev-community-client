@@ -35,7 +35,7 @@ export default function InvitesTab() {
                                     mamberImg={invite.img_url}
                                     memberUsername={invite.username}
                                     userId={invite.user_id}
-                                    memberImg={member.img_url}
+                                    memberImg={invite.img_url}
                                 >
                                     <MainButton
                                         onClick={() => calcelInviteHandler(invite.invite_id)}
