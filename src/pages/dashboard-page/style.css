@@ -75,7 +75,7 @@ section.project-dashboard .project-member span.user-role {
 
 section.project-dashboard .project-member .functionalities,
 section.project-dashboard .project-team .functionalities {
-    display: none;
+    /* display: none; */
     align-items: center;
     justify-content: center;
     transition: .2s;
